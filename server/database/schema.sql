@@ -1,12 +1,10 @@
-create table user (
+create table recipe (
   id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(255) not null
-);
-
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null,
-  user_id int unsigned not null,
-  foreign key(user_id) references user(id)
+  name varchar(100) not null,
+  dish_picture varchar(250) not null,
+  ingredient varchar(100) not null,
+  step varchar(100) not null,
+  step_time varchar(100) not null,
+  cooking_time varchar(100) not null,
+  foreign key(menu_id) references menu(id)
 );
