@@ -20,6 +20,3 @@ create table recipe (
   menu_id int unsigned not null,
   foreign key(menu_id) references menu(id)
 );
-
-
-
