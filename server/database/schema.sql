@@ -17,6 +17,5 @@ create table recipe (
   step varchar(100) not null,
   step_time varchar(100) not null,
   cooking_time varchar(100) not null,
-  menu_id int unsigned not null,
   foreign key(menu_id) references menu(id)
 );
