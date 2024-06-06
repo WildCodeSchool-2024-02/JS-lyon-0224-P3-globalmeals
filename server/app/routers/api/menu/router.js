@@ -8,11 +8,9 @@ const router = express.Router();
 
 // Import item-related actions
 
-const { browse } = require (`../../../controllers/menuAction`)
+const { browse } = require(`../../../controllers/menuAction`);
 // Route to get a list of items
 router.get("/", browse);
-
-
 
 /* ************************************************************************* */
 

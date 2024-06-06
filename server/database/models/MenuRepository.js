@@ -28,7 +28,7 @@ class MenuRepository extends AbstractRepository {
 
     // Return the array of items
     return rows;
-  } 
+  }
 }
 
 module.exports = MenuRepository;

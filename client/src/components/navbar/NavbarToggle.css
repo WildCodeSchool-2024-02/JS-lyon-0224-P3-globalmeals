@@ -1,0 +1,18 @@
+.d-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.navLink {
+  color: #e9c46a;
+  background-color: #242423;
+  padding: 5px;
+  margin: 1px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
