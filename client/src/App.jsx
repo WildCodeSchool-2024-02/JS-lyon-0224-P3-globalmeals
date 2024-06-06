@@ -5,10 +5,8 @@ import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <>
-      <header>
-        <Header />
-        <h1>NavBar</h1>
-      </header>
+      <Header />
+      <h1>NavBar</h1>
       <main className="container">
         <Footer />
       </main>
