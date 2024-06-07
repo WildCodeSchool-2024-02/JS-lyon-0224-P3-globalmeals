@@ -3,12 +3,16 @@ const express = require("express");
 const router = express.Router();
 
 /* ************************************************************************* */
-// Import And Use Routers Here
+// Define Your API Routes Here
 /* ************************************************************************* */
 
-const menuRouter = require("./menu/router");
+// Import item-related actions
 
-router.use("/menu", menuRouter);
+const { browse } = require (`../../../controllers/menuAction`)
+// Route to get a list of items
+router.get("/", browse);
+
+
 
 /* ************************************************************************* */
 
