@@ -1,0 +1,64 @@
+.continents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.continents1,
+.continents2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.continents1 div,
+.continents2 div {
+  margin: 0 5px;
+}
+
+.continents1 {
+  display: flex;
+  justify-content: center;
+}
+
+.continents2 {
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+}
+
+.europe {
+  border: 5px solid #0081c8;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.afrique {
+  border: 5px solid #242423;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.amerique {
+  border: 5px solid #ee334e;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.asie {
+  border: 5px solid #e9c46a;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.oceanie {
+  border: 5px solid #00a651;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
