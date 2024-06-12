@@ -9,22 +9,37 @@ function Continents() {
   return (
     <main className="continents">
       <div className="continents1">
-        <div>
+        <div className="image-container">
           <img className="europe" src={europeImage} alt="spaguetti" />
+          <h2>
+            <a href="d">Europe</a>
+          </h2>
         </div>
-        <div>
+        <div className="image-container">
           <img className="afrique" src={afriqueImage} alt="bonava" />
+          <h2>
+            <a href="d">Afrique</a>
+          </h2>
         </div>
-        <div>
+        <div className="image-container">
           <img className="amerique" src={ameriqueImage} alt="burger" />
+          <h2>
+            <a href="d">Amerique</a>
+          </h2>
         </div>
       </div>
       <div className="continents2">
-        <div>
+        <div className="image-container">
           <img className="asie" src={asieImage} alt="sushi" />
+          <h2>
+            <a href="d">Asie</a>
+          </h2>
         </div>
-        <div>
+        <div className="image-container">
           <img className="oceanie" src={oceanieImage} alt="kangaroo" />
+          <h2>
+            <a href="d">Oceanie</a>
+          </h2>
         </div>
       </div>
     </main>

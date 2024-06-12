@@ -1,10 +1,3 @@
-.continents {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .continents1,
 .continents2 {
   display: flex;
@@ -17,48 +10,123 @@
   margin: 0 5px;
 }
 
-.continents1 {
-  display: flex;
-  justify-content: center;
-}
-
-.continents2 {
-  display: flex;
-  justify-content: center;
-  margin-top: -20px;
-}
-
-.europe {
-  border: 5px solid #0081c8;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-}
-
-.afrique {
-  border: 5px solid #242423;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-}
-
-.amerique {
-  border: 5px solid #ee334e;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-}
-
-.asie {
-  border: 5px solid #e9c46a;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-}
-
+.europe,
+.afrique,
+.amerique,
+.asie,
 .oceanie {
-  border: 5px solid #00a651;
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+}
+
+@media only screen and (max-width: 520px) {
+  .europe,
+  .afrique,
+  .amerique,
+  .asie,
+  .oceanie {
+    width: 22vw;
+    height: 22vw;
+  }
+
+  .europe {
+    border: 1vw solid #0081c8;
+  }
+
+  .afrique {
+    border: 1vw solid #242423;
+  }
+
+  .amerique {
+    border: 1vw solid #ee334e;
+  }
+
+  .asie {
+    border: 1vw solid #e9c46a;
+  }
+
+  .oceanie {
+    border: 1vw solid #00a651;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container img {
+    display: block;
+  }
+
+  .image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .image-container h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 372px) {
+  .europe,
+  .afrique,
+  .amerique,
+  .asie,
+  .oceanie {
+    width: 22vw;
+    height: 22vw;
+  }
+
+  .europe {
+    border: 1vw solid #0081c8;
+  }
+
+  .afrique {
+    border: 1vw solid #242423;
+  }
+
+  .amerique {
+    border: 1vw solid #ee334e;
+  }
+
+  .asie {
+    border: 1vw solid #e9c46a;
+  }
+
+  .oceanie {
+    border: 1vw solid #00a651;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container img {
+    display: block;
+  }
+
+  .image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .image-container h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
