@@ -1,21 +1,19 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import Header from "./components/header/Header";
-import NavbarToggle from "./components/navbar/NavbarToggle";
 import Footer from "./components/Footer/Footer";
-import Continents from "./components/continents/Continents";
+import Connexion from "./components/formulaire/connexion";
 
 function App() {
   return (
     <>
       <Header />
-     
+      <h1>NavBar</h1>
+      < Connexion />
       <main className="container">
-        <NavbarToggle />
-        <Continents />
         <Outlet />
+        <Footer />
       </main>
-      <Footer />
     </>
   );
 }
