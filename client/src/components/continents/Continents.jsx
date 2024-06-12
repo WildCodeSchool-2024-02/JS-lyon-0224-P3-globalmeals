@@ -1,4 +1,5 @@
 import "./Continents.css";
+import { Link } from "react-router-dom";
 import europeImage from "../../assets/images/i136012-spaghettis-bolognaise.jpeg";
 import afriqueImage from "../../assets/images/bonava.jpg";
 import ameriqueImage from "../../assets/images/burger.jpeg";
@@ -12,19 +13,19 @@ function Continents() {
         <div className="image-container">
           <img className="europe" src={europeImage} alt="spaguetti" />
           <h2>
-            <a href="d">Europe</a>
+            <Link to="/europe">Europe</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="afrique" src={afriqueImage} alt="bonava" />
           <h2>
-            <a href="d">Afrique</a>
+            <Link to="/afrique">Afrique</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="amerique" src={ameriqueImage} alt="burger" />
           <h2>
-            <a href="d">Amerique</a>
+            <Link to="/amerique">Amerique</Link>
           </h2>
         </div>
       </div>
@@ -32,13 +33,13 @@ function Continents() {
         <div className="image-container">
           <img className="asie" src={asieImage} alt="sushi" />
           <h2>
-            <a href="d">Asie</a>
+            <Link to="/asie">Asie</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="oceanie" src={oceanieImage} alt="kangaroo" />
           <h2>
-            <a href="d">Oceanie</a>
+            <Link to="/oceanie">Oceanie</Link>
           </h2>
         </div>
       </div>
