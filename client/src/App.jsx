@@ -10,8 +10,8 @@ function App() {
     <>
       <Header />
       <main className="container">
-        <Continents />
         <NavbarToggle />
+        <Continents />
         <Outlet />
       </main>
       <Footer />
