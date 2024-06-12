@@ -1,0 +1,132 @@
+.continents1,
+.continents2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.continents1 div,
+.continents2 div {
+  margin: 0 5px;
+}
+
+.europe,
+.afrique,
+.amerique,
+.asie,
+.oceanie {
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 520px) {
+  .europe,
+  .afrique,
+  .amerique,
+  .asie,
+  .oceanie {
+    width: 22vw;
+    height: 22vw;
+  }
+
+  .europe {
+    border: 1vw solid #0081c8;
+  }
+
+  .afrique {
+    border: 1vw solid #242423;
+  }
+
+  .amerique {
+    border: 1vw solid #ee334e;
+  }
+
+  .asie {
+    border: 1vw solid #e9c46a;
+  }
+
+  .oceanie {
+    border: 1vw solid #00a651;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container img {
+    display: block;
+  }
+
+  .image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .image-container h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 372px) {
+  .europe,
+  .afrique,
+  .amerique,
+  .asie,
+  .oceanie {
+    width: 22vw;
+    height: 22vw;
+  }
+
+  .europe {
+    border: 1vw solid #0081c8;
+  }
+
+  .afrique {
+    border: 1vw solid #242423;
+  }
+
+  .amerique {
+    border: 1vw solid #ee334e;
+  }
+
+  .asie {
+    border: 1vw solid #e9c46a;
+  }
+
+  .oceanie {
+    border: 1vw solid #00a651;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-container img {
+    display: block;
+  }
+
+  .image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .image-container h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
