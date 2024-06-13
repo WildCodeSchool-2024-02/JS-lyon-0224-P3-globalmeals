@@ -12,7 +12,6 @@ function App() {
       <main className="container">
         < NavbarToggle />
         < Continents />
-
         <Outlet />
         <Footer />
       </main>

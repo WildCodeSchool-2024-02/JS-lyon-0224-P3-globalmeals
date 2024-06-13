@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import FormulaireP from "./pages/formulairePage"; 
 import Menu from "./pages/menu_europe";
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         path: "/menu_europe",
         element: <Menu />,
       },
+      {
+        path: "/formulaireP",
+        element: < FormulaireP />
+      }
     ],
   },
 ]);
