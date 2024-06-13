@@ -10,11 +10,12 @@ function App() {
     <>
       <Header />
       <main className="container">
-        <NavbarToggle />
-        <Continents />
+        < NavbarToggle />
+        < Continents />
+        
         <Outlet />
+        <Footer />
       </main>
-      <Footer />
     </>
   );
 }
