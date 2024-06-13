@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 
-function Menu() {
+function MenuEurope() {
   const menus = useLoaderData();
 
   return (
@@ -12,4 +12,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default MenuEurope;
