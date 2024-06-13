@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/formulaireP",
-        element: < FormulaireP />
+        element: <FormulaireP />
       }
     ],
   },
