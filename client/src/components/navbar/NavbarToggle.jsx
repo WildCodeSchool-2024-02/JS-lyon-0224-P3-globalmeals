@@ -35,7 +35,7 @@ export default function NavbarToggle() {
             Menus
           </div>
           <ul
-            className={`dropdown-menu navDropdownMenu ${dropdownOpen ? "show" : ""}`}
+            className={`dropdown-menu navDropdownMenu ${dropdownOpen === true ? "show" : ""}`}
             aria-labelledby="navbarDropdown"
           >
             <li>
