@@ -11,8 +11,8 @@ function App() {
       <main className="container">
         <NavbarToggle />
         <Outlet />
+        <Footer />
       </main>
-      <Footer />
     </>
   );
 }
