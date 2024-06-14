@@ -1,4 +1,4 @@
-import "./Continents.css";
+import "./Accueil.css";
 import { Link } from "react-router-dom";
 import europeImage from "../../assets/images/i136012-spaghettis-bolognaise.jpeg";
 import afriqueImage from "../../assets/images/bonava.jpg";
