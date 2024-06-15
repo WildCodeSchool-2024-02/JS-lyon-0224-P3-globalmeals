@@ -1,0 +1,93 @@
+h1 {
+  margin: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.menu-item {
+  margin-bottom: 40px;
+}
+
+.menu-container {
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.tab-button:hover {
+  border-radius: 5px;
+  background-color: #e9c46a;
+}
+
+.tab-button:focus,
+.tab-button:active {
+  outline: none;
+  border-radius: 5px;
+  background-color: #e9c46a;
+}
+
+.tab-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  /* margin-right: 10px; */
+}
+
+.tab-label {
+  font-size: 14px;
+}
+
+.menu-section {
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
+  gap: 20px;
+}
+
+.menu-subsection {
+  margin-bottom: 20px; /* Espacement entre chaque sous-section */
+}
+
+.menu-subsection h3 {
+  margin-bottom: 10px;
+}
+
+.menu-subsection img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 520px) {
+  .menu-section {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0;
+  }
+}
+
+@media screen and (min-width: 372px) {
+  .row {
+    flex-wrap: wrap;
+  }
+}

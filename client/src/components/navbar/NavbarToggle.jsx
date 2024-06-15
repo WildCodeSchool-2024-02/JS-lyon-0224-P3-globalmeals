@@ -66,9 +66,7 @@ export default function NavbarToggle() {
               </Link>
             </li>
             <li>
-              <Link className="navDropdown"
-                to="/asie"
-                onClick={closeDropdown}>
+              <Link className="navDropdown" to="/asie" onClick={closeDropdown}>
                 Asie
               </Link>
             </li>
@@ -89,7 +87,11 @@ export default function NavbarToggle() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/formulaireP" className="navLink active" onClick={closeDropdown}>
+          <Link
+            to="/formulaireP"
+            className="navLink active"
+            onClick={closeDropdown}
+          >
             Connexion
           </Link>
         </li>
