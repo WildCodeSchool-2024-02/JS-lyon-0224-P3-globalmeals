@@ -14,7 +14,7 @@ class MenuSeeder extends AbstractSeeder {
       dish: "Pasta",
       picture_dish: "https://t4.ftcdn.net/jpg/02/24/04/47/360_F_224044706_GKydWTrihWdUaMyjxCSUZYsnAUVHgVKm.jpg",
       dessert: "Tiramisu",
-      picture_dessert: "https://media.istockphoto.com/id/1398679790/fr/photo/g%C3%A2teau-tiramisu-sur-assiette-en-c%C3%A9ramique-blanche.jpg?s=612x612&w=0&k=20&c=LaRD0me7CMUt-5NgyNmgzbfRBU3ltV18iRmC6XcwNLk=",
+      picture_dessert: "https://t3.ftcdn.net/jpg/03/28/01/60/360_F_328016056_Ro67OjyMT2dnGFL6v4VKKoAkIcakElTW.jpg",
       cocktail: "Milano-Torino",
       picture_cocktail: "https://finefoodsblog.com/wp-content/uploads/2023/05/23-0506-milano-torino-cocktail-0004.jpg",
     });
