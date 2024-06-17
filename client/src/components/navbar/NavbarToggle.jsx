@@ -41,14 +41,18 @@ export default function NavbarToggle() {
             <li>
               <Link
                 className="navDropdown"
-                to="/europe"
+                to="/menu_europe"
                 onClick={closeDropdown}
               >
                 Europe
               </Link>
             </li>
             <li>
-              <Link className="navDropdown" to="/menu" onClick={closeDropdown}>
+              <Link
+                className="navDropdown"
+                to="/afrique"
+                onClick={closeDropdown}
+              >
                 Afrique
               </Link>
             </li>
