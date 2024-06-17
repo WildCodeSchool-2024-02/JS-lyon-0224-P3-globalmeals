@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Menu from "./pages/menu";
-import FormulaireP from "./pages/formulairePage";
+import Formulaire from "./pages/formulairePage";
+import Favoris from "./pages/favorisPage";
 import Continents from "./components/accueil/Accueil";
 
 const router = createBrowserRouter([
@@ -21,8 +22,12 @@ const router = createBrowserRouter([
         element: <Menu />,
       },
       {
-        path: "/formulaireP",
-        element: <FormulaireP />,
+        path: "/formulaire",
+        element: <Formulaire />,
+      },
+      {
+        path: "/favoris",
+        element: <Favoris />,
       },
     ],
   },
