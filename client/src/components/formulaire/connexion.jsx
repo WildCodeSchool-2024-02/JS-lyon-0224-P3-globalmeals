@@ -1,6 +1,12 @@
+import { useState } from "react";
 import "./connexion.css";
 
 function Connexion() {
+  const [connexion, setConnexion] = useState(false)
+
+  const handlClick = () => {
+    setConnexion(!connexion)
+  }
   return (
     <div>
       <form className="form">
@@ -18,8 +24,8 @@ function Connexion() {
           <input id="passe" placeholder="Mot de passe" type="text" />
         </label>
 
-        <button type="button" className="validate">
-          <p className="suivant">Suivant</p>
+        <button type="button"  className="validate" onClick={handlClick}>
+         Suivant
         </button>
       </form>
     </div>

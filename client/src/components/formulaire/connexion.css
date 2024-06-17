@@ -16,11 +16,21 @@
 }
 
 .validate {
+  display: block;
+  min-width: 150px;
+  color: #e9c46a;
   background-color: #242423;
-  margin-top: 2rem;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  cursor: pointer;
 }
 
-.suivant {
-  color: #e9c46a;
-  width: 50vw;
+.validate:hover {
+  background-color: #e9c46a;
+  color: #242423;
 }
