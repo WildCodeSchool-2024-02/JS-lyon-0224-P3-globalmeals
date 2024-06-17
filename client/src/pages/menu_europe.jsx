@@ -25,10 +25,10 @@ function Menu() {
 
   return (
     <div className="content">
-      <h1 className="menu-title">Menu Europe</h1>
+      <h1 className="menu-title">Europe</h1>
       {menuData.map((menu) => (
         <div key={menu.id} className="menu-item">
-          <h2>{menu.name}</h2>
+          <h2>Menu {menu.name}</h2>
           <div className="menu-container">
             <div className={`sidebar ${activeMenuItem ? "active" : ""}`}>
               <button

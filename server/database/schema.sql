@@ -1,7 +1,6 @@
 create table menu (
   id int unsigned primary key auto_increment not null,
   name varchar(100) not null,
-  continent varchar(100) not null,
   starter varchar(100) not null,
   picture_starter varchar(250) not null,
   starter_preparation_time varchar(100) not null,

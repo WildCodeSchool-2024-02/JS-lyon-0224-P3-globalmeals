@@ -8,7 +8,6 @@ class MenuSeeder extends AbstractSeeder {
   run() {
     this.insert({
       name: "Italien",
-      continent: "Europe",
       starter: "Bruschetta",
       picture_starter: "https://www.shutterstock.com/image-photo/bruschetta-cherry-tomatoes-mozzarella-cheese-600nw-2438601411.jpg",
       starter_preparation_time: "15 min",
