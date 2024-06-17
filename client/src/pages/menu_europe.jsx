@@ -64,7 +64,8 @@ function Menu() {
                   alt={menu.starter}
                   onClick={() => handleMenuItemClick("Entrée")}
                   aria-hidden="true"
-                />
+                  />
+                  <p>Temps : {menu.starter_preparation_time}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Plat" ? "selected" : ""}`}
@@ -76,7 +77,8 @@ function Menu() {
                   alt={menu.dish}
                   onClick={() => handleMenuItemClick("Plat")}
                   aria-hidden="true"
-                />
+                  />
+                  <p>Temps : {menu.dish_preparation_time}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Dessert" ? "selected" : ""}`}
@@ -88,7 +90,8 @@ function Menu() {
                   alt={menu.dessert}
                   onClick={() => handleMenuItemClick("Dessert")}
                   aria-hidden="true"
-                />
+                  />
+                  <p>Temps : {menu.dessert_preparation_time}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Cocktail" ? "selected" : ""}`}
@@ -100,7 +103,8 @@ function Menu() {
                   alt={menu.cocktail}
                   onClick={() => handleMenuItemClick("Cocktail")}
                   aria-hidden="true"
-                />
+                  />
+                  <p>Temps : {menu.cocktail_preparation_time}</p>
               </div>
             </div>
           </div>
