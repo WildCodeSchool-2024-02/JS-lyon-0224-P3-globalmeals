@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Menu from "./pages/menu";
+import Menu from "./pages/menu_europe";
 import FormulaireP from "./pages/formulairePage";
 import Continents from "./components/accueil/Accueil";
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         loader: async () => fetch(`http://localhost:3310/api/menu`),
-        path: "/menu",
+        path: "/menu_europe",
         element: <Menu />,
       },
       {

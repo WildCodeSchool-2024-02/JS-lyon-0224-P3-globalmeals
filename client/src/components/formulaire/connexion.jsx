@@ -12,7 +12,7 @@ function Connexion() {
       <form className="form">
         <h1>Connexion</h1>
 
-        <label className="inscritoi" htmlFor="pseudo"><p>Pseudo</p>
+        <label className="registre" htmlFor="pseudo"><p>Pseudo</p>
           <input id="pseudo" placeholder="Pseudo" type="text" />
         </label>
 

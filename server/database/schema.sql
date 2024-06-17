@@ -1,12 +1,18 @@
 create table menu (
   id int unsigned primary key auto_increment not null,
   name varchar(100) not null,
-  continent varchar(100) not null,
-  picture varchar(250) not null,
   starter varchar(100) not null,
+  picture_starter varchar(250) not null,
+  starter_preparation_time varchar(100) not null,
   dish varchar(100) not null,
+  picture_dish varchar(250) not null,
+  dish_preparation_time varchar(100) not null,
   dessert varchar(100) not null,
-  cocktail varchar(100) not null
+  picture_dessert varchar(250) not null,
+  dessert_preparation_time varchar(100) not null,
+  cocktail varchar(100) not null,
+  picture_cocktail varchar(250) not null,
+  cocktail_preparation_time varchar(100) not null
 );
 
 create table recipe (
