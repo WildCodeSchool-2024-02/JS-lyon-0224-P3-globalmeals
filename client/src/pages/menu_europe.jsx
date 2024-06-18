@@ -10,6 +10,8 @@ function Menu() {
   const [activeMenuItem, setActiveMenuItem] = useState("Entrée");
   const [activeTab, setActiveTab] = useState("Description");
 
+  const menu = menuData[0];
+
   const handleMenuItemClick = (menuItem) => {
     if (activeMenuItem === menuItem) {
       setActiveMenuItem(null);
@@ -23,12 +25,23 @@ function Menu() {
     setActiveTab(tab);
   };
 
+  const starter = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "entrée"
+  );
+  const dish = menuData.find((recipe) => recipe.type.toLowerCase() === "plat");
+  const dessert = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "dessert"
+  );
+  const cocktail = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "cocktail"
+  );
+
   return (
     <div className="content">
       <h1 className="menu-title">Europe</h1>
-      {menuData.map((menu) => (
-        <div key={menu.id} className="menu-item">
-          <h2>Menu {menu.name}</h2>
+      {menu && (
+        <div className="menu-item">
+          <h2>Menu {menu.country}</h2>
           <div className="menu-container">
             <div className={`sidebar ${activeMenuItem ? "active" : ""}`}>
               <button
@@ -58,68 +71,84 @@ function Menu() {
                 className={`menu-subsection ${activeMenuItem === "Entrée" ? "selected" : ""}`}
               >
                 <h3>Entrée</h3>
-                <p>{menu.starter}</p>
+                <p>{starter ? starter.name : "s/o"}</p>
                 <img
-                  src={menu.picture_starter}
-                  alt={menu.starter}
+                  src="https://www.shutterstock.com/image-photo/bruschetta-cherry-tomatoes-mozzarella-cheese-600nw-2438601411.jpg"
+                  alt="starter"
                   onClick={() => handleMenuItemClick("Entrée")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.starter_preparation_time}</p>
+                />
+                <p>Temps : {starter ? starter.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Plat" ? "selected" : ""}`}
               >
                 <h3>Plat</h3>
-                <p>{menu.dish}</p>
+                <p>{dish ? dish.name : "s/o"}</p>
                 <img
-                  src={menu.picture_dish}
-                  alt={menu.dish}
+                  src="https://t4.ftcdn.net/jpg/02/24/04/47/360_F_224044706_GKydWTrihWdUaMyjxCSUZYsnAUVHgVKm.jpg"
+                  alt="dish"
                   onClick={() => handleMenuItemClick("Plat")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.dish_preparation_time}</p>
+                />
+                <p>Temps : {dish ? dish.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Dessert" ? "selected" : ""}`}
               >
                 <h3>Dessert</h3>
-                <p>{menu.dessert}</p>
+                <p>{dessert ? dessert.name : "s/o"}</p>
                 <img
-                  src={menu.picture_dessert}
-                  alt={menu.dessert}
+                  src="https://t3.ftcdn.net/jpg/03/28/01/60/360_F_328016056_Ro67OjyMT2dnGFL6v4VKKoAkIcakElTW.jpg"
+                  alt="dessert"
                   onClick={() => handleMenuItemClick("Dessert")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.dessert_preparation_time}</p>
+                />
+                <p>Temps : {dessert ? dessert.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Cocktail" ? "selected" : ""}`}
               >
                 <h3>Cocktail</h3>
-                <p>{menu.cocktail}</p>
+                <p>{cocktail ? cocktail.name : "s/o"}</p>
                 <img
-                  src={menu.picture_cocktail}
-                  alt={menu.cocktail}
+                  src="https://finefoodsblog.com/wp-content/uploads/2023/05/23-0506-milano-torino-cocktail-0004.jpg"
+                  alt="cocktail"
                   onClick={() => handleMenuItemClick("Cocktail")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.cocktail_preparation_time}</p>
+                />
+                <p>Temps : {cocktail ? cocktail.step_time : "s/o"}</p>
               </div>
             </div>
           </div>
         </div>
-      ))}
-      <p>
-        {activeTab === "Ingrédients" &&
-          activeMenuItem &&
-          `${activeMenuItem} - Ingrédients`}
-      </p>
-      <p>
-        {activeTab === "Préparation" &&
-          activeMenuItem &&
-          `${activeMenuItem} - Préparation`}
-      </p>
+      )}
+
+      {activeTab === "Ingrédients" && activeMenuItem && (
+        <div className="ingredient-section">
+          <h3>{activeMenuItem}</h3>
+          <h4>Les ingrédients</h4>
+          <p>
+            {menuData.find(
+              (recipe) =>
+                recipe.type.toLowerCase() === activeMenuItem.toLowerCase()
+            )?.ingredient || "s/o"}
+          </p>
+        </div>
+      )}
+
+      {activeTab === "Préparation" && activeMenuItem && (
+        <div className="ingredient-section">
+          <h3>{activeMenuItem}</h3>
+          <h4>La préparation</h4>
+          <p>
+            {menuData.find(
+              (recipe) =>
+                recipe.type.toLowerCase() === activeMenuItem.toLowerCase()
+            )?.step || "s/o"}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -16,7 +16,8 @@ const router = createBrowserRouter([
         element: <Continents />,
       },
       {
-        loader: async () => fetch(`http://localhost:3310/api/menu`),
+        loader: async () =>
+          fetch(`http://localhost:3310/api/menu/menus-recipes`),
         path: "/menu_europe",
         element: <Menu />,
       },
