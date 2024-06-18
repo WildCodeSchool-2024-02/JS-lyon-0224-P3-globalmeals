@@ -5,6 +5,7 @@ import App from "./App";
 import Menu from "./pages/menu";
 import FormulaireP from "./pages/formulairePage";
 import Continents from "./components/accueil/Accueil";
+import AdminP from "./pages/Admin";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
       {
         path: "/formulaireP",
         element: <FormulaireP />,
+      },
+
+      {
+        path: "/Admin",
+        element: <AdminP />,
       },
     ],
   },

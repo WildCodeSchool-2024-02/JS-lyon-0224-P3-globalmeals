@@ -6,15 +6,18 @@ function Connexion() {
       <form className="form">
         <h1>Connexion</h1>
 
-        <label className="inscritoi" htmlFor="pseudo">Pseudo
+        <label className="inscritoi" htmlFor="pseudo">
+          Pseudo
           <input id="pseudo" placeholder="Pseudo" type="text" />
         </label>
 
-        <label className="adresse" htmlFor="mail">Adresse mail
+        <label className="adresse" htmlFor="mail">
+          Adresse mail
           <input id="mail" placeholder="Adresse mail" type="text" />
         </label>
 
-        <label className="mot" htmlFor="passe">Mot de passe
+        <label className="mot" htmlFor="passe">
+          Mot de passe
           <input id="passe" placeholder="Mot de passe" type="text" />
         </label>
 
