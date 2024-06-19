@@ -10,7 +10,9 @@ function Menu() {
   const [activeMenuItem, setActiveMenuItem] = useState("Entrée");
   const [activeTab, setActiveTab] = useState("Description");
 
-  const menu = menuData[0];
+// La fonctionnalité "menu du mois" n'est pas complète dans cette US, 
+// On récupérez que la première recette[0]
+    const menu = menuData[0];
 
   const handleMenuItemClick = (menuItem) => {
     if (activeMenuItem === menuItem) {

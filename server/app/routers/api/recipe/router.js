@@ -6,10 +6,10 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import item-related actions
+// Import recipe-related actions
 
 const { browse } = require(`../../../controllers/recipeAction`);
-// Route to get a list of items
+// Route to get a list of recipes
 router.get("/", browse);
 
 

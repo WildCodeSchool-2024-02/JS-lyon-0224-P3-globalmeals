@@ -7,10 +7,10 @@ create table menu (
 create table recipe (
   id int unsigned primary key auto_increment not null,
   name varchar(100) not null,
-  ingredient varchar(250) not null,
-  step varchar(250) not null,
+  ingredient TEXT not null,
+  step TEXT not null,
   step_time varchar(100) not null,
-  type varchar(100) not null
+  type varchar(15) not null
 );
 
 CREATE TABLE menu_recipe (

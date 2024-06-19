@@ -4,10 +4,10 @@ const tables = require("../../database/tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
-    // Fetch all items from the database
+    // Fetch all recipes from the database
     const recipe = await tables.recipe.readAll();
 
-    // Respond with the items in JSON format
+    // Respond with the recipes in JSON format
     res.json(recipe);
   } catch (err) {
     // Pass any errors to the error-handling middleware
