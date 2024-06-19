@@ -49,9 +49,22 @@
   margin-right: 10px;
 }
 
+.listMenus {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
 .favorisé {
   display: flex;
-  margin-left: 2rem;
+  margin-left: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .favor {
@@ -61,6 +74,50 @@
   margin-bottom: 5rem;
 }
 
+.menuList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
 .épiceries {
   border-radius: 2rem;
+  width: 70vw;
+  height: 50vw;
+  align-self: center;
+}
+
+@media only screen and (max-width: 520px) {
+  .favorisé {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    margin-top: 2rem;
+  }
+  .listMenus {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    margin-top: 2rem;
+  }
+
+  .favor {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .épiceries {
+    width: 80vw;
+    height: 60vw;
+    align-self: center;
+    margin-top: 2rem;
+  }
 }
