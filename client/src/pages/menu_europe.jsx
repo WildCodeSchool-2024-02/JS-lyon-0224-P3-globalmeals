@@ -39,7 +39,7 @@ function Menu() {
   return (
     <div className="content">
       <h1 className="menu-title">Europe</h1>
-      {menu && (
+      {menu !== undefined && (
         <div className="menu-item">
           <h2>Menu {menu.country}</h2>
           <div className="menu-container">
@@ -71,53 +71,53 @@ function Menu() {
                 className={`menu-subsection ${activeMenuItem === "Entrée" ? "selected" : ""}`}
               >
                 <h3>Entrée</h3>
-                <p>{starter ? starter.name : "s/o"}</p>
+                <p>{starter !== undefined ? starter.name : "s/o"}</p>
                 <img
-                  src="https://www.shutterstock.com/image-photo/bruschetta-cherry-tomatoes-mozzarella-cheese-600nw-2438601411.jpg"
+                  src="/bruschetta.png"
                   alt="starter"
                   onClick={() => handleMenuItemClick("Entrée")}
                   aria-hidden="true"
                 />
-                <p>Temps : {starter ? starter.step_time : "s/o"}</p>
+                <p>Temps : {starter !== undefined ? starter.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Plat" ? "selected" : ""}`}
               >
                 <h3>Plat</h3>
-                <p>{dish ? dish.name : "s/o"}</p>
+                <p>{dish !== undefined ? dish.name : "s/o"}</p>
                 <img
-                  src="https://t4.ftcdn.net/jpg/02/24/04/47/360_F_224044706_GKydWTrihWdUaMyjxCSUZYsnAUVHgVKm.jpg"
+                  src="/pasta.png"
                   alt="dish"
                   onClick={() => handleMenuItemClick("Plat")}
                   aria-hidden="true"
                 />
-                <p>Temps : {dish ? dish.step_time : "s/o"}</p>
+                <p>Temps : {dish !== undefined ? dish.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Dessert" ? "selected" : ""}`}
               >
                 <h3>Dessert</h3>
-                <p>{dessert ? dessert.name : "s/o"}</p>
+                <p>{dessert !== undefined ? dessert.name : "s/o"}</p>
                 <img
-                  src="https://t3.ftcdn.net/jpg/03/28/01/60/360_F_328016056_Ro67OjyMT2dnGFL6v4VKKoAkIcakElTW.jpg"
+                  src="/tiramisu.png"
                   alt="dessert"
                   onClick={() => handleMenuItemClick("Dessert")}
                   aria-hidden="true"
                 />
-                <p>Temps : {dessert ? dessert.step_time : "s/o"}</p>
+                <p>Temps : {dessert !== undefined ? dessert.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Cocktail" ? "selected" : ""}`}
               >
                 <h3>Cocktail</h3>
-                <p>{cocktail ? cocktail.name : "s/o"}</p>
+                <p>{cocktail !== undefined ? cocktail.name : "s/o"}</p>
                 <img
-                  src="https://finefoodsblog.com/wp-content/uploads/2023/05/23-0506-milano-torino-cocktail-0004.jpg"
+                  src="/milano-torino.png"
                   alt="cocktail"
                   onClick={() => handleMenuItemClick("Cocktail")}
                   aria-hidden="true"
                 />
-                <p>Temps : {cocktail ? cocktail.step_time : "s/o"}</p>
+                <p>Temps : {cocktail !== undefined ? cocktail.step_time : "s/o"}</p>
               </div>
             </div>
           </div>

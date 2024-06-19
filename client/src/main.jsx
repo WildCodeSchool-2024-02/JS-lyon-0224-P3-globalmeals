@@ -6,6 +6,8 @@ import Menu from "./pages/menu_europe";
 import Formulaire from "./pages/formulairePage";
 import Continents from "./components/accueil/Accueil";
 
+const ApiUrl = import.meta.env.VITE_API_URL;
+
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         loader: async () =>
-          fetch(`http://localhost:3310/api/menu/menus-recipes`),
+          fetch(`${ApiUrl}/menu/menus-recipes`),
         path: "/menu_europe",
         element: <Menu />,
       },
