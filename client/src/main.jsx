@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Menu from "./pages/menu_europe";
+import Menu from "./pages/menuPage";
 import Formulaire from "./pages/formulairePage";
 import Continents from "./components/accueil/Accueil";
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         loader: async () =>
           fetch(`${ApiUrl}/menu/menus-recipes`),
-        path: "/menu_europe",
+        path: "/menuPage",
         element: <Menu />,
       },
       {
