@@ -4,8 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Menu from "./pages/menu_europe";
 import Formulaire from "./pages/formulairePage";
-import Favoris from "./pages/favorisPage";
 import Continents from "./components/accueil/Accueil";
+
+const ApiUrl = import.meta.env.VITE_API_URL;
 
 const router = createBrowserRouter([
   {
@@ -17,17 +18,14 @@ const router = createBrowserRouter([
         element: <Continents />,
       },
       {
-        loader: async () => fetch(`http://localhost:3310/api/menu`),
+        loader: async () =>
+          fetch(`${ApiUrl}/menu/menus-recipes`),
         path: "/menu_europe",
         element: <Menu />,
       },
       {
         path: "/formulaire",
         element: <Formulaire />,
-      },
-      {
-        path: "/favoris",
-        element: <Favoris />,
       },
     ],
   },

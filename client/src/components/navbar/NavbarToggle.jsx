@@ -87,7 +87,11 @@ export default function NavbarToggle() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/formulaire" className="navLink active" onClick={closeDropdown}>
+          <Link
+            to="/formulaire"
+            className="navLink active"
+            onClick={closeDropdown}
+          >
             Connexion
           </Link>
         </li>

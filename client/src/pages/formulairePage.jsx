@@ -1,6 +1,6 @@
 import Connexion from "../components/formulaire/connexion";
 
-function FormulaireP() {
+function Formulaire() {
   return (
     <div>
       <Connexion />
@@ -8,4 +8,4 @@ function FormulaireP() {
   );
 }
 
-export default FormulaireP;
+export default Formulaire;
