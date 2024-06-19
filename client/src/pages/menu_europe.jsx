@@ -10,6 +10,10 @@ function Menu() {
   const [activeMenuItem, setActiveMenuItem] = useState("Entrée");
   const [activeTab, setActiveTab] = useState("Description");
 
+// La fonctionnalité "menu du mois" n'est pas complète dans cette US, 
+// On récupérez que la première recette[0]
+    const menu = menuData[0];
+
   const handleMenuItemClick = (menuItem) => {
     if (activeMenuItem === menuItem) {
       setActiveMenuItem(null);
@@ -23,12 +27,23 @@ function Menu() {
     setActiveTab(tab);
   };
 
+  const starter = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "entrée"
+  );
+  const dish = menuData.find((recipe) => recipe.type.toLowerCase() === "plat");
+  const dessert = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "dessert"
+  );
+  const cocktail = menuData.find(
+    (recipe) => recipe.type.toLowerCase() === "cocktail"
+  );
+
   return (
     <div className="content">
       <h1 className="menu-title">Europe</h1>
-      {menuData.map((menu) => (
-        <div key={menu.id} className="menu-item">
-          <h2>Menu {menu.name}</h2>
+      {menu !== undefined && (
+        <div className="menu-item">
+          <h2>Menu {menu.country}</h2>
           <div className="menu-container">
             <div className={`sidebar ${activeMenuItem ? "active" : ""}`}>
               <button
@@ -58,68 +73,84 @@ function Menu() {
                 className={`menu-subsection ${activeMenuItem === "Entrée" ? "selected" : ""}`}
               >
                 <h3>Entrée</h3>
-                <p>{menu.starter}</p>
+                <p>{starter !== undefined ? starter.name : "s/o"}</p>
                 <img
-                  src={menu.picture_starter}
-                  alt={menu.starter}
+                  src="/bruschetta.png"
+                  alt="starter"
                   onClick={() => handleMenuItemClick("Entrée")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.starter_preparation_time}</p>
+                />
+                <p>Temps : {starter !== undefined ? starter.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Plat" ? "selected" : ""}`}
               >
                 <h3>Plat</h3>
-                <p>{menu.dish}</p>
+                <p>{dish !== undefined ? dish.name : "s/o"}</p>
                 <img
-                  src={menu.picture_dish}
-                  alt={menu.dish}
+                  src="/pasta.png"
+                  alt="dish"
                   onClick={() => handleMenuItemClick("Plat")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.dish_preparation_time}</p>
+                />
+                <p>Temps : {dish !== undefined ? dish.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Dessert" ? "selected" : ""}`}
               >
                 <h3>Dessert</h3>
-                <p>{menu.dessert}</p>
+                <p>{dessert !== undefined ? dessert.name : "s/o"}</p>
                 <img
-                  src={menu.picture_dessert}
-                  alt={menu.dessert}
+                  src="/tiramisu.png"
+                  alt="dessert"
                   onClick={() => handleMenuItemClick("Dessert")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.dessert_preparation_time}</p>
+                />
+                <p>Temps : {dessert !== undefined ? dessert.step_time : "s/o"}</p>
               </div>
               <div
                 className={`menu-subsection ${activeMenuItem === "Cocktail" ? "selected" : ""}`}
               >
                 <h3>Cocktail</h3>
-                <p>{menu.cocktail}</p>
+                <p>{cocktail !== undefined ? cocktail.name : "s/o"}</p>
                 <img
-                  src={menu.picture_cocktail}
-                  alt={menu.cocktail}
+                  src="/milano-torino.png"
+                  alt="cocktail"
                   onClick={() => handleMenuItemClick("Cocktail")}
                   aria-hidden="true"
-                  />
-                  <p>Temps : {menu.cocktail_preparation_time}</p>
+                />
+                <p>Temps : {cocktail !== undefined ? cocktail.step_time : "s/o"}</p>
               </div>
             </div>
           </div>
         </div>
-      ))}
-      <p>
-        {activeTab === "Ingrédients" &&
-          activeMenuItem &&
-          `${activeMenuItem} - Ingrédients`}
-      </p>
-      <p>
-        {activeTab === "Préparation" &&
-          activeMenuItem &&
-          `${activeMenuItem} - Préparation`}
-      </p>
+      )}
+
+      {activeTab === "Ingrédients" && activeMenuItem && (
+        <div className="ingredient-section">
+          <h3>{activeMenuItem}</h3>
+          <h4>Les ingrédients - 4 personnes</h4>
+          <p>
+            {menuData.find(
+              (recipe) =>
+                recipe.type.toLowerCase() === activeMenuItem.toLowerCase()
+            )?.ingredient || "s/o"}
+          </p>
+        </div>
+      )}
+
+      {activeTab === "Préparation" && activeMenuItem && (
+        <div className="ingredient-section">
+          <h3>{activeMenuItem}</h3>
+          <h4>La préparation</h4>
+          <p>
+            {menuData.find(
+              (recipe) =>
+                recipe.type.toLowerCase() === activeMenuItem.toLowerCase()
+            )?.step || "s/o"}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

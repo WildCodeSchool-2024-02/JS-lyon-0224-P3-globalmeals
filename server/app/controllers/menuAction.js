@@ -15,7 +15,17 @@ const browse = async (req, res, next) => {
   }
 };
 
+const getMenusWithRecipes = async (req, res) => {
+  try {
+    const menusWithRecipes = await tables.menu.readAllWithRecipes();
+    res.json(menusWithRecipes);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch menus with recipes" });
+  }
+};
+
 // Ready to export the controller functions
 module.exports = {
   browse,
+  getMenusWithRecipes
 };
