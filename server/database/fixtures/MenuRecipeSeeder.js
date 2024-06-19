@@ -17,6 +17,14 @@ class MenuRecipeSeeder extends AbstractSeeder {
         menu_id: this.getRef(`europeItalien`).insertId,
         recipe_id: this.getRef(`pastaPlat`).insertId,
       },
+      {
+        menu_id: this.getRef(`europeItalien`).insertId,
+        recipe_id: this.getRef(`tiramisuDessert`).insertId,
+      },
+      {
+        menu_id: this.getRef(`europeItalien`).insertId,
+        recipe_id: this.getRef(`milanoCocktail`).insertId,
+      },
     ];
 
     menuRecipes.forEach((menuRecipe) => {

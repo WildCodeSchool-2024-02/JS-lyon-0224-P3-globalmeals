@@ -127,7 +127,7 @@ function Menu() {
       {activeTab === "Ingrédients" && activeMenuItem && (
         <div className="ingredient-section">
           <h3>{activeMenuItem}</h3>
-          <h4>Les ingrédients</h4>
+          <h4>Les ingrédients - 4 personnes</h4>
           <p>
             {menuData.find(
               (recipe) =>
