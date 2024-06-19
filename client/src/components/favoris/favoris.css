@@ -49,9 +49,17 @@
   margin-right: 10px;
 }
 
+.menus-titles1,
+.menus-titles2,
+.menus-titles3,
+.menus-titles4,
+.menus-titles5 {
+  font-size: 25px;
+}
+
 .listMenus {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-evenly;
@@ -62,7 +70,7 @@
 
 .favorisé {
   display: flex;
-  margin-left: 1rem;
+  justify-content: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -82,6 +90,11 @@
   justify-content: space-evenly;
   align-items: flex-start;
 }
+
+.détail {
+  font-size: 20px;
+}
+
 .épiceries {
   border-radius: 2rem;
   width: 70vw;
@@ -98,11 +111,10 @@
   }
   .listMenus {
     display: flex;
-    flex-direction: row;
-    align-content: flex-end;
+    flex-direction: column;
+    align-content: center;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
     padding: 0;
     margin: 0;
     margin-top: 2rem;

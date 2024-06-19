@@ -8,34 +8,29 @@ function Favoris() {
         <ul className="listMenus">
           <li className="menuList">
             <h2 className="menus-titles1">Europe</h2>
-            <p>Menu Italien🇮🇹</p>
+            <p className="détail">Menu Italien🇮🇹</p>
           </li>
 
           <li className="menuList">
             <h2 className="menus-titles2">Afrique</h2>
-            <p>Menu Sénégalais🇸🇳</p>
+            <p className="détail">Menu Sénégalais🇸🇳</p>
           </li>
 
           <li className="menuList">
             <h2 className="menus-titles3">Amérique</h2>
-            <p>Menu Mexicain🇲🇽</p>
+            <p className="détail">Menu Mexicain🇲🇽</p>
           </li>
 
           <li className="menuList">
             <h2 className="menus-titles4">Asie</h2>
-            <p>Menu Coréen🇰🇷</p>
+            <p className="détail">Menu Coréen🇰🇷</p>
           </li>
 
           <li className="menuList">
             <h2 className="menus-titles5">Océanie</h2>
-            <p>Menu Calédonien🇳🇨</p>
+            <p className="détail">Menu Calédonien🇳🇨</p>
           </li>
         </ul>
-        <img
-          className="épiceries"
-          src="/src/assets/images/epices.png"
-          alt="épices"
-        />
       </div>
     </div>
   );
