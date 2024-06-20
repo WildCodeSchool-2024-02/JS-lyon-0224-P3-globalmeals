@@ -40,10 +40,10 @@ function Admin() {
         body: JSON.stringify(newsForm),
       });
 
-      if (response.ok) {
+      if (response.ok === true) {
         alert("Le formulaire a été validé avec succès !");
 
-        if (formRef.current) {
+        if (formRef.current === true) {
           formRef.current.reset();
         }
         setSelectedContinent("");

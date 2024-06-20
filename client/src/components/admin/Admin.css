@@ -1,66 +1,3 @@
-/* body {
-  background-color: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-}
-
-.createMenu {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  max-width: 100%;
-}
-
-.createMenu h1,
-.createMenu h2 {
-  text-align: center;
-  color: #333;
-}
-
-.createMenu form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.createMenu select,
-.createMenu textarea {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.createMenu select {
-  height: 40px;
-}
-
-.createMenu textarea {
-  min-height: 40px;
-  resize: none;
-  overflow: hidden;
-}
-
-.createMenu button {
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.createMenu button:hover {
-  background-color: #45a049;
-} */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
@@ -119,8 +56,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  margin: 20px auto 0; /* Centrer le bouton et ajouter un espace au-dessus */
-  display: block; /* Pour que le margin auto fonctionne */
+  margin: 20px auto 0;
+  display: block;
 }
 
 .createMenu button:hover {
