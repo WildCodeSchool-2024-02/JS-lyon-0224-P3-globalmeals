@@ -3,18 +3,15 @@ const express = require("express");
 const router = express.Router();
 
 /* ************************************************************************* */
-// Import And Use Routers Here
+// Define Your API Routes Here
 /* ************************************************************************* */
 
-const menuRouter = require("./menu/router");
-const recipeRouter = require("./recipe/router");
+// Import recipe-related actions
 
-router.use("/menu", menuRouter);
-router.use("/recipe", recipeRouter);
+const { browse } = require(`../../../controllers/recipeAction`);
+// Route to get a list of recipes
+router.get("/", browse);
 
-const adminRouter = require("./admin/router");
-
-router.use("/admin", adminRouter);
 
 /* ************************************************************************* */
 

@@ -10,23 +10,30 @@ class MenuRepository extends AbstractRepository {
   // The C of CRUD - Create operation
 
   async create(menu) {
-    // Execute the SQL INSERT query to add a new menu to the "rows" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [menu.title, menu.user_id]
+      `INSERT INTO ${this.table} (continent, country) VALUES (?, ?)`,
+      [menu.continent, menu.country]
     );
 
-    // Return the ID of the newly inserted menu
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
-
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all rows from the "rows" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
-    // Return the array of rows
+    return rows;
+  }
+
+  async readAllWithRecipes() {
+    const query = `
+      SELECT m.id AS menu_id, m.continent, m.country, r.id AS recipe_id, r.name, r.ingredient, r.step, r.step_time, r.type
+      FROM ${this.table} as m
+      INNER JOIN menu_recipe mr ON m.id = mr.menu_id
+      INNER JOIN recipe r ON mr.recipe_id = r.id;
+    `;
+
+    const [rows] = await this.database.query(query);
+
     return rows;
   }
 }
