@@ -14,16 +14,15 @@ class MenuRepository extends AbstractRepository {
       `INSERT INTO ${this.table} (continent, country) VALUES (?, ?)`,
       [menu.continent, menu.country]
     );
+
     return result.insertId;
   }
-
 
   async readAll() {
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
     return rows;
   }
-
 
   async readAllWithRecipes() {
     const query = `

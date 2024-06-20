@@ -6,7 +6,7 @@ const handleFormSubmission = async (req, res, next) => {
 
   try {
     // Insert the item into the database
-    const insertId = await tables.formData.create(formData);
+    const insertId = await tables.admin.create(formData);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });

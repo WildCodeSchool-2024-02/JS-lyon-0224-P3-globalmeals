@@ -3,8 +3,6 @@ const { handleFormSubmission } = require("../../../controllers/adminAction");
 
 const router = express.Router();
 
-router.use(express.json());
-
-router.post("/submit-form", handleFormSubmission);
+router.post("/menu", handleFormSubmission);
 
 module.exports = router;

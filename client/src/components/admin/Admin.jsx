@@ -1,11 +1,23 @@
 import "./Admin.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function Admin() {
   const [selectedContinent, setSelectedContinent] = useState("");
 
+  const [newsForm, setNewsForm] = useState({
+    continent: "",
+    country: "",
+  });
+
+  const formRef = useRef(null);
+
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
+    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
+  };
+
+  const handleChange = (e) => {
+    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
   };
 
   const adjustTextareaHeight = (e) => {
@@ -15,26 +27,30 @@ function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const formJson = Object.fromEntries(formData.entries());
-
-    // console.log("Submitting form data:", formJson);
 
     const ApiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await fetch(`${ApiUrl}/admin/submit-form`, {
+      const response = await fetch(`${ApiUrl}/menu`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formJson),
+
+        body: JSON.stringify(newsForm),
       });
 
       if (response.ok) {
         alert("Le formulaire a été validé avec succès !");
-        e.target.reset();
+
+        if (formRef.current) {
+          formRef.current.reset();
+        }
         setSelectedContinent("");
+        setNewsForm({
+          continent: "",
+          country: "",
+        });
       } else {
         alert("Erreur lors de la soumission du formulaire.");
       }
@@ -72,6 +88,8 @@ function Admin() {
               id="country"
               name="country"
               placeholder="Nom du Pays"
+              value={newsForm.country}
+              onChange={handleChange}
               onInput={adjustTextareaHeight}
             />
           </label>
@@ -172,7 +190,9 @@ function Admin() {
             </label>
           </div>
         </div>
-        <button type="submit">Valider</button>
+        <button type="submit" onClick={handleSubmit}>
+          Valider
+        </button>
       </form>
     </div>
   );
