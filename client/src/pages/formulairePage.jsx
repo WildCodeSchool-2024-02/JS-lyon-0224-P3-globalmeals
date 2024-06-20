@@ -1,11 +1,11 @@
-import Connexion from "../components/formulaire/connexion"
+import Connexion from "../components/formulaire/connexion";
 
-function FormulaireP() {
-    return (
-<div>
-    < Connexion />
-</div>
-    );
+function Formulaire() {
+  return (
+    <div>
+      <Connexion />
+    </div>
+  );
 }
 
-export default FormulaireP;
+export default Formulaire;

@@ -13,7 +13,7 @@ function Continents() {
         <div className="image-container">
           <img className="europe" src={europeImage} alt="spaguetti" />
           <h2>
-            <Link to="/europe">Europe</Link>
+            <Link to="/menu_europe">Europe</Link>
           </h2>
         </div>
         <div className="image-container">

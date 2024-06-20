@@ -2,18 +2,25 @@ const AbstractSeeder = require("./AbstractSeeder");
 
 class MenuSeeder extends AbstractSeeder {
   constructor() {
-      super({ table: "menu", truncate: true });
+    super({ table: "menu", truncate: true });
   }
 
   run() {
-    this.insert({
-      name: "Sénégal",
-      continent: "Afrique",
-      picture: "",
-      starter: "terrine de manioque",
-      dish: "mafé",
-      dessert: "coco-ice",
-      cocktail: "bissap",
+    const menus = [
+      {
+        continent: "Europe",
+        country: "Italien",
+        refName: "europeItalien"
+      },
+      {
+        continent: "Asie",
+        country: "Japon",
+        refName: "asieJapon"
+      },
+    ];
+
+    menus.forEach((menu) => {
+      this.insert(menu);
     });
   }
 }
