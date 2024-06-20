@@ -82,7 +82,11 @@ export default function NavbarToggle() {
           </ul>
         </li>
         <li className="nav-item">
-          <Link to="/" className="navLink active" onClick={closeDropdown}>
+          <Link
+            to="/favoris"
+            className="navLink active"
+            onClick={closeDropdown}
+          >
             Favoris
           </Link>
         </li>
