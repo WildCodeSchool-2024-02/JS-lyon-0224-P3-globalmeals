@@ -1,6 +1,6 @@
 import Favoris from "../components/favoris/fav";
 
-function Favor() {
+function FavorisPage() {
   return (
     <div>
       <Favoris />
@@ -8,4 +8,4 @@ function Favor() {
   );
 }
 
-export default Favor;
+export default FavorisPage;
