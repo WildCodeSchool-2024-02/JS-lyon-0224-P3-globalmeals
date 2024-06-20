@@ -13,11 +13,35 @@ function Admin() {
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Le formulaire a été validé avec succès !");
-    e.target.reset();
-    setSelectedContinent("");
+    const formData = new FormData(e.target);
+    const formJson = Object.fromEntries(formData.entries());
+
+    // console.log("Submitting form data:", formJson);
+
+    const ApiUrl = import.meta.env.VITE_API_URL;
+
+    try {
+      const response = await fetch(`${ApiUrl}/admin/submit-form`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formJson),
+      });
+
+      if (response.ok) {
+        alert("Le formulaire a été validé avec succès !");
+        e.target.reset();
+        setSelectedContinent("");
+      } else {
+        alert("Erreur lors de la soumission du formulaire.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Erreur lors de la soumission du formulaire.");
+    }
   };
 
   return (
@@ -30,6 +54,7 @@ function Admin() {
             <select
               id="continent"
               className="selectContinent"
+              name="continent"
               value={selectedContinent}
               onChange={handleContinentChange}
             >
@@ -45,6 +70,7 @@ function Admin() {
             Pays:
             <textarea
               id="country"
+              name="country"
               placeholder="Nom du Pays"
               onInput={adjustTextareaHeight}
             />
@@ -57,6 +83,7 @@ function Admin() {
               Nom de l'entrée:
               <textarea
                 id="starterName"
+                name="starterName"
                 placeholder="Nom de l'entrée"
                 onInput={adjustTextareaHeight}
               />
@@ -65,6 +92,7 @@ function Admin() {
               Ingrédients:
               <textarea
                 id="starterIngredients"
+                name="starterIngredients"
                 placeholder="Ingrédients"
                 onInput={adjustTextareaHeight}
               />
@@ -73,6 +101,7 @@ function Admin() {
               Étapes:
               <textarea
                 id="starterSteps"
+                name="starterSteps"
                 placeholder="Étapes"
                 onInput={adjustTextareaHeight}
               />
@@ -86,6 +115,7 @@ function Admin() {
               Nom du plat:
               <textarea
                 id="dishName"
+                name="dishName"
                 placeholder="Nom du Plat"
                 onInput={adjustTextareaHeight}
               />
@@ -94,6 +124,7 @@ function Admin() {
               Ingrédients:
               <textarea
                 id="dishIngredients"
+                name="dishIngredients"
                 placeholder="Ingrédients"
                 onInput={adjustTextareaHeight}
               />
@@ -102,6 +133,7 @@ function Admin() {
               Étapes:
               <textarea
                 id="dishSteps"
+                name="dishSteps"
                 placeholder="Étapes"
                 onInput={adjustTextareaHeight}
               />
@@ -115,6 +147,7 @@ function Admin() {
               Nom du dessert:
               <textarea
                 id="dessertName"
+                name="dessertName"
                 placeholder="Nom du Dessert"
                 onInput={adjustTextareaHeight}
               />
@@ -123,6 +156,7 @@ function Admin() {
               Ingrédients:
               <textarea
                 id="dessertIngredients"
+                name="dessertIngredients"
                 placeholder="Ingrédients"
                 onInput={adjustTextareaHeight}
               />
@@ -131,6 +165,7 @@ function Admin() {
               Étapes:
               <textarea
                 id="dessertSteps"
+                name="dessertSteps"
                 placeholder="Étapes"
                 onInput={adjustTextareaHeight}
               />

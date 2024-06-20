@@ -10,6 +10,10 @@ const menuRouter = require("./menu/router");
 
 router.use("/menu", menuRouter);
 
+const adminRouter = require("./admin/router");
+
+router.use("/admin", adminRouter);
+
 /* ************************************************************************* */
 
 module.exports = router;
