@@ -20,9 +20,3 @@ CREATE TABLE menu_recipe (
   FOREIGN KEY (menu_id) REFERENCES menu(id),
   FOREIGN KEY (recipe_id) REFERENCES recipe(id)
 );
-
-
-
-
-
-
