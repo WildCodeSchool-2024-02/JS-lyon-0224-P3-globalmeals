@@ -6,6 +6,7 @@ import Menu from "./pages/menu_europe";
 import Formulaire from "./pages/formulairePage";
 import Continents from "./components/accueil/Accueil";
 import Favoris from "./components/favoris/fav";
+import Admin from "./components/admin/Admin";
 
 const ApiUrl = import.meta.env.VITE_API_URL;
 
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
       {
         path: "/favoris",
         element: <Favoris />,
+      },
+
+      {
+        path: "/Admin",
+        element: <Admin />,
       },
     ],
   },
