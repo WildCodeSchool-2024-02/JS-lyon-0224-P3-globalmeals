@@ -12,7 +12,18 @@ import imageMenu5 from "../../public/pastels.png";
 import imageMenu6 from "../../public/thieboudienne.png";
 import imageMenu7 from "../../public/mango.png";
 import imageMenu8 from "../../public/bissap.png";
-
+import imageMenu9 from "../../public/nachos.png";
+import imageMenu10 from "../../public/ribs.png";
+import imageMenu11 from "../../public/keyLimePie.png";
+import imageMenu12 from "../../public/margarita.png";
+import imageMenu13 from "../../public/edamame.png";
+import imageMenu14 from "../../public/sushi.png";
+import imageMenu15 from "../../public/doroyakii.png";
+import imageMenu16 from "../../public/sake.png";
+import imageMenu17 from "../../public/thon.png";
+import imageMenu18 from "../../public/pouletfafa.png";
+import imageMenu19 from "../../public/poissonvanille.png";
+import imageMenu20 from "../../public/maiTai.png";
 
 const ApiUrl = import.meta.env.VITE_API_URL;
 
@@ -25,21 +36,25 @@ function Menu() {
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
-        const response = await fetch(`${ApiUrl}/menu/menus-recipes?continent=${continent}`);
+        const response = await fetch(
+          `${ApiUrl}/menu/menus-recipes?continent=${continent}`
+        );
         if (!response.ok) {
-          throw new Error("La réponse du réseau n'était pas ok");
+          throw new Error("The network response was not OK");
         }
         const data = await response.json();
-        const filteredData = data.filter(item => item.continent.toLowerCase() === continent.toLowerCase());
+        const filteredData = data.filter(
+          (item) => item.continent.toLowerCase() === continent.toLowerCase()
+        );
         setMenuData(filteredData);
       } catch (err) {
-        console.error("Échec de la récupération des données du menu :", err);
+        console.error("Menu data recovery failed :", err);
       }
     };
     fetchMenuData();
   }, [continent]);
 
-  const countries = [...new Set(menuData.map(item => item.country))];
+  const countries = [...new Set(menuData.map((item) => item.country))];
 
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
@@ -50,13 +65,13 @@ function Menu() {
       case "europe":
         switch (type.toLowerCase()) {
           case "entrée":
-            return imageMenu1; 
+            return imageMenu1;
           case "plat":
-            return imageMenu2; 
+            return imageMenu2;
           case "dessert":
-            return imageMenu3; 
+            return imageMenu3;
           case "cocktail":
-            return imageMenu4; 
+            return imageMenu4;
           default:
             return null;
         }
@@ -65,15 +80,54 @@ function Menu() {
           case "entrée":
             return imageMenu5;
           case "plat":
-            return imageMenu6; 
+            return imageMenu6;
           case "dessert":
-            return imageMenu7; 
+            return imageMenu7;
           case "cocktail":
-            return imageMenu8; 
+            return imageMenu8;
           default:
             return null;
         }
-     
+      case "amerique":
+        switch (type.toLowerCase()) {
+          case "entrée":
+            return imageMenu9;
+          case "plat":
+            return imageMenu10;
+          case "dessert":
+            return imageMenu11;
+          case "cocktail":
+            return imageMenu12;
+          default:
+            return null;
+        }
+      case "asie":
+        switch (type.toLowerCase()) {
+          case "entrée":
+            return imageMenu13;
+          case "plat":
+            return imageMenu14;
+          case "dessert":
+            return imageMenu15;
+          case "cocktail":
+            return imageMenu16;
+          default:
+            return null;
+        }
+      case "oceanie":
+        switch (type.toLowerCase()) {
+          case "entrée":
+            return imageMenu17;
+          case "plat":
+            return imageMenu18;
+          case "dessert":
+            return imageMenu19;
+          case "cocktail":
+            return imageMenu20;
+          default:
+            return null;
+        }
+
       default:
         return null;
     }
@@ -83,9 +137,14 @@ function Menu() {
     <div className="content">
       {countries.length > 0 && (
         <>
-          <h1 className="menu-title">{continent.charAt(0).toUpperCase() + continent.slice(1).toLowerCase()}</h1>
-          {countries.map(country => {
-            const countryMenuData = menuData.filter(item => item.country === country);
+          <h1 className="menu-title">
+            {continent.charAt(0).toUpperCase() +
+              continent.slice(1).toLowerCase()}
+          </h1>
+          {countries.map((country) => {
+            const countryMenuData = menuData.filter(
+              (item) => item.country === country
+            );
             return (
               <div key={country} className="menu-item">
                 <h2>Menu {country}</h2>
@@ -96,48 +155,66 @@ function Menu() {
                       className={`tab-button ${activeTab === "Description" ? "active" : ""}`}
                       onClick={() => setActiveTab("Description")}
                     >
-                      <img src={imageTab1} alt="Description" className="tab-icon" />
+                      <img
+                        src={imageTab1}
+                        alt="Description"
+                        className="tab-icon"
+                      />
                     </button>
                     <button
                       type="button"
                       className={`tab-button ${activeTab === "Ingrédients" ? "active" : ""}`}
                       onClick={() => setActiveTab("Ingrédients")}
                     >
-                      <img src={imageTab2} alt="Ingrédients" className="tab-icon" />
+                      <img
+                        src={imageTab2}
+                        alt="Ingrédients"
+                        className="tab-icon"
+                      />
                     </button>
                     <button
                       type="button"
                       className={`tab-button ${activeTab === "Préparation" ? "active" : ""}`}
                       onClick={() => setActiveTab("Préparation")}
                     >
-                      <img src={imageTab3} alt="Préparation" className="tab-icon" />
+                      <img
+                        src={imageTab3}
+                        alt="Préparation"
+                        className="tab-icon"
+                      />
                     </button>
                   </div>
                   <div className="menu-section">
-                    {["entrée", "plat", "dessert", "cocktail"].map(type => {
-                      const menuItem = countryMenuData.find(item => item.type.toLowerCase() === type);
-                      return menuItem && (
-                        <div
-                          key={type}
-                          className={`menu-subsection ${activeMenuItem?.name === menuItem.name ? "selected" : ""}`}
-                          onClick={() => handleMenuItemClick(menuItem)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              handleMenuItemClick(menuItem);
-                            }
-                          }}
-                          role="button"
-                          tabIndex={0}
-                        >
-                          <h3>{type.charAt(0).toUpperCase() + type.slice(1)}</h3>
-                          <p>{menuItem.name || "s/o"}</p>
-                          <img
-                            src={getMenuItemImage(continent, type)}
-                            alt={type}
-                            aria-hidden="true"
-                          />
-                          <p>Temps : {menuItem.step_time || "s/o"}</p>
-                        </div>
+                    {["entrée", "plat", "dessert", "cocktail"].map((type) => {
+                      const menuItem = countryMenuData.find(
+                        (item) => item.type.toLowerCase() === type
+                      );
+                      return (
+                        menuItem && (
+                          <div
+                            key={type}
+                            className={`menu-subsection ${activeMenuItem?.name === menuItem.name ? "selected" : ""}`}
+                            onClick={() => handleMenuItemClick(menuItem)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                handleMenuItemClick(menuItem);
+                              }
+                            }}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <h3>
+                              {type.charAt(0).toUpperCase() + type.slice(1)}
+                            </h3>
+                            <p>{menuItem.name || "s/o"}</p>
+                            <img
+                              src={getMenuItemImage(continent, type)}
+                              alt={type}
+                              aria-hidden="true"
+                            />
+                            <p>Temps : {menuItem.step_time || "s/o"}</p>
+                          </div>
+                        )
                       );
                     })}
                   </div>
@@ -147,9 +224,7 @@ function Menu() {
                   <div className="ingredient-section">
                     <h3>{activeMenuItem.name}</h3>
                     <h4>Les ingrédients - 4 personnes</h4>
-                    <p>
-                      {activeMenuItem.ingredient || "s/o"}
-                    </p>
+                    <p>{activeMenuItem.ingredient || "s/o"}</p>
                   </div>
                 )}
 
@@ -157,9 +232,7 @@ function Menu() {
                   <div className="ingredient-section">
                     <h3>{activeMenuItem.name}</h3>
                     <h4>La préparation</h4>
-                    <p>
-                      {activeMenuItem.step || "s/o"}
-                    </p>
+                    <p>{activeMenuItem.step || "s/o"}</p>
                   </div>
                 )}
               </div>

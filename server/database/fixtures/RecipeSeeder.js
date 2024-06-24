@@ -67,7 +67,7 @@ const recipes = [
     refName: "afriqueSenegalBissap"
   },
   {
-    name: "Mango à la noix de coco",
+    name: "Mango noix de coco",
     ingredient: "Mangue, noix de coco râpée, lait de coco, sucre",
     step: "Couper la mangue, mélanger avec la noix de coco râpée, ajouter le lait de coco et le sucre, laisser reposer au frais.",
     step_time: "15 min",
@@ -145,7 +145,7 @@ const recipes = [
 
   // Océanie (Tahitien)
   {
-    name: "Poisson cru à la tahitienne",
+    name: "Thon noix de coco",
     ingredient: "Thon frais, lait de coco, concombre, tomates, citron vert, oignon, sel",
     step: "Couper le thon en dés, mélanger avec le lait de coco, les légumes coupés, le jus de citron vert et l'oignon émincé, laisser mariner.",
     step_time: "20 min",
@@ -161,7 +161,7 @@ const recipes = [
     refName: "oceanieTahitienPouletFafa"
   },
   {
-    name: "Poisson cru à la vanille",
+    name: "Poisson vanille",
     ingredient: "Poisson blanc (loup de mer), jus de citron vert, lait de coco, concombre, tomates, vanille, sel",
     step: "Couper le poisson en dés, mélanger avec le jus de citron vert, le lait de coco, les légumes coupés et la vanille grattée, laisser mariner.",
     step_time: "20 min",
