@@ -82,7 +82,7 @@ const recipes = [
     step: "Disposer les chips sur une plaque, ajouter le fromage et les haricots, faire cuire au four, garnir de jalapeños, salsa, guacamole et crème fraîche.",
     step_time: "20 min",
     type: "entrée",
-    refName: "texasAmériqueNachos"
+    refName: "texasAmeriqueNachos"
   },
   {
     name: "Barbecue ribs",
@@ -90,7 +90,7 @@ const recipes = [
     step: "Mariner les côtes de porc dans la sauce barbecue, les épices, le vinaigre et le miel, cuire au barbecue jusqu'à tendreté.",
     step_time: "2 heures",
     type: "plat",
-    refName: "texasAmériqueBarbecueRibs"
+    refName: "texasAmeriqueBarbecueRibs"
   },
   {
     name: "Key Lime Pie",
@@ -98,7 +98,7 @@ const recipes = [
     step: "Mélanger les biscuits émiettés avec le beurre, presser dans un moule. Mélanger le lait concentré, le jus et le zeste de citron vert, verser sur la croûte. Réfrigérer, garnir de crème fouettée.",
     step_time: "30 min",
     type: "dessert",
-    refName: "texasAmériqueKeyLimePie"
+    refName: "texasAmeriqueKeyLimePie"
   },
   {
     name: "Margarita",
@@ -106,7 +106,7 @@ const recipes = [
     step: "Mouiller le bord du verre avec du jus de citron vert et tremper dans le sel. Mélanger la tequila, le Cointreau, le jus de citron vert et la glace dans un shaker, verser dans le verre.",
     step_time: "10 min",
     type: "cocktail",
-    refName: "texasAmériqueMargarita"
+    refName: "texasAmeriqueMargarita"
   },
 
   // Asie (Japon)
@@ -165,7 +165,7 @@ const recipes = [
     ingredient: "Poisson blanc (loup de mer), jus de citron vert, lait de coco, concombre, tomates, vanille, sel",
     step: "Couper le poisson en dés, mélanger avec le jus de citron vert, le lait de coco, les légumes coupés et la vanille grattée, laisser mariner.",
     step_time: "20 min",
-    type: "entrée",
+    type: "dessert",
     refName: "oceanieTahitienPoissonVanille"
   },
   {

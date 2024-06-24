@@ -47,20 +47,20 @@ class MenuRecipeSeeder extends AbstractSeeder {
 
       // Amérique (Texas)
       {
-        menu_id: this.getRef(`texasAmérique`).insertId,
-        recipe_id: this.getRef(`texasAmériqueNachos`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId,
+        recipe_id: this.getRef(`texasAmeriqueNachos`).insertId,
       },
       {
-        menu_id: this.getRef(`texasAmérique`).insertId,
-        recipe_id: this.getRef(`texasAmériqueBarbecueRibs`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId,
+        recipe_id: this.getRef(`texasAmeriqueBarbecueRibs`).insertId,
       },
       {
-        menu_id: this.getRef(`texasAmérique`).insertId,
-        recipe_id: this.getRef(`texasAmériqueKeyLimePie`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId,
+        recipe_id: this.getRef(`texasAmeriqueKeyLimePie`).insertId,
       },
       {
-        menu_id: this.getRef(`texasAmérique`).insertId,
-        recipe_id: this.getRef(`texasAmériqueMargarita`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId,
+        recipe_id: this.getRef(`texasAmeriqueMargarita`).insertId,
       },
 
       // Asie (Japon)
