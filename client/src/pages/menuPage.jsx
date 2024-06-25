@@ -221,7 +221,7 @@ function Menu() {
                         (item) => item.type.toLowerCase() === type
                       );
                       return (
-                        menuItem !== null && (
+                        menuItem !== undefined && (
                           <div
                             key={type}
                             className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
