@@ -1,4 +1,5 @@
 import "./Header.css";
+import logoImage from "../../assets/images/logo-globalmeals.png";
 
 function Header() {
   return (
@@ -6,8 +7,8 @@ function Header() {
       <div className="headerContainer">
         <img
           className="headerBackground"
-          src="./src/assets/images/richesses-culinaires-du-monde-generatif-ai_895561-6260-_1_ 2.jpeg"
-          alt="headerBackground"
+          src={logoImage}
+          alt="Logo_globalmeals"
         />
       </div>
     </header>
