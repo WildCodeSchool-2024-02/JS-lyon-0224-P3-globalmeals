@@ -12,6 +12,10 @@ const recipeRouter = require("./recipe/router");
 router.use("/menu", menuRouter);
 router.use("/recipe", recipeRouter);
 
+const adminRouter = require("./admin/router");
+
+router.use("/admin", adminRouter);
+
 /* ************************************************************************* */
 
 module.exports = router;
