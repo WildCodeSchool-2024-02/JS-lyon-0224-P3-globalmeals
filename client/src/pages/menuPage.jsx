@@ -145,7 +145,7 @@ function Menu() {
                             </h3>
                             <p>{menuItem.name || "s/o"}</p>
                             <img
-                              src={`${menuItem.image}`}
+                              src={`/images/${menuItem.image}`}
                               alt={type}
                               aria-hidden="true"
                             />
