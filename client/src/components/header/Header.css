@@ -1,8 +1,8 @@
-.headerBackground {
+.header-background {
   width: 30vw;
 }
 
-.headerContainer {
+.header-container {
   display: flex;
   justify-content: center;
   background-color: #242423;

@@ -61,15 +61,15 @@ function Admin() {
   };
 
   return (
-    <div className="createMenu">
+    <div className="create-menu">
       <h1>Création d'un menu</h1>
       <form onSubmit={handleSubmit}>
-        <div className="adminContinent">
+        <div className="admin-continent">
           <label htmlFor="continent">
             Continents:
             <select
               id="continent"
-              className="selectContinent"
+              className="select-continent"
               name="continent"
               value={selectedContinent}
               onChange={handleContinentChange}
@@ -96,7 +96,7 @@ function Admin() {
         </div>
         <div>
           <h2>Entrée</h2>
-          <div className="newStarter">
+          <div className="new-starter">
             <label htmlFor="starterName">
               Nom de l'entrée:
               <textarea
@@ -128,7 +128,7 @@ function Admin() {
         </div>
         <div>
           <h2>Plat</h2>
-          <div className="newDish">
+          <div className="new-dish">
             <label htmlFor="dishName">
               Nom du plat:
               <textarea
@@ -160,7 +160,7 @@ function Admin() {
         </div>
         <div>
           <h2>Dessert</h2>
-          <div className="newDessert">
+          <div className="new-dessert">
             <label htmlFor="dessertName">
               Nom du dessert:
               <textarea
