@@ -27,10 +27,33 @@ import imageMenu20 from "../../public/maiTai.png";
 
 const ApiUrl = import.meta.env.VITE_API_URL;
 
+const changeColors = (continent) => {
+  const root = document.documentElement;
+  switch (continent.toLowerCase()) {
+    case "europe":
+      root.style.setProperty("--color-continent", "#0081c8");
+      break;
+    case "afrique":
+      root.style.setProperty("--color-continent", "#242423");
+      break;
+    case "amerique":
+      root.style.setProperty("--color-continent", "#ee334e");
+      break;
+    case "asie":
+      root.style.setProperty("--color-continent", "#e9c46a");
+      break;
+    case "oceanie":
+      root.style.setProperty("--color-continent", "#00a651");
+      break;
+    default:
+      break;
+  }
+};
+
 function Menu() {
   const { continent } = useParams();
   const [menuData, setMenuData] = useState([]);
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
 
   useEffect(() => {
@@ -43,10 +66,17 @@ function Menu() {
           throw new Error("The network response was not OK");
         }
         const data = await response.json();
-        const filteredData = data.filter(
+        const filterData = data.filter(
           (item) => item.continent.toLowerCase() === continent.toLowerCase()
         );
-        setMenuData(filteredData);
+        setMenuData(filterData);
+        changeColors(continent);
+        setActiveTab("Description");
+
+        const starter = filterData.find(
+          (item) => item.type.toLowerCase() === "entrée"
+        );
+        setActiveMenu(starter);
       } catch (err) {
         console.error("Menu data recovery failed :", err);
       }
@@ -56,11 +86,11 @@ function Menu() {
 
   const countries = [...new Set(menuData.map((item) => item.country))];
 
-  const handleMenuItemClick = (menuItem) => {
-    setActiveMenuItem(menuItem);
+  const handleMenuClick = (menuItem) => {
+    setActiveMenu(menuItem);
   };
 
-  const getMenuItemImage = (continentImage, type) => {
+  const getMenuImage = (continentImage, type) => {
     switch (continentImage.toLowerCase()) {
       case "europe":
         switch (type.toLowerCase()) {
@@ -149,7 +179,7 @@ function Menu() {
               <div key={country} className="menu-item">
                 <h2>Menu {country}</h2>
                 <div className="menu-container">
-                  <div className={`sidebar ${activeMenuItem ? "active" : ""}`}>
+                  <div className={`sidebar ${activeMenu ? "active" : ""}`}>
                     <button
                       type="button"
                       className={`tab-button ${activeTab === "Description" ? "active" : ""}`}
@@ -193,11 +223,11 @@ function Menu() {
                         menuItem && (
                           <div
                             key={type}
-                            className={`menu-subsection ${activeMenuItem?.name === menuItem.name ? "selected" : ""}`}
-                            onClick={() => handleMenuItemClick(menuItem)}
+                            className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
+                            onClick={() => handleMenuClick(menuItem)}
                             onKeyDown={(e) => {
                               if (e.key === "Enter" || e.key === " ") {
-                                handleMenuItemClick(menuItem);
+                                handleMenuClick(menuItem);
                               }
                             }}
                             role="button"
@@ -208,7 +238,7 @@ function Menu() {
                             </h3>
                             <p>{menuItem.name || "s/o"}</p>
                             <img
-                              src={getMenuItemImage(continent, type)}
+                              src={getMenuImage(continent, type)}
                               alt={type}
                               aria-hidden="true"
                             />
@@ -220,19 +250,19 @@ function Menu() {
                   </div>
                 </div>
 
-                {activeTab === "Ingrédients" && activeMenuItem && (
+                {activeTab === "Ingrédients" && activeMenu && (
                   <div className="ingredient-section">
-                    <h3>{activeMenuItem.name}</h3>
+                    <h3>{activeMenu.name}</h3>
                     <h4>Les ingrédients - 4 personnes</h4>
-                    <p>{activeMenuItem.ingredient || "s/o"}</p>
+                    <p>{activeMenu.ingredient || "s/o"}</p>
                   </div>
                 )}
 
-                {activeTab === "Préparation" && activeMenuItem && (
+                {activeTab === "Préparation" && activeMenu && (
                   <div className="ingredient-section">
-                    <h3>{activeMenuItem.name}</h3>
+                    <h3>{activeMenu.name}</h3>
                     <h4>La préparation</h4>
-                    <p>{activeMenuItem.step || "s/o"}</p>
+                    <p>{activeMenu.step || "s/o"}</p>
                   </div>
                 )}
               </div>

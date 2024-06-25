@@ -14,17 +14,17 @@ class MenuSeeder extends AbstractSeeder {
       },
       {
         continent: "Afrique",
-        country: "Senegal",
+        country: "Sénégalais",
         refName: "afriqueSenegal"
       },
       {
         continent: "Amerique",
-        country: "Texas",
+        country: "Texan",
         refName: "texasAmerique"
       },
       {
         continent: "Asie",
-        country: "Japon",
+        country: "Japonais",
         refName: "asieJapon"
       },
       {
