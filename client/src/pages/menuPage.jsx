@@ -4,27 +4,6 @@ import "./menus.css";
 import imageTab1 from "../assets/images/description.png";
 import imageTab2 from "../assets/images/ingredients.png";
 import imageTab3 from "../assets/images/etapes.png";
-/* les images sont pour le moment importées ici, prévoir une US import depuis le back-end */
-import imageMenu1 from "../../public/bruschetta.png";
-import imageMenu2 from "../../public/pasta.png";
-import imageMenu3 from "../../public/tiramisu.png";
-import imageMenu4 from "../../public/milano-torino.png";
-import imageMenu5 from "../../public/pastels.png";
-import imageMenu6 from "../../public/thieboudienne.png";
-import imageMenu7 from "../../public/mango.png";
-import imageMenu8 from "../../public/bissap.png";
-import imageMenu9 from "../../public/nachos.png";
-import imageMenu10 from "../../public/ribs.png";
-import imageMenu11 from "../../public/keyLimePie.png";
-import imageMenu12 from "../../public/margarita.png";
-import imageMenu13 from "../../public/edamame.png";
-import imageMenu14 from "../../public/sushi.png";
-import imageMenu15 from "../../public/doroyakii.png";
-import imageMenu16 from "../../public/sake.png";
-import imageMenu17 from "../../public/thon.png";
-import imageMenu18 from "../../public/pouletfafa.png";
-import imageMenu19 from "../../public/poissonvanille.png";
-import imageMenu20 from "../../public/maiTai.png";
 
 const ApiUrl = import.meta.env.VITE_API_URL;
 
@@ -89,79 +68,6 @@ function Menu() {
 
   const handleMenuClick = (menuItem) => {
     setActiveMenu(menuItem);
-  };
-
-  const getMenuImage = (continentImage, type) => {
-    switch (continentImage.toLowerCase()) {
-      case "europe":
-        switch (type.toLowerCase()) {
-          case "entrée":
-            return imageMenu1;
-          case "plat":
-            return imageMenu2;
-          case "dessert":
-            return imageMenu3;
-          case "cocktail":
-            return imageMenu4;
-          default:
-            return null;
-        }
-      case "afrique":
-        switch (type.toLowerCase()) {
-          case "entrée":
-            return imageMenu5;
-          case "plat":
-            return imageMenu6;
-          case "dessert":
-            return imageMenu7;
-          case "cocktail":
-            return imageMenu8;
-          default:
-            return null;
-        }
-      case "amerique":
-        switch (type.toLowerCase()) {
-          case "entrée":
-            return imageMenu9;
-          case "plat":
-            return imageMenu10;
-          case "dessert":
-            return imageMenu11;
-          case "cocktail":
-            return imageMenu12;
-          default:
-            return null;
-        }
-      case "asie":
-        switch (type.toLowerCase()) {
-          case "entrée":
-            return imageMenu13;
-          case "plat":
-            return imageMenu14;
-          case "dessert":
-            return imageMenu15;
-          case "cocktail":
-            return imageMenu16;
-          default:
-            return null;
-        }
-      case "oceanie":
-        switch (type.toLowerCase()) {
-          case "entrée":
-            return imageMenu17;
-          case "plat":
-            return imageMenu18;
-          case "dessert":
-            return imageMenu19;
-          case "cocktail":
-            return imageMenu20;
-          default:
-            return null;
-        }
-
-      default:
-        return null;
-    }
   };
 
   return (
@@ -239,7 +145,7 @@ function Menu() {
                             </h3>
                             <p>{menuItem.name || "s/o"}</p>
                             <img
-                              src={getMenuImage(continent, type)}
+                              src={`/images/${menuItem.image}`}
                               alt={type}
                               aria-hidden="true"
                             />
@@ -259,7 +165,7 @@ function Menu() {
                   </div>
                 )}
 
-                {activeTab === "Préparation" && activeMenu !== null  && (
+                {activeTab === "Préparation" && activeMenu !== null && (
                   <div className="ingredient-section">
                     <h3>{activeMenu.name}</h3>
                     <h4>La préparation</h4>
