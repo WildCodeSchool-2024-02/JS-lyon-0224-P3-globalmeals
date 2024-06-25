@@ -4,6 +4,7 @@ import "./menus.css";
 import imageTab1 from "../assets/images/description.png";
 import imageTab2 from "../assets/images/ingredients.png";
 import imageTab3 from "../assets/images/etapes.png";
+/* les images sont pour le moment importées ici, prévoir une US import depuis le back-end */
 import imageMenu1 from "../../public/bruschetta.png";
 import imageMenu2 from "../../public/pasta.png";
 import imageMenu3 from "../../public/tiramisu.png";
