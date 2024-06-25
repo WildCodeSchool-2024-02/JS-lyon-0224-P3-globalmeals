@@ -4,9 +4,9 @@ import logoImage from "../../assets/images/logo-globalmeals.png";
 function Header() {
   return (
     <header>
-      <div className="headerContainer">
+      <div className="header-container">
         <img
-          className="headerBackground"
+          className="header-background"
           src={logoImage}
           alt="Logo_globalmeals"
         />
