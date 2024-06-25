@@ -221,7 +221,7 @@ function Menu() {
                         (item) => item.type.toLowerCase() === type
                       );
                       return (
-                        menuItem && (
+                        menuItem !== undefined && (
                           <div
                             key={type}
                             className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
@@ -251,7 +251,7 @@ function Menu() {
                   </div>
                 </div>
 
-                {activeTab === "Ingrédients" && activeMenu && (
+                {activeTab === "Ingrédients" && activeMenu !== undefined && (
                   <div className="ingredient-section">
                     <h3>{activeMenu.name}</h3>
                     <h4>Les ingrédients - 4 personnes</h4>
@@ -259,7 +259,7 @@ function Menu() {
                   </div>
                 )}
 
-                {activeTab === "Préparation" && activeMenu && (
+                {activeTab === "Préparation" && activeMenu !== undefined  && (
                   <div className="ingredient-section">
                     <h3>{activeMenu.name}</h3>
                     <h4>La préparation</h4>
