@@ -41,7 +41,7 @@ export default function NavbarToggle() {
             <li>
               <Link
                 className="navDropdown"
-                to="/menu_europe"
+                to="/menuPage/europe"
                 onClick={closeDropdown}
               >
                 Europe
@@ -50,7 +50,7 @@ export default function NavbarToggle() {
             <li>
               <Link
                 className="navDropdown"
-                to="/afrique"
+                to="/menuPage/afrique"
                 onClick={closeDropdown}
               >
                 Afrique
@@ -59,21 +59,25 @@ export default function NavbarToggle() {
             <li>
               <Link
                 className="navDropdown"
-                to="/amerique"
+                to="/menuPage/amerique"
                 onClick={closeDropdown}
               >
                 Amérique
               </Link>
             </li>
             <li>
-              <Link className="navDropdown" to="/asie" onClick={closeDropdown}>
+              <Link
+                className="navDropdown"
+                to="/menuPage/asie"
+                onClick={closeDropdown}
+              >
                 Asie
               </Link>
             </li>
             <li>
               <Link
                 className="navDropdown"
-                to="/oceanie"
+                to="/menuPage/oceanie"
                 onClick={closeDropdown}
               >
                 Océanie

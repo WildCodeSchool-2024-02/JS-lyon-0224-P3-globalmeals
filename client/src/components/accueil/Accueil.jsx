@@ -13,19 +13,19 @@ function Continents() {
         <div className="image-container">
           <img className="europe" src={europeImage} alt="spaguetti" />
           <h2>
-            <Link to="/menu_europe">Europe</Link>
+            <Link to="/menuPage/europe">Europe</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="afrique" src={afriqueImage} alt="bonava" />
           <h2>
-            <Link to="/afrique">Afrique</Link>
+            <Link to="/menuPage/afrique">Afrique</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="amerique" src={ameriqueImage} alt="burger" />
           <h2>
-            <Link to="/amerique">Amerique</Link>
+            <Link to="/menuPage/amerique">Amerique</Link>
           </h2>
         </div>
       </div>
@@ -33,13 +33,13 @@ function Continents() {
         <div className="image-container">
           <img className="asie" src={asieImage} alt="sushi" />
           <h2>
-            <Link to="/asie">Asie</Link>
+            <Link to="/menuPage/asie">Asie</Link>
           </h2>
         </div>
         <div className="image-container">
           <img className="oceanie" src={oceanieImage} alt="kangaroo" />
           <h2>
-            <Link to="/oceanie">Oceanie</Link>
+            <Link to="/menuPage/oceanie">Oceanie</Link>
           </h2>
         </div>
       </div>
