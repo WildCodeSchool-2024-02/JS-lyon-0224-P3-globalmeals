@@ -12,8 +12,8 @@ class RecipeRepository extends AbstractRepository {
   async create(recipe) {
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, ingredient, step, step_time, type) VALUES (?, ?, ?, ?, ?)`,
-      [recipe.name, recipe.ingredient, recipe.step, recipe.step_time, recipe.type]
+      `INSERT INTO ${this.table} (name, ingredient, step, step_time, type, image) VALUES (?, ?, ?, ?, ?, ?)`,
+      [recipe.name, recipe.ingredient, recipe.step, recipe.step_time, recipe.type, recipe.image]
     );
 
     // Return the ID of the newly inserted Recipe
@@ -24,7 +24,7 @@ class RecipeRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all rows from the "rows" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
     // Return the array of rows
     return rows;

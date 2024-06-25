@@ -14,6 +14,7 @@ const recipes = [
     step: "Couper les tomates et l'ail. Griller le pain et frotter avec l'ail. Tartiner les tomates, arroser d'huile, assaisonner et ajouter du basilic.",
     step_time: "15 min",
     type: "entrée",
+    image: "/images/bruschetta.png",
     refName: "europeItalienBruschetta"
   },
   {
@@ -22,6 +23,7 @@ const recipes = [
     step: "Faire bouillir les pâtes. Couper les tomates et l'ail. Chauffer l'huile et l'ail, ajouter les tomates, assaisonner. Égoutter les pâtes, mélanger avec la sauce, ajouter basilic et parmesan.",
     step_time: "25 min",
     type: "plat",
+    image: "/images/pasta.png",
     refName: "europeItalienPasta"
   },
   {
@@ -30,6 +32,7 @@ const recipes = [
     step: "Séparer les œufs. Battre les jaunes avec le sucre, ajouter le mascarpone, incorporer les blancs en neige. Tremper les biscuits dans le café, alterner couches de biscuits et crème. Réfrigérer, saupoudrer de cacao.",
     step_time: "25 min",
     type: "dessert",
+    image: "/images/tiramisu.png",
     refName: "europeItalienTiramisu"
   },
   {
@@ -38,6 +41,7 @@ const recipes = [
     step: "Remplir un verre de glaçons. Verser le Campari et le vermouth, remuer délicatement, garnir d'un zeste d'orange.",
     step_time: "10 min",
     type: "cocktail",
+    image: "/images/milano-torino.png",
     refName: "europeItalienMilanoTorino"
   },
 
@@ -48,6 +52,7 @@ const recipes = [
     step: "Faire revenir les légumes dans l'huile de palme, ajouter le poisson, le riz, et cuire jusqu'à absorption du liquide.",
     step_time: "45 min",
     type: "plat",
+    image: "/images/thieboudienne.png",
     refName: "afriqueSenegalThieboudienne"
   },
   {
@@ -56,6 +61,7 @@ const recipes = [
     step: "Étaler la pâte, mettre la farce, fermer en triangle, frire jusqu'à dorure.",
     step_time: "30 min",
     type: "entrée",
+    image: "/images/pastels.png",
     refName: "afriqueSenegalPastels"
   },
   {
@@ -64,6 +70,7 @@ const recipes = [
     step: "Infuser les fleurs d'hibiscus dans l'eau chaude, ajouter le sucre et la menthe, laisser refroidir.",
     step_time: "20 min",
     type: "cocktail",
+    image: "/images/bissap.png",
     refName: "afriqueSenegalBissap"
   },
   {
@@ -72,6 +79,7 @@ const recipes = [
     step: "Couper la mangue, mélanger avec la noix de coco râpée, ajouter le lait de coco et le sucre, laisser reposer au frais.",
     step_time: "15 min",
     type: "dessert",
+    image: "/images/mango.png",
     refName: "afriqueSenegalMangoCoco"
   },
 
@@ -82,6 +90,7 @@ const recipes = [
     step: "Disposer les chips sur une plaque, ajouter le fromage et les haricots, faire cuire au four, garnir de jalapeños, salsa, guacamole et crème fraîche.",
     step_time: "20 min",
     type: "entrée",
+    image: "/images/nachos.png",
     refName: "texasAmeriqueNachos"
   },
   {
@@ -90,6 +99,7 @@ const recipes = [
     step: "Mariner les côtes de porc dans la sauce barbecue, les épices, le vinaigre et le miel, cuire au barbecue jusqu'à tendreté.",
     step_time: "2 heures",
     type: "plat",
+    image: "/images/ribs.png",
     refName: "texasAmeriqueBarbecueRibs"
   },
   {
@@ -98,6 +108,7 @@ const recipes = [
     step: "Mélanger les biscuits émiettés avec le beurre, presser dans un moule. Mélanger le lait concentré, le jus et le zeste de citron vert, verser sur la croûte. Réfrigérer, garnir de crème fouettée.",
     step_time: "30 min",
     type: "dessert",
+    image: "/images/keyLimePie.png",
     refName: "texasAmeriqueKeyLimePie"
   },
   {
@@ -106,6 +117,7 @@ const recipes = [
     step: "Mouiller le bord du verre avec du jus de citron vert et tremper dans le sel. Mélanger la tequila, le Cointreau, le jus de citron vert et la glace dans un shaker, verser dans le verre.",
     step_time: "10 min",
     type: "cocktail",
+    image: "/images/margarita.png",
     refName: "texasAmeriqueMargarita"
   },
 
@@ -116,6 +128,7 @@ const recipes = [
     step: "Faire bouillir les edamame dans de l'eau salée, égoutter et servir chaud.",
     step_time: "10 min",
     type: "entrée",
+    image: "/images/edamame.png",
     refName: "asieJaponEdamame"
   },
   {
@@ -124,6 +137,7 @@ const recipes = [
     step: "Cuire le riz avec le vinaigre, assembler les ingrédients sur les feuilles de nori, rouler et couper en morceaux.",
     step_time: "30 min",
     type: "plat",
+    image: "/images/sushi.png",
     refName: "asieJaponSushiAssorti"
   },
   {
@@ -132,6 +146,7 @@ const recipes = [
     step: "Battre les œufs avec le sucre, ajouter la farine et la levure, cuire à la poêle en petites crêpes, garnir de pâte de haricots rouges, former un sandwich.",
     step_time: "30 min",
     type: "dessert",
+    image: "/images/doroyakii.png",
     refName: "asieJaponDorayaki"
   },
   {
@@ -140,6 +155,7 @@ const recipes = [
     step: "Mélanger le sake, la vodka, le sirop de sucre et les glaçons dans un shaker, verser dans un verre à martini, garnir de zeste de citron.",
     step_time: "10 min",
     type: "cocktail",
+    image: "/images/sake.png",
     refName: "asieJaponSakeMartini"
   },
 
@@ -150,6 +166,7 @@ const recipes = [
     step: "Couper le thon en dés, mélanger avec le lait de coco, les légumes coupés, le jus de citron vert et l'oignon émincé, laisser mariner.",
     step_time: "20 min",
     type: "entrée",
+    image: "/images/thon.png",
     refName: "oceanieTahitienPoissonCru"
   },
   {
@@ -158,6 +175,7 @@ const recipes = [
     step: "Faire revenir le poulet avec les oignons et l'ail, ajouter les épinards et le lait de coco, laisser mijoter jusqu'à tendreté.",
     step_time: "40 min",
     type: "plat",
+    image: "/images/pouletfafa.png",
     refName: "oceanieTahitienPouletFafa"
   },
   {
@@ -166,6 +184,7 @@ const recipes = [
     step: "Couper le poisson en dés, mélanger avec le jus de citron vert, le lait de coco, les légumes coupés et la vanille grattée, laisser mariner.",
     step_time: "20 min",
     type: "dessert",
+    image: "/images/poissonvanille.png",
     refName: "oceanieTahitienPoissonVanille"
   },
   {
@@ -174,6 +193,7 @@ const recipes = [
     step: "Mélanger les rhums, le jus de citron vert et le sirop d'orgeat avec des glaçons dans un shaker, verser dans un verre sur glace, garnir de cerise et d'ananas.",
     step_time: "10 min",
     type: "cocktail",
+    image: "/images/maiTai.png",
     refName: "oceanieTahitienMaiTai"
   }
 ];
