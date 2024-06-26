@@ -2,13 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Menu from "./pages/menu_europe";
+import Menu from "./pages/menuPage";
 import Connexion from "./components/connexion/connexion";
 import Continents from "./components/accueil/Accueil";
 import Favoris from "./components/favoris/fav";
 import Admin from "./components/admin/Admin";
-
-const ApiUrl = import.meta.env.VITE_API_URL;
 
 const router = createBrowserRouter([
   {
@@ -20,8 +18,7 @@ const router = createBrowserRouter([
         element: <Continents />,
       },
       {
-        loader: async () => fetch(`${ApiUrl}/menu/menus-recipes`),
-        path: "/menu_europe",
+        path: "/menuPage/:continent",
         element: <Menu />,
       },
       {
@@ -32,7 +29,6 @@ const router = createBrowserRouter([
         path: "/favoris",
         element: <Favoris />,
       },
-
       {
         path: "/Admin",
         element: <Admin />,

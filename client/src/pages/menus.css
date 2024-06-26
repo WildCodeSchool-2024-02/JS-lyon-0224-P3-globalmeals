@@ -12,7 +12,7 @@ h1 {
   display: inline-block;
   width: 15px;
   height: 15px;
-  border: 5px solid #0081c8;
+  border: 5px solid var(--color-continent);
   border-radius: 50%;
   background-color: transparent;
   margin-right: 10px;
@@ -65,7 +65,7 @@ p {
 .tab-button:focus,
 .tab-button:active,
 .tab-button.active {
-  border-bottom: 3px solid #0081c8;
+  border-bottom: 3px solid var(--color-continent);
 }
 
 .tab-icon {
@@ -95,7 +95,7 @@ p {
 }
 
 .menu-subsection.selected {
-  border-bottom: 3px solid #0081c8;
+  border-bottom: 3px solid var(--color-continent);
   padding: 2px;
 }
 
@@ -120,7 +120,7 @@ p {
 }
 
 .ingredient-section > h4 {
-  border-bottom: 3px solid #0081c8;
+  border-bottom: 3px solid var(--color-continent);
 }
 
 @media only screen and (min-width: 520px) {
