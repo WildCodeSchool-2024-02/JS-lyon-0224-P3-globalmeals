@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 // Import access to database tables
 const tables = require("../../database/tables");
 
-const login = async (req, res, next) => {
+const connexion = async (req, res, next) => {
   try {
-    // Fetch a specific user from the database based on the provided email
+    // Fetch a specific user from the database based on the provided username
     const user = await tables.user.readByPseudoWithPassword(req.body.username);
 
     if (user === null) {
@@ -45,5 +45,5 @@ const login = async (req, res, next) => {
 };
 
 module.exports = {
-  login,
+  connexion,
 };
