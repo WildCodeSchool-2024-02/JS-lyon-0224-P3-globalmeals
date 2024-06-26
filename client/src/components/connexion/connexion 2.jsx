@@ -28,7 +28,7 @@ function Connexion() {
           </label>
           <input
             type="text"
-            placeholder="Entrez votre pseudo"
+            placeholder="Entrez votre username"
             value={pseudo}
             onChange={(e) => setPseudo(e.target.value)}
           />
