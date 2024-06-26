@@ -23,7 +23,6 @@ const hashPassword = async (req, res, next) => {
 
     // Suppression du mot de passe non haché de la requête par mesure de sécurité
     delete req.body.password;
-    delete req.body.confirmPassword;
 
     next();
   } catch (err) {

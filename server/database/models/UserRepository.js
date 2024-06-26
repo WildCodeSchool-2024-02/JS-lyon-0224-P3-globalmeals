@@ -1,14 +1,14 @@
-const AbstractRepository = require('./AbstractRepository');
+const AbstractRepository = require("./AbstractRepository");
 
 class UserRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "Recipe" as configuration
-    super({ table: 'user' });
+    super({ table: "user" });
   }
 
   // The C of CRUD - Create operation
-  
+
   async create(user) {
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(
@@ -30,10 +30,10 @@ class UserRepository extends AbstractRepository {
   }
 
   // Read method - CRUD R (user by ID)
-  async readById(id) {
+  async readByPseudoWithPassword(username) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
-      [id]
+      `SELECT * FROM ${this.table} WHERE username = ?`,
+      [username]
     );
 
     // Return the first line if found, otherwise null
@@ -44,8 +44,8 @@ class UserRepository extends AbstractRepository {
   async update(id, updatedFields) {
     // Build the update SQL query
     const fields = Object.keys(updatedFields)
-      .map(key => `${key} = ?`)
-      .join(', ');
+      .map((key) => `${key} = ?`)
+      .join(", ");
 
     const values = Object.values(updatedFields);
     values.push(id);
@@ -60,10 +60,7 @@ class UserRepository extends AbstractRepository {
 
   // The Delete method - CRUD D
   async delete(id) {
-    await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [id]
-    );
+    await this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
 
     return true; // Return true to indicate that the user has been deleted
   }
