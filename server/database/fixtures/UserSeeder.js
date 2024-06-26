@@ -21,7 +21,7 @@ class UserSeeder extends AbstractSeeder {
       // Generate fake user data
 
       /* eslint-disable no-await-in-loop */
-          const hashedPassword = await argon2.hash("toto1234", hashingOptions); // Hash the password using Argon2
+      const hashedPassword = await argon2.hash("toto1234", hashingOptions); // Hash the password using Argon2
 
 
       const fakeUser = {
