@@ -37,7 +37,7 @@ class UserRepository extends AbstractRepository {
     );
 
     // Return the first line if found, otherwise null
-    return rows.length ? rows[0] : null;
+    return rows.length > 0 ? rows[0] : null;
   }
 
   // The update method - CRUD U
