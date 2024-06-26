@@ -5,10 +5,20 @@ import afriqueImage from "../../assets/images/bonava.jpg";
 import ameriqueImage from "../../assets/images/burger.jpeg";
 import asieImage from "../../assets/images/assiette-de-sushi.jpeg";
 import oceanieImage from "../../assets/images/KANGAROO_STEAK.jpeg";
+import welcomeImage from "../../assets/images/friends-happiness.png";
 
 function Continents() {
   return (
     <main className="continents">
+      <div className="welcome-container">
+        <img className="welcome" src={welcomeImage} alt="welcome" />
+        <h2 className="welcome-text">
+          Connectez-vous pour découvrir l'ensemble de nos menus !
+        </h2>
+      </div>
+      <h2 className="new-menus">
+        Chaque mois, un tour du monde culinaire avec nos menus complets !
+      </h2>
       <div className="continents1">
         <div className="image-container">
           <img className="europe" src={europeImage} alt="spaguetti" />
