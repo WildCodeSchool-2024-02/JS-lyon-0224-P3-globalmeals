@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./connexion.css";
 
 function Connexion() {
-  const [pseudo, setPseudo] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -22,22 +22,20 @@ function Connexion() {
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div className="form-group1">
-          <label className="pseudo" htmlFor="pseudo">
-            Pseudo
+          <label className="mail" htmlFor="mail">
+            Mail
           </label>
           <input
-            id="pseu2"
-            type="text"
-            placeholder="Entrez votre pseudo"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
+            id="mail2"
+            type="email"
+            value={mail}
+            onChange={(e) => setMail(e.target.value)}
+            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
+            required
+            placeholder="Entrez votre mail"
           />
 
-          {pseudo.length <= 4 && (
-            <p className="error1">
-              Le pseudo doit contenir au moins 5 caractères*
-            </p>
-          )}
+          {mail.length <= 4 && <p className="error1">Le mail est requis*</p>}
         </div>
 
         <div className="form-group2">
@@ -74,7 +72,7 @@ function Connexion() {
           <button
             className="validate"
             type="submit"
-            disabled={pseudo.length <= 4 || password.length <= 6}
+            disabled={mail.length <= 4 || password.length <= 6}
           >
             Suivant
           </button>
