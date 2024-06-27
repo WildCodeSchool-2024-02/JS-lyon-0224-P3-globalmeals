@@ -77,7 +77,7 @@ function Connexion() {
             Suivant
           </button>
         </Link>
-        {isSubmitted && <p>Connexion soumise avec succès !</p>}
+        {isSubmitted === true && <p>Connexion soumise avec succès !</p>}
       </form>
       <Link to="/inscription" className="create">
         <p>Créez un compte</p>
