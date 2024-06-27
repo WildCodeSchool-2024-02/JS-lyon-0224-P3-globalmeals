@@ -66,13 +66,13 @@ export default function NavbarToggle() {
               </Link>
             </li>
             <li>
-              <Link className="navDropdown" to="/asie" onClick={closeDropdown}>
+              <Link className="nav-dropdown" to="/asie" onClick={closeDropdown}>
                 Asie
               </Link>
             </li>
             <li>
               <Link
-                className="navDropdown"
+                className="nav-dropdown"
                 to="/oceanie"
                 onClick={closeDropdown}
               >
@@ -84,7 +84,7 @@ export default function NavbarToggle() {
         <li className="nav-item">
           <Link
             to="/favoris"
-            className="navLink active"
+            className="nav-link active"
             onClick={closeDropdown}
           >
             Favoris
@@ -92,8 +92,8 @@ export default function NavbarToggle() {
         </li>
         <li className="nav-item">
           <Link
-            to="/formulaire"
-            className="navLink active"
+            to="/connexion"
+            className="nav-link active"
             onClick={closeDropdown}
           >
             Connexion

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Menu from "./pages/menu_europe";
-import Formulaire from "./pages/formulairePage";
+import Connexion from "./components/connexion/connexion";
 import Continents from "./components/accueil/Accueil";
 import Favoris from "./components/favoris/fav";
 import Admin from "./components/admin/Admin";
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
         element: <Menu />,
       },
       {
-        path: "/formulaire",
-        element: <Formulaire />,
+        path: "/connexion",
+        element: <Connexion />,
       },
       {
         path: "/favoris",
