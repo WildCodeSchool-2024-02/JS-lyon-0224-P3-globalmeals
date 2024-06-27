@@ -1,34 +1,26 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-}
-
-.createMenu {
+.create-menu {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
+  width: 50%;
+  margin: 0 auto;
 }
 
-.createMenu h1,
-.createMenu h2 {
+.create-menu h1,
+.create-menu h2 {
   text-align: center;
   color: #333;
 }
 
-.createMenu form {
+.create-menu form {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.createMenu select,
-.createMenu textarea {
+.create-menu select,
+.create-menu textarea {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -38,17 +30,17 @@ body {
   box-sizing: border-box;
 }
 
-.createMenu select {
+.create-menu select {
   height: 40px;
 }
 
-.createMenu textarea {
+.create-menu textarea {
   min-height: 40px;
   resize: none;
   overflow: hidden;
 }
 
-.createMenu button {
+.create-menu button {
   padding: 10px;
   background-color: #4caf50;
   color: white;
@@ -60,6 +52,6 @@ body {
   display: block;
 }
 
-.createMenu button:hover {
+.create-menu button:hover {
   background-color: #45a049;
 }

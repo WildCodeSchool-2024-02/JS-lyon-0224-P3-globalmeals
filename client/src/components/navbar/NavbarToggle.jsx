@@ -17,14 +17,14 @@ export default function NavbarToggle() {
     <nav className="navbar">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="navLink active" to="/" onClick={closeDropdown}>
+          <Link className="nav-link active" to="/" onClick={closeDropdown}>
             Accueil
           </Link>
         </li>
         <li className="nav-item dropdown">
           <div
-            className="dropdown-toggle navLink"
-            id="navbarDropdown"
+            className="dropdown-toggle nav-link"
+            id="navbar-dropdown"
             role="button"
             onClick={toggleDropdown}
             onKeyDown={(e) => {
@@ -35,13 +35,13 @@ export default function NavbarToggle() {
             Menus
           </div>
           <ul
-            className={`dropdown-menu navDropdownMenu ${dropdownOpen === true ? "show" : ""}`}
-            aria-labelledby="navbarDropdown"
+            className={`dropdown-menu ${dropdownOpen === true ? "show" : ""}`}
+            aria-labelledby="navbar-dropdown"
           >
             <li>
               <Link
-                className="navDropdown"
-                to="/menu_europe"
+                className="nav-dropdown"
+                to="/menuPage/europe"
                 onClick={closeDropdown}
               >
                 Europe
@@ -49,8 +49,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="navDropdown"
-                to="/afrique"
+                className="nav-dropdown"
+                to="/menuPage/afrique"
                 onClick={closeDropdown}
               >
                 Afrique
@@ -58,22 +58,26 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="navDropdown"
-                to="/amerique"
+                className="nav-dropdown"
+                to="/menuPage/amerique"
                 onClick={closeDropdown}
               >
                 Amérique
               </Link>
             </li>
             <li>
-              <Link className="nav-dropdown" to="/asie" onClick={closeDropdown}>
+              <Link
+                className="nav-dropdown"
+                to="/menuPage/asie"
+                onClick={closeDropdown}
+              >
                 Asie
               </Link>
             </li>
             <li>
               <Link
                 className="nav-dropdown"
-                to="/oceanie"
+                to="/menuPage/oceanie"
                 onClick={closeDropdown}
               >
                 Océanie

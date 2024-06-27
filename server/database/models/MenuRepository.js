@@ -26,14 +26,12 @@ class MenuRepository extends AbstractRepository {
 
   async readAllWithRecipes() {
     const query = `
-      SELECT m.id AS menu_id, m.continent, m.country, r.id AS recipe_id, r.name, r.ingredient, r.step, r.step_time, r.type
+      SELECT m.id AS menu_id, m.continent, m.country, r.id AS recipe_id, r.name, r.ingredient, r.step, r.step_time, r.type, r.image
       FROM ${this.table} as m
       INNER JOIN menu_recipe mr ON m.id = mr.menu_id
       INNER JOIN recipe r ON mr.recipe_id = r.id;
     `;
-
     const [rows] = await this.database.query(query);
-
     return rows;
   }
 }
