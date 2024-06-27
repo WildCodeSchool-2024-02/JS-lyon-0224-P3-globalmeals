@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Menu from "./pages/menuPage";
 import Connexion from "./components/connexion/connexion";
+import Inscription from "./components/inscription/inscription";
 import Continents from "./components/accueil/Accueil";
 import Favoris from "./components/favoris/fav";
 import Admin from "./components/admin/Admin";
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/connexion",
         element: <Connexion />,
+      },
+      {
+        path: "/inscription",
+        element: <Inscription />,
       },
       {
         path: "/favoris",
