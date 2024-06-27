@@ -60,21 +60,20 @@ p {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  text-decoration: none;
 }
 .validate {
   display: block;
-  min-width: 150px;
+  min-width: 100px;
   color: #e9c46a;
   background-color: #242423;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
-  text-decoration: none;
   text-align: center;
   transition:
     background-color 0.3s,
     color 0.3s;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .validate:hover {
