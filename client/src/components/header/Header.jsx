@@ -1,13 +1,14 @@
 import "./Header.css";
+import logoImage from "../../assets/images/logo-globalmeals.png";
 
 function Header() {
   return (
     <header>
-      <div className="headerContainer">
+      <div className="header-container">
         <img
-          className="headerBackground"
-          src="./src/assets/images/richesses-culinaires-du-monde-generatif-ai_895561-6260-_1_ 2.jpeg"
-          alt="headerBackground"
+          className="header-background"
+          src={logoImage}
+          alt="Logo_globalmeals"
         />
       </div>
     </header>
