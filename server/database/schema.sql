@@ -24,7 +24,7 @@ CREATE TABLE menu_recipe (
 
 CREATE TABLE user (
     id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    username VARCHAR(30) NOT NULL,
-    mail VARCHAR(255) NOT NULL,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    mail VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
 );

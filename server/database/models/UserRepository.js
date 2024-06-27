@@ -30,10 +30,10 @@ class UserRepository extends AbstractRepository {
   }
 
   // Read method - CRUD R (user by ID)
-  async readByPseudoWithPassword(username) {
+  async readByEmailWithPassword(email) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE username = ?`,
-      [username]
+      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      [email]
     );
 
     // Return the first line if found, otherwise null
