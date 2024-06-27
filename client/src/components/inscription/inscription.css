@@ -1,0 +1,94 @@
+.form-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.form-group0,
+.form-group1,
+.form-group2,
+.form-group3,
+.form-group4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.error1,
+.error2 {
+  color: red;
+  font-size: 5Opx;
+}
+
+#pseudo2,
+#mail2,
+#confirm-mail2,
+#mot2,
+#confirm-mot2 {
+  border-right-color: rgb(0, 0, 0);
+  padding: 1rem;
+  margin: 2rem;
+  height: 2vh;
+  width: 60vw;
+}
+
+#mot2 {
+  margin-right: 4rem;
+}
+
+.password-input {
+  margin-left: 2rem;
+  display: flex;
+}
+
+.password-input2 {
+  margin-left: 0;
+  display: flex;
+}
+
+.toggle-password {
+  display: flex;
+  width: 20vw;
+  background-color: transparent;
+  border: transparent;
+  width: 4vw;
+  height: 4vh;
+  margin-top: -4rem;
+  margin-left: 16rem;
+}
+
+p {
+  display: flex;
+  justify-content: left;
+}
+
+.back-home2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.validate2 {
+  display: block;
+  min-width: 150px;
+  color: #e9c46a;
+  background-color: #242423;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.validate2:hover {
+  background-color: #e9c46a;
+  color: #242423;
+}

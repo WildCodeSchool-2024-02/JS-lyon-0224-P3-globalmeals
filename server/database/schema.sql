@@ -10,7 +10,8 @@ create table recipe (
   ingredient TEXT not null,
   step TEXT not null,
   step_time varchar(100) not null,
-  type varchar(15) not null
+  type varchar(15) not null,
+  image varchar(255)
 );
 
 CREATE TABLE menu_recipe (
@@ -21,8 +22,9 @@ CREATE TABLE menu_recipe (
   FOREIGN KEY (recipe_id) REFERENCES recipe(id)
 );
 
-
-
-
-
-
+CREATE TABLE user (
+    id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    mail VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
