@@ -27,8 +27,8 @@
   border-right-color: rgb(0, 0, 0);
   padding: 1rem;
   margin: 2rem;
-  height: 2vh;
   width: 60vw;
+  max-width: 300px;
 }
 
 #mot2 {
@@ -45,10 +45,10 @@
   width: 20vw;
   background-color: transparent;
   border: transparent;
-  width: 4vw;
+  max-width: 4vw;
   height: 4vh;
   margin-top: -4rem;
-  margin-left: 16rem;
+  margin-left: 20rem;
 }
 
 p {
