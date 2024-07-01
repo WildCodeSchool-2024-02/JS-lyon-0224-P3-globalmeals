@@ -6,14 +6,14 @@ import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Header />
       <main className="container">
         <NavbarToggle />
         <Outlet />
-        <Footer />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
 

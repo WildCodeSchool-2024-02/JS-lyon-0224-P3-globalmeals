@@ -3,7 +3,7 @@ import "./fav.css";
 function Favoris() {
   return (
     <div className="ensemble">
-      <h1 className="favorisé">❤️ Vos Menus Favoris</h1>
+      <h2 className="favorisé">❤️ Vos Menus Favoris</h2>
       <div className="favor">
         <ul className="listMenus">
           <li className="menuList">

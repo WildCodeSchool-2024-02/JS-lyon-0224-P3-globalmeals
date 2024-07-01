@@ -19,38 +19,40 @@ function Continents() {
       <h2 className="new-menus">
         Chaque mois, un tour du monde culinaire avec nos menus complets !
       </h2>
-      <div className="continents1">
-        <div className="image-container">
-          <img className="europe" src={europeImage} alt="spaguetti" />
-          <h2>
-            <Link to="/menuPage/europe">Europe</Link>
-          </h2>
+      <div className="cercles">
+        <div className="continents1">
+          <div className="image-container">
+            <img className="europe" src={europeImage} alt="spaguetti" />
+            <h2>
+              <Link to="/menuPage/europe">Europe</Link>
+            </h2>
+          </div>
+          <div className="image-container">
+            <img className="afrique" src={afriqueImage} alt="bonava" />
+            <h2>
+              <Link to="/menuPage/afrique">Afrique</Link>
+            </h2>
+          </div>
+          <div className="image-container">
+            <img className="amerique" src={ameriqueImage} alt="burger" />
+            <h2>
+              <Link to="/menuPage/amerique">Amerique</Link>
+            </h2>
+          </div>
         </div>
-        <div className="image-container">
-          <img className="afrique" src={afriqueImage} alt="bonava" />
-          <h2>
-            <Link to="/menuPage/afrique">Afrique</Link>
-          </h2>
-        </div>
-        <div className="image-container">
-          <img className="amerique" src={ameriqueImage} alt="burger" />
-          <h2>
-            <Link to="/menuPage/amerique">Amerique</Link>
-          </h2>
-        </div>
-      </div>
-      <div className="continents2">
-        <div className="image-container">
-          <img className="asie" src={asieImage} alt="sushi" />
-          <h2>
-            <Link to="/menuPage/asie">Asie</Link>
-          </h2>
-        </div>
-        <div className="image-container">
-          <img className="oceanie" src={oceanieImage} alt="kangaroo" />
-          <h2>
-            <Link to="/menuPage/oceanie">Oceanie</Link>
-          </h2>
+        <div className="continents2">
+          <div className="image-container">
+            <img className="asie" src={asieImage} alt="sushi" />
+            <h2>
+              <Link to="/menuPage/asie">Asie</Link>
+            </h2>
+          </div>
+          <div className="image-container">
+            <img className="oceanie" src={oceanieImage} alt="kangaroo" />
+            <h2>
+              <Link to="/menuPage/oceanie">Oceanie</Link>
+            </h2>
+          </div>
         </div>
       </div>
     </main>
