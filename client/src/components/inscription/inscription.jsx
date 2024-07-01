@@ -28,7 +28,7 @@ function Connexion() {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      <div className="form-group0">
+        <div className="form-group0">
           <label className="pseudo" htmlFor="pseudo">
             Pseudo
           </label>
@@ -40,7 +40,9 @@ function Connexion() {
             placeholder="Entrez votre pseudo"
           />
 
-          {pseudo.length <= 4 && <p className="error1">Le pseudo est requis*</p>}
+          {pseudo.length <= 4 && (
+            <p className="error1">Le pseudo est requis*</p>
+          )}
         </div>
 
         <div className="form-group1">
@@ -74,7 +76,9 @@ function Connexion() {
             placeholder="Confirmez votre mail"
           />
 
-          {confirmMail.length <= 4 && <p className="error1">Le mail est requis*</p>}
+          {confirmMail.length <= 4 && (
+            <p className="error1">Le mail est requis*</p>
+          )}
         </div>
 
         <div className="form-group3">
@@ -141,14 +145,18 @@ function Connexion() {
           <button
             className="validate2"
             type="submit"
-            disabled={mail.length <= 4 || password.length <= 6 || confirmMail.length <=4 || confirmPassword.length <= 6}
+            disabled={
+              mail.length <= 4 ||
+              password.length <= 6 ||
+              confirmMail.length <= 4 ||
+              confirmPassword.length <= 6
+            }
           >
             Suivant
           </button>
         </Link>
         {isSubmitted === true && <p>Inscription soumise avec succès !</p>}
       </form>
-    
     </div>
   );
 }

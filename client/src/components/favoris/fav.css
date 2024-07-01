@@ -54,12 +54,12 @@
 .menus-titles3,
 .menus-titles4,
 .menus-titles5 {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .listMenus {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-evenly;
@@ -77,7 +77,7 @@
 
 .favor {
   display: flex;
-  justify-content: space-around;
+  margin-left: 5rem;
   flex-direction: row;
   margin-bottom: 5rem;
 }
@@ -92,7 +92,8 @@
 }
 
 .détail {
-  font-size: 20px;
+  font-size: 15px;
+  margin-left: 5rem;
 }
 
 .épiceries {
@@ -106,24 +107,8 @@
   .favorisé {
     display: flex;
     justify-content: center;
-    margin: 0;
     margin-top: 2rem;
-  }
-  .listMenus {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0;
-    margin: 0;
-    margin-top: 2rem;
-  }
-
-  .favor {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    margin-bottom: 2rem;
   }
 
   .épiceries {
@@ -131,5 +116,11 @@
     height: 60vw;
     align-self: center;
     margin-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .favor {
+    margin-left: 20rem;
   }
 }
