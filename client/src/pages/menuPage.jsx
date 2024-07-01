@@ -36,6 +36,11 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
 
+  // Récupérer le pays sélectionné avec une clé spécifique au continent
+  const selectedCountry = localStorage.getItem(
+    `selectedCountry_${continent.toLowerCase()}`
+  );
+
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
@@ -46,9 +51,11 @@ function Menu() {
           throw new Error("The network response was not OK");
         }
         const data = await response.json();
+
         const filterData = data.filter(
           (item) => item.continent.toLowerCase() === continent.toLowerCase()
         );
+
         setMenuData(filterData);
         changeColors(continent);
         setActiveTab("Description");
@@ -64,118 +71,99 @@ function Menu() {
     fetchMenuData();
   }, [continent]);
 
-  const countries = [...new Set(menuData.map((item) => item.country))];
-
   const handleMenuClick = (menuItem) => {
     setActiveMenu(menuItem);
   };
 
   return (
     <div className="content">
-      {countries.length > 0 && (
+      {menuData.length > 0 ? (
         <>
           <h1 className="menu-title">
             {continent.charAt(0).toUpperCase() +
               continent.slice(1).toLowerCase()}
           </h1>
-          {countries.map((country) => {
-            const countryMenuData = menuData.filter(
-              (item) => item.country === country
-            );
-            return (
-              <div key={country} className="menu-item">
-                <h2>Menu {country}</h2>
-                <div className="menu-container">
-                  <div className={`sidebar ${activeMenu ? "active" : ""}`}>
-                    <button
-                      type="button"
-                      className={`tab-button ${activeTab === "Description" ? "active" : ""}`}
-                      onClick={() => setActiveTab("Description")}
+          <h2>
+            Menu{" "}
+            {selectedCountry
+              ? selectedCountry.charAt(0).toUpperCase() +
+                selectedCountry.slice(1).toLowerCase()
+              : "non défini"}
+          </h2>{" "}
+          <div className="menu-container">
+            <div className={`sidebar ${activeMenu ? "active" : ""}`}>
+              <button
+                type="button"
+                className={`tab-button ${activeTab === "Description" ? "active" : ""}`}
+                onClick={() => setActiveTab("Description")}
+              >
+                <img src={imageTab1} alt="Description" className="tab-icon" />
+              </button>
+              <button
+                type="button"
+                className={`tab-button ${activeTab === "Ingrédients" ? "active" : ""}`}
+                onClick={() => setActiveTab("Ingrédients")}
+              >
+                <img src={imageTab2} alt="Ingrédients" className="tab-icon" />
+              </button>
+              <button
+                type="button"
+                className={`tab-button ${activeTab === "Préparation" ? "active" : ""}`}
+                onClick={() => setActiveTab("Préparation")}
+              >
+                <img src={imageTab3} alt="Préparation" className="tab-icon" />
+              </button>
+            </div>
+            <div className="menu-section">
+              {["entrée", "plat", "dessert", "cocktail"].map((type) => {
+                const menuItem = menuData.find(
+                  (item) => item.type.toLowerCase() === type
+                );
+                return (
+                  menuItem !== undefined && (
+                    <div
+                      key={type}
+                      className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
+                      onClick={() => handleMenuClick(menuItem)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleMenuClick(menuItem);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
                     >
+                      <h3>{type.charAt(0).toUpperCase() + type.slice(1)}</h3>
+                      <p>{menuItem.name || "s/o"}</p>
                       <img
-                        src={imageTab1}
-                        alt="Description"
-                        className="tab-icon"
+                        src={`/images/${menuItem.image}`}
+                        alt={type}
+                        aria-hidden="true"
                       />
-                    </button>
-                    <button
-                      type="button"
-                      className={`tab-button ${activeTab === "Ingrédients" ? "active" : ""}`}
-                      onClick={() => setActiveTab("Ingrédients")}
-                    >
-                      <img
-                        src={imageTab2}
-                        alt="Ingrédients"
-                        className="tab-icon"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      className={`tab-button ${activeTab === "Préparation" ? "active" : ""}`}
-                      onClick={() => setActiveTab("Préparation")}
-                    >
-                      <img
-                        src={imageTab3}
-                        alt="Préparation"
-                        className="tab-icon"
-                      />
-                    </button>
-                  </div>
-                  <div className="menu-section">
-                    {["entrée", "plat", "dessert", "cocktail"].map((type) => {
-                      const menuItem = countryMenuData.find(
-                        (item) => item.type.toLowerCase() === type
-                      );
-                      return (
-                        menuItem !== undefined && (
-                          <div
-                            key={type}
-                            className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
-                            onClick={() => handleMenuClick(menuItem)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                handleMenuClick(menuItem);
-                              }
-                            }}
-                            role="button"
-                            tabIndex={0}
-                          >
-                            <h3>
-                              {type.charAt(0).toUpperCase() + type.slice(1)}
-                            </h3>
-                            <p>{menuItem.name || "s/o"}</p>
-                            <img
-                              src={`/images/${menuItem.image}`}
-                              alt={type}
-                              aria-hidden="true"
-                            />
-                            <p>Temps : {menuItem.step_time || "s/o"}</p>
-                          </div>
-                        )
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {activeTab === "Ingrédients" && activeMenu !== null && (
-                  <div className="ingredient-section">
-                    <h3>{activeMenu.name}</h3>
-                    <h4>Les ingrédients - 4 personnes</h4>
-                    <p>{activeMenu.ingredient || "s/o"}</p>
-                  </div>
-                )}
-
-                {activeTab === "Préparation" && activeMenu !== null && (
-                  <div className="ingredient-section">
-                    <h3>{activeMenu.name}</h3>
-                    <h4>La préparation</h4>
-                    <p>{activeMenu.step || "s/o"}</p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                      <p>Temps : {menuItem.step_time || "s/o"}</p>
+                    </div>
+                  )
+                );
+              })}
+            </div>
+          </div>
+          {activeTab === "Ingrédients" && activeMenu !== null && (
+            <div className="ingredient-section">
+              <h3>{activeMenu.name}</h3>
+              <h4>Les ingrédients - 4 personnes</h4>
+              <p>{activeMenu.ingredient || "s/o"}</p>
+            </div>
+          )}
+          {activeTab === "Préparation" && activeMenu !== null && (
+            <div className="ingredient-section">
+              <h3>{activeMenu.name}</h3>
+              <h4>La préparation</h4>
+              <p>{activeMenu.step || "s/o"}</p>
+            </div>
+          )}
         </>
+      ) : (
+        <p>Aucun menu disponible pour ce continent.</p>
       )}
     </div>
   );

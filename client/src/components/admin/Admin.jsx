@@ -1,22 +1,19 @@
 import "./Admin.css";
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [selectedContinent, setSelectedContinent] = useState("");
-
-  const [newsForm, setNewsForm] = useState({
-    continent: "",
-    country: "",
-  });
-
+  const [newsForm, setNewsForm] = useState({ continent: "", country: "" });
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
     setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
   };
 
-  const handleChange = (e) => {
+  const handleUpdateChange = (e) => {
     setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
   };
 
@@ -36,21 +33,24 @@ function Admin() {
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify(newsForm),
       });
 
-      if (response.ok === true) {
+      if (response.ok) {
         alert("Le formulaire a été validé avec succès !");
-
-        if (formRef.current === true) {
+        if (formRef.current) {
           formRef.current.reset();
         }
         setSelectedContinent("");
-        setNewsForm({
-          continent: "",
-          country: "",
-        });
+        setNewsForm({ continent: "", country: "" });
+
+        // Enregistrer le pays sélectionné avec une clé spécifique au continent
+        localStorage.setItem(
+          `selectedCountry_${newsForm.continent.toLowerCase()}`,
+          newsForm.country
+        );
+
+        navigate(`/menuPage/${newsForm.continent.toLowerCase()}`);
       } else {
         alert("Erreur lors de la soumission du formulaire.");
       }
@@ -63,7 +63,7 @@ function Admin() {
   return (
     <div className="create-menu">
       <h1>Création d'un menu</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <div className="admin-continent">
           <label htmlFor="continent">
             Continents:
@@ -89,7 +89,7 @@ function Admin() {
               name="country"
               placeholder="Nom du Pays"
               value={newsForm.country}
-              onChange={handleChange}
+              onChange={handleUpdateChange}
               onInput={adjustTextareaHeight}
             />
           </label>
