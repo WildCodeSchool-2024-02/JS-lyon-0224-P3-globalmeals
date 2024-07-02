@@ -45,7 +45,7 @@ function Menu() {
     const fetchMenuData = async () => {
       try {
         const response = await fetch(
-          `${ApiUrl}/menu/menus-recipes?continent=${continent}`
+          `${ApiUrl}/recipe/recipesByContinent?continent=${continent}`
         );
         if (!response.ok === true) {
           throw new Error("The network response was not OK");
