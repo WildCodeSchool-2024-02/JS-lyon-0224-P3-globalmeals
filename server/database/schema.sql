@@ -9,18 +9,20 @@ create table recipe (
   name varchar(100) not null,
   ingredient TEXT not null,
   step TEXT not null,
-  step_time varchar(100) not null,
+  -- step_time varchar(100) not null,
   type varchar(15) not null,
-  image varchar(255)
-);
-
-CREATE TABLE menu_recipe (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  image varchar(255),
   menu_id INT UNSIGNED NOT NULL,
-  recipe_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (menu_id) REFERENCES menu(id),
-  FOREIGN KEY (recipe_id) REFERENCES recipe(id)
-);
+  FOREIGN KEY (menu_id) REFERENCES menu(id)
+  );
+
+-- CREATE TABLE menu_recipe (
+--   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+--   menu_id INT UNSIGNED NOT NULL,
+--   recipe_id INT UNSIGNED NOT NULL,
+--   FOREIGN KEY (menu_id) REFERENCES menu(id),
+--   FOREIGN KEY (recipe_id) REFERENCES recipe(id)
+-- );
 
 CREATE TABLE user (
     id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
