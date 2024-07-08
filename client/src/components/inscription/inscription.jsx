@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import "./inscription.css";
 
-function Connexion() {
+function Inscription() {
   const [pseudo, setPseudo] = useState("");
   const [mail, setMail] = useState("");
   const [confirmMail, setConfirmMail] = useState("");
@@ -12,15 +11,33 @@ function Connexion() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    const validationErrors = {};
+
+    if (pseudo.length <= 4) validationErrors.pseudo = "Le pseudo est requis*";
+    if (mail.length <= 4) validationErrors.mail = "Le mail est requis*";
+    if (confirmMail.length <= 4) validationErrors.confirmMail = "Le mail est requis*";
+    if (password.length < 6) validationErrors.password = "Le mot de passe doit contenir au moins 7 caractères*";
+    if (confirmPassword.length < 6) validationErrors.confirmPassword = "Le mot de passe doit contenir au moins 7 caractères*";
+    if (mail !== confirmMail) validationErrors.confirmMail = "Les mails ne correspondent pas*";
+    if (password !== confirmPassword) validationErrors.confirmPassword = "Les mots de passe ne correspondent pas*";
+
+    if (Object.keys(validationErrors).length === 0) {
+      setIsSubmitted(true);
+      navigate("/connexion", { state: { mail, password } });
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const togglePasswordVisibility2 = () => {
     setShowPassword2(!showPassword2);
   };
@@ -28,10 +45,8 @@ function Connexion() {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      <div className="form-group0">
-          <label className="pseudo" htmlFor="pseudo">
-            Pseudo
-          </label>
+        <div className="form-group0">
+          <label className="pseudo" htmlFor="pseudo">Pseudo</label>
           <input
             id="pseudo2"
             type="text"
@@ -39,53 +54,40 @@ function Connexion() {
             onChange={(e) => setPseudo(e.target.value)}
             placeholder="Entrez votre pseudo"
           />
-
-          {pseudo.length <= 4 && <p className="error1">Le pseudo est requis*</p>}
+          {errors.pseudo && <p className="error1">{errors.pseudo}</p>}
         </div>
-
         <div className="form-group1">
-          <label className="mail" htmlFor="mail">
-            Mail
-          </label>
+          <label className="mail" htmlFor="mail">Mail</label>
           <input
             id="mail2"
             type="email"
             value={mail}
             onChange={(e) => setMail(e.target.value)}
             pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-            required
             placeholder="Entrez votre mail"
+            required
           />
-
-          {mail.length <= 4 && <p className="error1">Le mail est requis*</p>}
+          {errors.mail && <p className="error1">{errors.mail}</p>}
         </div>
-
         <div className="form-group2">
-          <label className="confirm-mail" htmlFor="confirm-mail">
-            Confirmez votre mail
-          </label>
+          <label className="confirm-mail" htmlFor="confirm-mail">Confirmez votre mail</label>
           <input
             id="confirm-mail2"
             type="email"
             value={confirmMail}
             onChange={(e) => setConfirmMail(e.target.value)}
             pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-            required
             placeholder="Confirmez votre mail"
+            required
           />
-
-          {confirmMail.length <= 4 && <p className="error1">Le mail est requis*</p>}
+          {errors.confirmMail && <p className="error1">{errors.confirmMail}</p>}
         </div>
-
         <div className="form-group3">
-          <label className="mot-de-passe" htmlFor="mot-de-passo">
-            {" "}
-            Mot de passe
-          </label>
+          <label className="mot-de-passe" htmlFor="mot-de-passo">Mot de passe</label>
           <div className="password-input">
             <input
               id="mot2"
-              type={showPassword === true ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               placeholder="Entrez votre mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -97,26 +99,18 @@ function Connexion() {
               className="toggle-password"
               onClick={togglePasswordVisibility}
             >
-              {showPassword === true ? "🙈" : "👁️"}
+              {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
-          {password.length < 6 && (
-            <p className="error2">
-              Le mot de passe doit contenir au moins 7 caractères*
-            </p>
-          )}
+          {errors.password && <p className="error2">{errors.password}</p>}
         </div>
-
         <div className="form-group4">
-          <label className="confirm-mot-de-pas" htmlFor="confirm-mot-de-passa">
-            {" "}
-            Confirmez votre mot de passe
-          </label>
+          <label className="confirm-mot-de-pas" htmlFor="confirm-mot-de-passa">Confirmez votre mot de passe</label>
           <div className="password-input2">
             <input
               id="confirm-mot2"
-              type={showPassword2 === true ? "text" : "password"}
-              placeholder="Confrimez votre mot de passe"
+              type={showPassword2 ? "text" : "password"}
+              placeholder="Confirmez votre mot de passe"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -127,30 +121,21 @@ function Connexion() {
               className="toggle-password"
               onClick={togglePasswordVisibility2}
             >
-              {showPassword2 === true ? "🙈" : "👁️"}
+              {showPassword2 ? "🙈" : "👁️"}
             </button>
           </div>
-          {confirmPassword.length < 6 && (
-            <p className="error2">
-              Le mot de passe doit contenir au moins 7 caractères*
-            </p>
-          )}
+          {errors.confirmPassword && <p className="error2">{errors.confirmPassword}</p>}
         </div>
-
-        <Link className="back-home2" to="/connexion">
-          <button
-            className="validate2"
-            type="submit"
-            disabled={mail.length <= 4 || password.length <= 6 || confirmMail.length <=4 || confirmPassword.length <= 6}
-          >
-            Suivant
-          </button>
-        </Link>
-        {isSubmitted === true && <p>Inscription soumise avec succès !</p>}
+        <button
+          className="validate"
+          type="submit"
+        >
+          Suivant
+        </button>
+        {isSubmitted && <p>Inscription soumise avec succès !</p>}
       </form>
-    
     </div>
   );
 }
 
-export default Connexion;
+export default Inscription;
