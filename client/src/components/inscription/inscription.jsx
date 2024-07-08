@@ -4,8 +4,8 @@ import "./inscription.css";
 
 function Inscription() {
   const [pseudo, setPseudo] = useState("");
-  const [mail, setMail] = useState("");
-  const [confirmMail, setConfirmMail] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,16 +19,16 @@ function Inscription() {
     const validationErrors = {};
 
     if (pseudo.length <= 4) validationErrors.pseudo = "Le pseudo est requis*";
-    if (mail.length <= 4) validationErrors.mail = "Le mail est requis*";
-    if (confirmMail.length <= 4) validationErrors.confirmMail = "Le mail est requis*";
+    if (email.length <= 4) validationErrors.email = "L'e-mail est requis*";
+    if (confirmEmail.length <= 4) validationErrors.confirmEmail = "L'e-mail est requis*";
     if (password.length < 6) validationErrors.password = "Le mot de passe doit contenir au moins 7 caractères*";
     if (confirmPassword.length < 6) validationErrors.confirmPassword = "Le mot de passe doit contenir au moins 7 caractères*";
-    if (mail !== confirmMail) validationErrors.confirmMail = "Les mails ne correspondent pas*";
+    if (email !== confirmEmail) validationErrors.confirmEmail = "Les mails ne correspondent pas*";
     if (password !== confirmPassword) validationErrors.confirmPassword = "Les mots de passe ne correspondent pas*";
 
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitted(true);
-      navigate("/connexion", { state: { mail, password } });
+      navigate("/connexion", { state: { email, password } });
     } else {
       setErrors(validationErrors);
     }
@@ -61,26 +61,26 @@ function Inscription() {
           <input
             id="mail2"
             type="email"
-            value={mail}
-            onChange={(e) => setMail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
             placeholder="Entrez votre mail"
             required
           />
-          {errors.mail && <p className="error1">{errors.mail}</p>}
+          {errors.email && <p className="error1">{errors.email}</p>}
         </div>
         <div className="form-group2">
-          <label className="confirm-mail" htmlFor="confirm-mail">Confirmez votre mail</label>
+          <label className="confirm-mail" htmlFor="confirm-email">Confirmez votre mail</label>
           <input
             id="confirm-mail2"
             type="email"
-            value={confirmMail}
-            onChange={(e) => setConfirmMail(e.target.value)}
+            value={confirmEmail}
+            onChange={(e) => setConfirmEmail(e.target.value)}
             pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-            placeholder="Confirmez votre mail"
+            placeholder="Confirmez votre e-mail"
             required
           />
-          {errors.confirmMail && <p className="error1">{errors.confirmMail}</p>}
+          {errors.confirmEmail && <p className="error1">{errors.confirmEmail}</p>}
         </div>
         <div className="form-group3">
           <label className="mot-de-passe" htmlFor="mot-de-passo">Mot de passe</label>

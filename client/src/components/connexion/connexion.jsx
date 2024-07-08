@@ -5,7 +5,7 @@ import "./connexion.css";
 function Connexion() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [mail, setMail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -13,7 +13,7 @@ function Connexion() {
 
   useEffect(() => {
     if (location.state) {
-      setMail(location.state.mail || "");
+      setEmail(location.state.email || "");
       setPassword(location.state.password || "");
     }
   }, [location.state]);
@@ -22,7 +22,7 @@ function Connexion() {
     e.preventDefault();
     const validationErrors = {};
 
-    if (mail.length <= 4) validationErrors.mail = "Le mail est requis*";
+    if (email.length <= 4) validationErrors.email = "L' e-mail est requis*";
     if (password.length < 6) validationErrors.password = "Le mot de passe doit contenir au moins 7 caractères*";
 
     if (Object.keys(validationErrors).length === 0) {
@@ -41,17 +41,17 @@ function Connexion() {
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div className="form-group1">
-          <label className="mail" htmlFor="mail">Mail</label>
+          <label className="email" htmlFor="email">E-mail</label>
           <input
             id="mail2"
             type="email"
-            value={mail}
-            onChange={(e) => setMail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
             required
             placeholder="Entrez votre mail"
           />
-          {errors.mail && <p className="error1">{errors.mail}</p>}
+          {errors.email && <p className="error1">{errors.email}</p>}
         </div>
 
         <div className="form-group2">
@@ -80,7 +80,7 @@ function Connexion() {
         <button
           className="validate"
           type="submit"
-          disabled={mail.length <= 4 || password.length <= 6}
+          disabled={email.length <= 4 || password.length <= 6}
         >
           Suivant
         </button>
