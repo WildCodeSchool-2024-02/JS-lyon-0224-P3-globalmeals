@@ -28,7 +28,6 @@ const recipesByContinent = async (req, res, next) => {
   }
 };
 
-
 const add = async (req, res, next) => {
   // Extract the item data from the request body
   const formData = req.body;
@@ -44,7 +43,6 @@ const add = async (req, res, next) => {
     next(err);
   }
 };
-
 
 // Ready to export the controller functions
 module.exports = {

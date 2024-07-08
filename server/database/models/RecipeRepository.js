@@ -10,13 +10,6 @@ class RecipeRepository extends AbstractRepository {
   // The C of CRUD - Create operation
 
   async create(recipe) {
-    // Execute the SQL INSERT query to add a new Recipe to the "rows" table
-    // const [result] = await this.database.query(
-    //   `INSERT INTO ${this.table} (name, ingredient, step, step_time, type, image, menu_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    //   [recipe.name, recipe.ingredient, recipe.step, recipe.step_time, recipe.type, recipe.image, recipe.menu_id]
-    // );
-
-
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (name, ingredient, step, type, image, menu_id) VALUES (?, ?, ?, ?, ?, ?)`,
       [recipe.name, recipe.ingredient, recipe.step, recipe.type, recipe.image, recipe.menu_id]

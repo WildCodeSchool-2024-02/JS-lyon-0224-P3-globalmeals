@@ -3,9 +3,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Admin() {
-  const [selectedContinent, setSelectedContinent] = useState("");
-  const [newsForm, setNewsForm] = useState({
-    continent: "",
+  const createInitialFormState = () => ({
     country: "",
     starterName: "",
     starterIngredients: "",
@@ -15,7 +13,16 @@ function Admin() {
     dishSteps: "",
     dessertName: "",
     dessertIngredients: "",
-    dessertSteps: ""
+    dessertSteps: "",
+  });
+
+  const [selectedContinent, setSelectedContinent] = useState("");
+  const [newsForm, setNewsForm] = useState({
+    europe: createInitialFormState(),
+    afrique: createInitialFormState(),
+    amerique: createInitialFormState(),
+    asie: createInitialFormState(),
+    oceanie: createInitialFormState(),
   });
 
   const formRef = useRef(null);
@@ -23,11 +30,17 @@ function Admin() {
 
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
-    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
   };
 
   const handleUpdateChange = (e) => {
-    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setNewsForm((prevState) => ({
+      ...prevState,
+      [selectedContinent]: {
+        ...prevState[selectedContinent],
+        [name]: value,
+      },
+    }));
   };
 
   const adjustTextareaHeight = (e) => {
@@ -41,10 +54,11 @@ function Admin() {
     const ApiUrl = import.meta.env.VITE_API_URL;
 
     try {
+      const continentData = newsForm[selectedContinent];
       // Enregistrer les données de menu dans la table 'menu'
       const menuData = {
-        continent: newsForm.continent,
-        country: newsForm.country
+        continent: selectedContinent,
+        country: continentData.country,
       };
 
       const menuResponse = await fetch(`${ApiUrl}/menu`, {
@@ -59,30 +73,33 @@ function Admin() {
         throw new Error("Erreur lors de l'enregistrement du menu.");
       }
 
-      const menuResponseData = await menuResponse.json(); // Parse la réponse JSON
-      const menuId = menuResponseData.insertId; // Récupère l'ID du menu créé
+      const menuResponseData = await menuResponse.json();
+      const menuId = menuResponseData.insertId;
 
       // Enregistrer les données de recette dans la table 'recipe'
-      const recipeData = {
-        name: newsForm.starterName,
-        ingredient: newsForm.starterIngredients, // Correction de la clé à 'ingredients'
-        step: newsForm.starterSteps,
-        type: "starter", // Ajoutez le type selon votre logique (entrée, plat, dessert, etc.)
-        menu_id: menuId // Utilisez l'ID du menu créé
-      };
+      const recipeTypes = ["starter", "dish", "dessert"];
+      const recipePromises = recipeTypes.map((type) => {
+        const nameField = `${type}Name`;
+        const ingredientsField = `${type}Ingredients`;
+        const stepsField = `${type}Steps`;
 
-           const recipeResponse = await fetch(`${ApiUrl}/recipe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recipeData),
+        const recipeData = {
+          name: continentData[nameField],
+          ingredient: continentData[ingredientsField],
+          step: continentData[stepsField],
+          menu_id: menuId,
+        };
+
+        return fetch(`${ApiUrl}/recipe`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(recipeData),
+        });
       });
 
-    
-      if (!recipeResponse.ok) {
-        throw new Error("Erreur lors de l'enregistrement de la recette.");
-      }
+      await Promise.all(recipePromises);
 
       alert("Le formulaire a été validé avec succès !");
       if (formRef.current) {
@@ -90,26 +107,19 @@ function Admin() {
       }
       setSelectedContinent("");
       setNewsForm({
-        continent: "",
-        country: "",
-        name: "",
-        ingredient: "",
-        step: "",
-        dishName: "",
-        dishIngredients: "",
-        dishSteps: "",
-        dessertName: "",
-        dessertIngredients: "",
-        dessertSteps: ""
+        europe: createInitialFormState(),
+        afrique: createInitialFormState(),
+        amerique: createInitialFormState(),
+        asie: createInitialFormState(),
+        oceanie: createInitialFormState(),
       });
 
-      // Enregistrer le pays sélectionné avec une clé spécifique au continent
       localStorage.setItem(
-        `selectedCountry_${newsForm.continent.toLowerCase()}`,
-        newsForm.country
+        `selectedCountry_${selectedContinent.toLowerCase()}`,
+        continentData.country
       );
 
-      navigate(`/menuPage/${newsForm.continent.toLowerCase()}`);
+      navigate(`/menuPage/${selectedContinent.toLowerCase()}`);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Erreur lors de la soumission du formulaire.");
@@ -144,7 +154,7 @@ function Admin() {
               id="country"
               name="country"
               placeholder="Nom du Pays"
-              value={newsForm.country}
+              value={newsForm[selectedContinent]?.country || ""}
               onChange={handleUpdateChange}
               onInput={adjustTextareaHeight}
             />
@@ -160,7 +170,7 @@ function Admin() {
                 id="starterName"
                 name="starterName"
                 placeholder="Nom de l'entrée"
-                value={newsForm.starterName}
+                value={newsForm[selectedContinent]?.starterName || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -171,7 +181,7 @@ function Admin() {
                 id="starterIngredients"
                 name="starterIngredients"
                 placeholder="Ingrédients"
-                value={newsForm.starterIngredients}
+                value={newsForm[selectedContinent]?.starterIngredients || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -182,7 +192,7 @@ function Admin() {
                 id="starterSteps"
                 name="starterSteps"
                 placeholder="Étapes"
-                value={newsForm.starterSteps}
+                value={newsForm[selectedContinent]?.starterSteps || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -199,7 +209,7 @@ function Admin() {
                 id="dishName"
                 name="dishName"
                 placeholder="Nom du Plat"
-                value={newsForm.dishName}
+                value={newsForm[selectedContinent]?.dishName || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -210,7 +220,7 @@ function Admin() {
                 id="dishIngredients"
                 name="dishIngredients"
                 placeholder="Ingrédients"
-                value={newsForm.dishIngredients}
+                value={newsForm[selectedContinent]?.dishIngredients || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -221,7 +231,7 @@ function Admin() {
                 id="dishSteps"
                 name="dishSteps"
                 placeholder="Étapes"
-                value={newsForm.dishSteps}
+                value={newsForm[selectedContinent]?.dishSteps || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -238,7 +248,7 @@ function Admin() {
                 id="dessertName"
                 name="dessertName"
                 placeholder="Nom du Dessert"
-                value={newsForm.dessertName}
+                value={newsForm[selectedContinent]?.dessertName || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -249,7 +259,7 @@ function Admin() {
                 id="dessertIngredients"
                 name="dessertIngredients"
                 placeholder="Ingrédients"
-                value={newsForm.dessertIngredients}
+                value={newsForm[selectedContinent]?.dessertIngredients || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -260,7 +270,7 @@ function Admin() {
                 id="dessertSteps"
                 name="dessertSteps"
                 placeholder="Étapes"
-                value={newsForm.dessertSteps}
+                value={newsForm[selectedContinent]?.dessertSteps || ""}
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -268,9 +278,7 @@ function Admin() {
           </div>
         </div>
 
-        <button type="submit">
-          Valider
-        </button>
+        <button type="submit">Valider</button>
       </form>
     </div>
   );
