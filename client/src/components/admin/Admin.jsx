@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const createInitialFormState = () => ({
+    id: "", // Ajout de l'ID du menu
     country: "",
     starterName: "",
     starterIngredients: "",
@@ -55,14 +56,17 @@ function Admin() {
 
     try {
       const continentData = newsForm[selectedContinent];
+      const menuId = continentData.id;
+
       // Enregistrer les données de menu dans la table 'menu'
       const menuData = {
-        continent: selectedContinent,
+        id: selectedContinent, // Inclure l'ID du menu pour la mise à jour
         country: continentData.country,
       };
 
       const menuResponse = await fetch(`${ApiUrl}/menu`, {
-        method: "POST",
+        // Ajout de l'ID dans l'URL
+        method: "PATCH", // Utiliser PUT pour la mise à jour
         headers: {
           "Content-Type": "application/json",
         },
@@ -70,13 +74,9 @@ function Admin() {
       });
 
       if (!menuResponse.ok) {
-        throw new Error("Erreur lors de l'enregistrement du menu.");
+        throw new Error("Erreur lors de la mise à jour du menu.");
       }
 
-      const menuResponseData = await menuResponse.json();
-      const menuId = menuResponseData.insertId;
-
-      // Enregistrer les données de recette dans la table 'recipe'
       const recipeTypes = ["starter", "dish", "dessert"];
       const recipePromises = recipeTypes.map((type) => {
         const nameField = `${type}Name`;
@@ -141,11 +141,11 @@ function Admin() {
               onChange={handleContinentChange}
             >
               <option value="">Sélectionner</option>
-              <option value="europe">Europe</option>
-              <option value="afrique">Afrique</option>
-              <option value="amerique">Amérique</option>
-              <option value="asie">Asie</option>
-              <option value="oceanie">Océanie</option>
+              <option value="1">Europe</option>
+              <option value="2">Afrique</option>
+              <option value="3">Amérique</option>
+              <option value="4">Asie</option>
+              <option value="5">Océanie</option>
             </select>
           </label>
           <label htmlFor="country">
@@ -159,6 +159,11 @@ function Admin() {
               onInput={adjustTextareaHeight}
             />
           </label>
+          <input
+            type="hidden"
+            name="id"
+            value={newsForm[selectedContinent]?.id || ""}
+          />
         </div>
 
         <div>

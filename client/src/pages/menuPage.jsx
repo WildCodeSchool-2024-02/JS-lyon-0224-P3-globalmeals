@@ -10,19 +10,19 @@ const ApiUrl = import.meta.env.VITE_API_URL;
 const changeColors = (continent) => {
   const root = document.documentElement;
   switch (continent.toLowerCase()) {
-    case "europe":
+    case "Europe":
       root.style.setProperty("--color-continent", "#0081c8");
       break;
-    case "afrique":
+    case "Afrique":
       root.style.setProperty("--color-continent", "#242423");
       break;
-    case "amerique":
+    case "Amérique":
       root.style.setProperty("--color-continent", "#ee334e");
       break;
-    case "asie":
+    case "Asie":
       root.style.setProperty("--color-continent", "#e9c46a");
       break;
-    case "oceanie":
+    case "Océanie":
       root.style.setProperty("--color-continent", "#00a651");
       break;
     default:
