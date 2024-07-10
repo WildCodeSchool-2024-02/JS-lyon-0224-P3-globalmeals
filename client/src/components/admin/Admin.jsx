@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const createInitialFormState = () => ({
-    id: "", // Ajout de l'ID du menu
+    id: "",
     country: "",
     starterName: "",
     starterIngredients: "",
@@ -29,6 +29,14 @@ function Admin() {
   const formRef = useRef(null);
   const navigate = useNavigate();
 
+  const continentMap = {
+    1: "europe",
+    2: "afrique",
+    3: "amerique",
+    4: "asie",
+    5: "oceanie",
+  };
+
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
   };
@@ -37,8 +45,8 @@ function Admin() {
     const { name, value } = e.target;
     setNewsForm((prevState) => ({
       ...prevState,
-      [selectedContinent]: {
-        ...prevState[selectedContinent],
+      [continentMap[selectedContinent]]: {
+        ...prevState[continentMap[selectedContinent]],
         [name]: value,
       },
     }));
@@ -55,18 +63,16 @@ function Admin() {
     const ApiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const continentData = newsForm[selectedContinent];
-      const menuId = continentData.id;
+      const continentData = newsForm[continentMap[selectedContinent]];
+      const menuId = selectedContinent; // Use the ID here
 
-      // Enregistrer les données de menu dans la table 'menu'
       const menuData = {
-        id: selectedContinent, // Inclure l'ID du menu pour la mise à jour
+        id: menuId,
         country: continentData.country,
       };
 
       const menuResponse = await fetch(`${ApiUrl}/menu`, {
-        // Ajout de l'ID dans l'URL
-        method: "PATCH", // Utiliser PUT pour la mise à jour
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -115,11 +121,11 @@ function Admin() {
       });
 
       localStorage.setItem(
-        `selectedCountry_${selectedContinent.toLowerCase()}`,
+        `selectedCountry_${continentMap[selectedContinent]}`,
         continentData.country
       );
 
-      navigate(`/menuPage/${selectedContinent.toLowerCase()}`);
+      navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Erreur lors de la soumission du formulaire.");
@@ -154,7 +160,7 @@ function Admin() {
               id="country"
               name="country"
               placeholder="Nom du Pays"
-              value={newsForm[selectedContinent]?.country || ""}
+              value={newsForm[continentMap[selectedContinent]]?.country || ""}
               onChange={handleUpdateChange}
               onInput={adjustTextareaHeight}
             />
@@ -162,7 +168,7 @@ function Admin() {
           <input
             type="hidden"
             name="id"
-            value={newsForm[selectedContinent]?.id || ""}
+            value={newsForm[continentMap[selectedContinent]]?.id || ""}
           />
         </div>
 
@@ -175,7 +181,9 @@ function Admin() {
                 id="starterName"
                 name="starterName"
                 placeholder="Nom de l'entrée"
-                value={newsForm[selectedContinent]?.starterName || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterName || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -186,7 +194,10 @@ function Admin() {
                 id="starterIngredients"
                 name="starterIngredients"
                 placeholder="Ingrédients"
-                value={newsForm[selectedContinent]?.starterIngredients || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.starterIngredients || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -197,7 +208,9 @@ function Admin() {
                 id="starterSteps"
                 name="starterSteps"
                 placeholder="Étapes"
-                value={newsForm[selectedContinent]?.starterSteps || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterSteps || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -214,7 +227,9 @@ function Admin() {
                 id="dishName"
                 name="dishName"
                 placeholder="Nom du Plat"
-                value={newsForm[selectedContinent]?.dishName || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishName || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -225,7 +240,10 @@ function Admin() {
                 id="dishIngredients"
                 name="dishIngredients"
                 placeholder="Ingrédients"
-                value={newsForm[selectedContinent]?.dishIngredients || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishIngredients ||
+                  ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -236,7 +254,9 @@ function Admin() {
                 id="dishSteps"
                 name="dishSteps"
                 placeholder="Étapes"
-                value={newsForm[selectedContinent]?.dishSteps || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishSteps || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -253,7 +273,9 @@ function Admin() {
                 id="dessertName"
                 name="dessertName"
                 placeholder="Nom du Dessert"
-                value={newsForm[selectedContinent]?.dessertName || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertName || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -264,7 +286,10 @@ function Admin() {
                 id="dessertIngredients"
                 name="dessertIngredients"
                 placeholder="Ingrédients"
-                value={newsForm[selectedContinent]?.dessertIngredients || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.dessertIngredients || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
@@ -275,7 +300,9 @@ function Admin() {
                 id="dessertSteps"
                 name="dessertSteps"
                 placeholder="Étapes"
-                value={newsForm[selectedContinent]?.dessertSteps || ""}
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertSteps || ""
+                }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />

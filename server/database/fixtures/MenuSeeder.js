@@ -8,29 +8,34 @@ class MenuSeeder extends AbstractSeeder {
   run() {
     const menus = [
       {
+        id: "1",
         continent: "Europe",
         country: "Italien",
-        refName: "europeItalien"
+        refName: "europeItalien",
       },
       {
+        id: "2",
         continent: "Afrique",
         country: "Sénégalais",
-        refName: "afriqueSenegal"
+        refName: "afriqueSenegal",
       },
       {
+        id: "3",
         continent: "Amerique",
         country: "Texan",
-        refName: "texasAmerique"
+        refName: "texasAmerique",
       },
       {
+        id: "4",
         continent: "Asie",
         country: "Japonais",
-        refName: "asieJapon"
+        refName: "asieJapon",
       },
       {
+        id: "5",
         continent: "Oceanie",
         country: "Tahitien",
-        refName: "oceanieTahitien"
+        refName: "oceanieTahitien",
       },
     ];
 
