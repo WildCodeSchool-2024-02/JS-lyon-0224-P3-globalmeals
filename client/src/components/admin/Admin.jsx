@@ -2,21 +2,24 @@ import "./Admin.css";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Admin() {
-  const createInitialFormState = () => ({
-    id: "",
-    country: "",
-    starterName: "",
-    starterIngredients: "",
-    starterSteps: "",
-    dishName: "",
-    dishIngredients: "",
-    dishSteps: "",
-    dessertName: "",
-    dessertIngredients: "",
-    dessertSteps: "",
-  });
+const createInitialFormState = () => ({
+  id: "",
+  country: "",
+  starterId: "",
+  starterName: "",
+  starterIngredients: "",
+  starterSteps: "",
+  dishId: "",
+  dishName: "",
+  dishIngredients: "",
+  dishSteps: "",
+  dessertId: "",
+  dessertName: "",
+  dessertIngredients: "",
+  dessertSteps: "",
+});
 
+function Admin() {
   const [selectedContinent, setSelectedContinent] = useState("");
   const [newsForm, setNewsForm] = useState({
     europe: createInitialFormState(),
@@ -85,19 +88,22 @@ function Admin() {
 
       const recipeTypes = ["starter", "dish", "dessert"];
       const recipePromises = recipeTypes.map((type) => {
+        const idField = `${type}Id`; // Ajoutez le champ ID ici
         const nameField = `${type}Name`;
         const ingredientsField = `${type}Ingredients`;
         const stepsField = `${type}Steps`;
 
         const recipeData = {
+          id: continentData[idField], // Incluez l'ID ici
           name: continentData[nameField],
           ingredient: continentData[ingredientsField],
           step: continentData[stepsField],
           menu_id: menuId,
+          type,
         };
 
         return fetch(`${ApiUrl}/recipe`, {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -175,6 +181,11 @@ function Admin() {
         <div>
           <h2>Entrée</h2>
           <div className="new-starter">
+            <input
+              type="hidden"
+              name="starterId"
+              value={newsForm[continentMap[selectedContinent]]?.starterId || ""}
+            />
             <label htmlFor="starterName">
               Nom de l'entrée:
               <textarea
