@@ -31,17 +31,28 @@ const add = async (req, res, next) => {
   }
 };
 
-// const getMenusWithRecipes = async (req, res) => {
-//   try {
-//     const menusWithRecipes = await tables.menu.readAllWithRecipes();
-//     res.json(menusWithRecipes);
-//   } catch (err) {
-//     res.status(500).json({ error: "Failed to fetch menus with recipes" });
-//   }
-// };
+// The E of BREAD - Edit (Update) operation
+const edit = async (req, res, next) => {
+  // Extract the item data from the request body
+  const menu = req.body;
+
+  try {
+    // Update the item into the database
+    const updatedMenu = await tables.menu.update(menu);
+
+    // Respond with HTTP 201 (OK) and the response data
+    res.status(200).json({ updatedMenu });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+
 
 // Ready to export the controller functions
 module.exports = {
   browse,
   add,
+  edit
 };

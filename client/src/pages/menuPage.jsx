@@ -9,7 +9,7 @@ const ApiUrl = import.meta.env.VITE_API_URL;
 
 const changeColors = (continent) => {
   const root = document.documentElement;
-  switch (continent.toLowerCase()) {
+  switch (continent) {
     case "europe":
       root.style.setProperty("--color-continent", "#0081c8");
       break;
@@ -36,10 +36,7 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
 
-  // Récupérer le pays sélectionné avec une clé spécifique au continent
-  const selectedCountry = localStorage.getItem(
-    `selectedCountry_${continent.toLowerCase()}`
-  );
+  const selectedCountry = localStorage.getItem(`selectedCountry_${continent}`);
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -47,7 +44,7 @@ function Menu() {
         const response = await fetch(
           `${ApiUrl}/recipe/recipesByContinent?continent=${continent}`
         );
-        if (!response.ok === true) {
+        if (!response.ok) {
           throw new Error("The network response was not OK");
         }
         const data = await response.json();
@@ -89,26 +86,32 @@ function Menu() {
               ? selectedCountry.charAt(0).toUpperCase() +
                 selectedCountry.slice(1).toLowerCase()
               : "non défini"}
-          </h2>{" "}
+          </h2>
           <div className="menu-container">
             <div className={`sidebar ${activeMenu ? "active" : ""}`}>
               <button
                 type="button"
-                className={`tab-button ${activeTab === "Description" ? "active" : ""}`}
+                className={`tab-button ${
+                  activeTab === "Description" ? "active" : ""
+                }`}
                 onClick={() => setActiveTab("Description")}
               >
                 <img src={imageTab1} alt="Description" className="tab-icon" />
               </button>
               <button
                 type="button"
-                className={`tab-button ${activeTab === "Ingrédients" ? "active" : ""}`}
+                className={`tab-button ${
+                  activeTab === "Ingrédients" ? "active" : ""
+                }`}
                 onClick={() => setActiveTab("Ingrédients")}
               >
                 <img src={imageTab2} alt="Ingrédients" className="tab-icon" />
               </button>
               <button
                 type="button"
-                className={`tab-button ${activeTab === "Préparation" ? "active" : ""}`}
+                className={`tab-button ${
+                  activeTab === "Préparation" ? "active" : ""
+                }`}
                 onClick={() => setActiveTab("Préparation")}
               >
                 <img src={imageTab3} alt="Préparation" className="tab-icon" />
@@ -123,7 +126,9 @@ function Menu() {
                   menuItem !== undefined && (
                     <div
                       key={type}
-                      className={`menu-subsection ${activeMenu?.name === menuItem.name ? "selected" : ""}`}
+                      className={`menu-subsection ${
+                        activeMenu?.name === menuItem.name ? "selected" : ""
+                      }`}
                       onClick={() => handleMenuClick(menuItem)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
