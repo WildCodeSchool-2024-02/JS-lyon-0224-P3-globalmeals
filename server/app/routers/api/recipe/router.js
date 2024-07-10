@@ -8,13 +8,17 @@ const router = express.Router();
 
 // Import recipe-related actions
 
-const { browse, add, recipesByContinent } = require(`../../../controllers/recipeAction`);
+const { browse, add, recipesByContinent, edit } = require(
+  `../../../controllers/recipeAction`
+);
 // Route to get a list of recipes
 router.get("/", browse);
 
 router.get("/recipesByContinent", recipesByContinent);
 
 router.post("/", add);
+
+router.patch("/", edit);
 
 /* ************************************************************************* */
 

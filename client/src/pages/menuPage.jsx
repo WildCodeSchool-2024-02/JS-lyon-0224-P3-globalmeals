@@ -58,7 +58,7 @@ function Menu() {
         setActiveTab("Description");
 
         const starter = filterData.find(
-          (item) => item.type.toLowerCase() === "entrée"
+          (item) => item.type.toLowerCase() === "starter"
         );
         setActiveMenu(starter);
       } catch (err) {
@@ -118,7 +118,7 @@ function Menu() {
               </button>
             </div>
             <div className="menu-section">
-              {["entrée", "plat", "dessert", "cocktail"].map((type) => {
+              {["starter", "dish", "dessert", "cocktail"].map((type) => {
                 const menuItem = menuData.find(
                   (item) => item.type.toLowerCase() === type
                 );

@@ -12,13 +12,35 @@ class RecipeRepository extends AbstractRepository {
   async create(recipe) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (name, ingredient, step, type, image, menu_id) VALUES (?, ?, ?, ?, ?, ?)`,
-      [recipe.name, recipe.ingredient, recipe.step, recipe.type, recipe.image, recipe.menu_id]
+      [
+        recipe.name,
+        recipe.ingredient,
+        recipe.step,
+        recipe.type,
+        recipe.image,
+        recipe.menu_id,
+      ]
     );
-
-
 
     // Return the ID of the newly inserted Recipe
     return result.insertId;
+  }
+
+  async update(recipe) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET name = ?, ingredient = ?, step = ?, type = ?, menu_id = ? WHERE type = ? AND menu_id = ?`,
+      [
+        recipe.name,
+        recipe.ingredient,
+        recipe.step,
+        recipe.type,
+        recipe.menu_id,
+        recipe.type,
+        recipe.menu_id,
+      ]
+    );
+
+    return result;
   }
 
   // The Rs of CRUD - Read operations
@@ -33,13 +55,14 @@ class RecipeRepository extends AbstractRepository {
 
   async readByContinent(continent) {
     // Execute the SQL SELECT query to retrieve all rows from the "rows" table
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table} INNER JOIN menu ON recipe.menu_id = menu.id WHERE continent = ?`,[continent]);
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} INNER JOIN menu ON recipe.menu_id = menu.id WHERE continent = ?`,
+      [continent]
+    );
 
     // Return the array of rows
     return rows;
   }
-
-
 }
 
 module.exports = RecipeRepository;

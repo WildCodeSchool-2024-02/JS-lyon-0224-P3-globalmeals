@@ -28,19 +28,13 @@ const recipesByContinent = async (req, res, next) => {
   }
 };
 
-// The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
-  // Extract the item data from the request body
   const recipe = req.body;
 
   try {
-    // Update the item into the database
     const updatedRecipe = await tables.recipe.update(recipe);
-
-    // Respond with HTTP 201 (OK) and the response data
     res.status(200).json({ updatedRecipe });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
