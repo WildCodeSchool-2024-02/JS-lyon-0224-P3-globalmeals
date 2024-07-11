@@ -9,14 +9,22 @@ const createInitialFormState = () => ({
   starterName: "",
   starterIngredients: "",
   starterSteps: "",
+  starterStepTime: "",
   dishId: "",
   dishName: "",
   dishIngredients: "",
   dishSteps: "",
+  dishStepTime: "",
   dessertId: "",
   dessertName: "",
   dessertIngredients: "",
   dessertSteps: "",
+  dessertStepTime: "",
+  cocktailId: "",
+  cocktailName: "",
+  cocktailIngredients: "",
+  cocktailSteps: "",
+  cocktailStepTime: "",
 });
 
 function Admin() {
@@ -86,18 +94,20 @@ function Admin() {
         throw new Error("Erreur lors de la mise à jour du menu.");
       }
 
-      const recipeTypes = ["starter", "dish", "dessert"];
+      const recipeTypes = ["starter", "dish", "dessert", "cocktail"];
       const recipePromises = recipeTypes.map((type) => {
-        const idField = `${type}Id`; // Ajoutez le champ ID ici
+        const idField = `${type}Id`;
         const nameField = `${type}Name`;
         const ingredientsField = `${type}Ingredients`;
         const stepsField = `${type}Steps`;
+        const stepTimeField = `${type}StepTime`;
 
         const recipeData = {
-          id: continentData[idField], // Incluez l'ID ici
+          id: continentData[idField],
           name: continentData[nameField],
           ingredient: continentData[ingredientsField],
           step: continentData[stepsField],
+          step_time: continentData[stepTimeField],
           menu_id: menuId,
           type,
         };
@@ -180,7 +190,7 @@ function Admin() {
 
         <div>
           <h2>Entrée</h2>
-          <div className="new-starter">
+          <div>
             <input
               type="hidden"
               name="starterId"
@@ -226,12 +236,26 @@ function Admin() {
                 onInput={adjustTextareaHeight}
               />
             </label>
+            <label htmlFor="starterStepTime">
+              Temps des étapes:
+              <textarea
+                id="starterStepTime"
+                name="starterStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
           </div>
         </div>
 
         <div>
           <h2>Plat</h2>
-          <div className="new-dish">
+          <div>
             <label htmlFor="dishName">
               Nom du plat:
               <textarea
@@ -272,12 +296,25 @@ function Admin() {
                 onInput={adjustTextareaHeight}
               />
             </label>
+            <label htmlFor="dishStepTime">
+              Temps des étapes:
+              <textarea
+                id="dishStepTime"
+                name="dishStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishStepTime || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
           </div>
         </div>
 
         <div>
           <h2>Dessert</h2>
-          <div className="new-dessert">
+          <div>
             <label htmlFor="dessertName">
               Nom du dessert:
               <textarea
@@ -313,6 +350,80 @@ function Admin() {
                 placeholder="Étapes"
                 value={
                   newsForm[continentMap[selectedContinent]]?.dessertSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dessertStepTime">
+              Temps des étapes:
+              <textarea
+                id="dessertStepTime"
+                name="dessertStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <h2>Cocktail</h2>
+          <div>
+            <label htmlFor="cocktailName">
+              Nom du dessert:
+              <textarea
+                id="cocktailName"
+                name="cocktailName"
+                placeholder="Nom du Cocktail"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailName || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailIngredients">
+              Ingrédients:
+              <textarea
+                id="cocktailIngredients"
+                name="cocktailIngredients"
+                placeholder="Ingrédients"
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.cocktailIngredients || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailSteps">
+              Étapes:
+              <textarea
+                id="cocktailSteps"
+                name="cocktailSteps"
+                placeholder="Étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailStepTime">
+              Temps des étapes:
+              <textarea
+                id="cocktailStepTime"
+                name="cocktailStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailStepTime ||
+                  ""
                 }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
