@@ -48,11 +48,9 @@ const edit = async (req, res, next) => {
   }
 };
 
-
-
 // Ready to export the controller functions
 module.exports = {
   browse,
   add,
-  edit
+  edit,
 };

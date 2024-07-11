@@ -1,3 +1,4 @@
+// src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,11 +9,11 @@ import Inscription from "./components/inscription/inscription";
 import Continents from "./components/accueil/Accueil";
 import Favoris from "./components/favoris/fav";
 import Admin from "./components/admin/Admin";
+import { SelectionProvider } from "./contexts/SelectionContext";
 
 const router = createBrowserRouter([
   {
     element: <App />,
-
     children: [
       {
         path: "/",
@@ -46,6 +47,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SelectionProvider>
+      <RouterProvider router={router} />
+    </SelectionProvider>
   </React.StrictMode>
 );

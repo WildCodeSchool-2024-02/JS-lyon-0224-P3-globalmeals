@@ -1,9 +1,11 @@
+// src/pages/menuPage.jsx
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./menus.css";
 import imageTab1 from "../assets/images/description.png";
 import imageTab2 from "../assets/images/ingredients.png";
 import imageTab3 from "../assets/images/etapes.png";
+import { useSelection } from "../contexts/SelectionContext";
 
 const ApiUrl = import.meta.env.VITE_API_URL;
 
@@ -32,11 +34,10 @@ const changeColors = (continent) => {
 
 function Menu() {
   const { continent } = useParams();
+  const { selectedCountry, setSelectedCountry } = useSelection();
   const [menuData, setMenuData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
-
-  const selectedCountry = localStorage.getItem(`selectedCountry_${continent}`);
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -61,12 +62,22 @@ function Menu() {
           (item) => item.type.toLowerCase() === "starter"
         );
         setActiveMenu(starter);
+
+        // Fetch country name
+        const menuResponse = await fetch(`${ApiUrl}/menu/${continent}`);
+        if (!menuResponse.ok) {
+          throw new Error(
+            "Erreur lors de la récupération des données du menu."
+          );
+        }
+        const menusData = await menuResponse.json();
+        setSelectedCountry(menusData.country);
       } catch (err) {
         console.error("Menu data recovery failed :", err);
       }
     };
     fetchMenuData();
-  }, [continent]);
+  }, [continent, setSelectedCountry]);
 
   const handleMenuClick = (menuItem) => {
     setActiveMenu(menuItem);
