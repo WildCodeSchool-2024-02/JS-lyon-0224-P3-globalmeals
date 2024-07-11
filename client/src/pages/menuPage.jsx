@@ -1,4 +1,3 @@
-// src/pages/menuPage.jsx
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./menus.css";

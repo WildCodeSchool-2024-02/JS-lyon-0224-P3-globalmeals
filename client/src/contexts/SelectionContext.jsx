@@ -1,4 +1,3 @@
-// src/contexts/SelectionContext.jsx
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
