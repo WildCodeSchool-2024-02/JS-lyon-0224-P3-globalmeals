@@ -9,7 +9,7 @@ create table recipe (
   name varchar(100) not null,
   ingredient TEXT not null,
   step TEXT not null,
-  -- step_time varchar(100) not null,
+  step_time varchar(100) not null,
   type varchar(15) not null,
   image varchar(255),
   menu_id INT UNSIGNED NOT NULL,

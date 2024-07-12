@@ -13,7 +13,7 @@ class UserRepository extends AbstractRepository {
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (username, mail, password) VALUES (?, ?, ?)`,
-      [user.username, user.mail, user.password]
+      [user.username, user.mail, user.hashedPassword]
     );
 
     // Return the ID of the newly inserted Recipe
