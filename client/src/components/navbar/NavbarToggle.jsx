@@ -48,7 +48,7 @@ export default function NavbarToggle() {
             Menus
           </div>
           <ul
-            className={`dropdown-menu ${dropdownOpen === true ? "show" : ""}`}
+            className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
             aria-labelledby="navbar-dropdown"
           >
             <li>
@@ -62,8 +62,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="nav-dropdown"
-                to="/menuPage/afrique"
+                className={`nav-dropdown ${!user ? "disabled" : ""}`}
+                to={user ? "/menuPage/afrique" : "#"}
                 onClick={closeDropdown}
               >
                 Afrique
@@ -71,8 +71,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="nav-dropdown"
-                to="/menuPage/amerique"
+                className={`nav-dropdown ${!user ? "disabled" : ""}`}
+                to={user ? "/menuPage/amerique" : "#"}
                 onClick={closeDropdown}
               >
                 Amérique
@@ -80,8 +80,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="nav-dropdown"
-                to="/menuPage/asie"
+                className={`nav-dropdown ${!user ? "disabled" : ""}`}
+                to={user ? "/menuPage/asie" : "#"}
                 onClick={closeDropdown}
               >
                 Asie
@@ -89,8 +89,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className="nav-dropdown"
-                to="/menuPage/oceanie"
+                className={`nav-dropdown ${!user ? "disabled" : ""}`}
+                to={user ? "/menuPage/oceanie" : "#"}
                 onClick={closeDropdown}
               >
                 Océanie

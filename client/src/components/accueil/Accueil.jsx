@@ -6,14 +6,19 @@ import ameriqueImage from "../../assets/images/burger.jpeg";
 import asieImage from "../../assets/images/assiette-de-sushi.jpeg";
 import oceanieImage from "../../assets/images/KANGAROO_STEAK.jpeg";
 import welcomeImage from "../../assets/images/friends-happiness.png";
+import { useUserContext } from "../../contexts/UserContext";
 
 function Continents() {
+  const { user } = useUserContext();
+
   return (
     <main className="continents">
       <div className="welcome-container">
         <img className="welcome" src={welcomeImage} alt="welcome" />
         <h2 className="welcome-text">
-          Connectez-vous pour découvrir l'ensemble de nos menus !
+          {user
+            ? "Bienvenue et bonne dégustation !"
+            : "Connectez-vous pour découvrir l'ensemble de nos menus !"}
         </h2>
       </div>
       <h2 className="new-menus">
@@ -27,30 +32,30 @@ function Continents() {
               <Link to="/menuPage/europe">Europe</Link>
             </h2>
           </div>
-          <div className="image-container">
+          <div className={`image-container ${!user ? "disabled" : ""}`}>
             <img className="afrique" src={afriqueImage} alt="bonava" />
             <h2>
-              <Link to="/menuPage/afrique">Afrique</Link>
+              <Link to={user ? "/menuPage/afrique" : "#"}>Afrique</Link>
             </h2>
           </div>
-          <div className="image-container">
+          <div className={`image-container ${!user ? "disabled" : ""}`}>
             <img className="amerique" src={ameriqueImage} alt="burger" />
             <h2>
-              <Link to="/menuPage/amerique">Amerique</Link>
+              <Link to={user ? "/menuPage/amerique" : "#"}>Amérique</Link>
             </h2>
           </div>
         </div>
         <div className="continents2">
-          <div className="image-container">
+          <div className={`image-container ${!user ? "disabled" : ""}`}>
             <img className="asie" src={asieImage} alt="sushi" />
             <h2>
-              <Link to="/menuPage/asie">Asie</Link>
+              <Link to={user ? "/menuPage/asie" : "#"}>Asie</Link>
             </h2>
           </div>
-          <div className="image-container">
+          <div className={`image-container ${!user ? "disabled" : ""}`}>
             <img className="oceanie" src={oceanieImage} alt="kangaroo" />
             <h2>
-              <Link to="/menuPage/oceanie">Oceanie</Link>
+              <Link to={user ? "/menuPage/oceanie" : "#"}>Océanie</Link>
             </h2>
           </div>
         </div>

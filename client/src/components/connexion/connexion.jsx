@@ -36,7 +36,7 @@ function Login() {
         credentials: "include", // envoyer / recevoir le cookie à chaque requête
         body: JSON.stringify(loginInfos),
       });
-    
+
       if (response.status === 200) {
         const responseData = await response.json();
         console.info("API response:", responseData);

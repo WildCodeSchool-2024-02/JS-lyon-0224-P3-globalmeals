@@ -32,7 +32,9 @@ function Register() {
 
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        notifySuccess("Votre profil a bien été créé. Vous pouvez vous connecter");
+        notifySuccess(
+          "Votre profil a bien été créé. Vous pouvez vous connecter"
+        );
         setTimeout(() => {
           navigate("/connexion");
         }, 2000); // Attendre 2 secondes avant de rediriger
