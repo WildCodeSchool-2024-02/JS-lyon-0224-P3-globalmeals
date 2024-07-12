@@ -11,7 +11,7 @@ const { connexion } = require("../../../controllers/authActions");
 const { add, read } = require("../../../controllers/userActions");
 const {
   hashPassword,
-  verifyToken,
+  verifyCookie,
 } = require("../../../services/middlewares/auth");
 
 // Route to add a new item
@@ -21,7 +21,7 @@ router.post("/connexion", connexion);
 router.post("/register", hashPassword, add);
 
 // Route to get user profile
-router.get("/:id", verifyToken, read);
+router.get("/:id", verifyCookie, read);
 
 /* ************************************************************************* */
 
