@@ -35,42 +35,67 @@ function Menu() {
   const [menuData, setMenuData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
+  const [selectedCountry, setSelectedCcountry] = useState([]);
 
-  const selectedCountry = localStorage.getItem(`${continent}`);
+  // function to get recipe
+  const fetchMenuData = async () => {
+    try {
+      const response = await fetch(
+        `${ApiUrl}/recipe/recipesByContinent?continent=${continent}`
+      );
+      if (!response.ok) {
+        throw new Error("The network response was not OK");
+      }
+      const data = await response.json();
+
+      const filterData = data.filter(
+        (item) => item.continent.toLowerCase() === continent.toLowerCase()
+      );
+
+      setMenuData(filterData);
+      changeColors(continent);
+      setActiveTab("Description");
+
+      const starter = filterData.find(
+        (item) => item.type.toLowerCase() === "starter"
+      );
+      setActiveMenu(starter);
+    } catch (err) {
+      console.error("Menu data recovery failed :", err);
+    }
+  };
+
+  // function to get country
+  const fetchMenu = async () => {
+    try {
+      const response = await fetch(
+        `${ApiUrl}/menu/read?continent=${continent}`
+      );
+      if (!response.ok) {
+        throw new Error("The network response was not OK");
+      }
+      const data = await response.json();
+
+      const filterData = data.filter(
+        (item) => item.continent.toLowerCase() === continent.toLowerCase()
+      );
+
+      setSelectedCcountry(filterData);
+    } catch (err) {
+      console.error("Menu data recovery failed :", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchMenuData = async () => {
-      try {
-        const response = await fetch(
-          `${ApiUrl}/recipe/recipesByContinent?continent=${continent}`
-        );
-        if (!response.ok) {
-          throw new Error("The network response was not OK");
-        }
-        const data = await response.json();
-
-        const filterData = data.filter(
-          (item) => item.continent.toLowerCase() === continent.toLowerCase()
-        );
-
-        setMenuData(filterData);
-        changeColors(continent);
-        setActiveTab("Description");
-
-        const starter = filterData.find(
-          (item) => item.type.toLowerCase() === "starter"
-        );
-        setActiveMenu(starter);
-      } catch (err) {
-        console.error("Menu data recovery failed :", err);
-      }
-    };
     fetchMenuData();
+    fetchMenu();
   }, [continent]);
 
   const handleMenuClick = (menuItem) => {
     setActiveMenu(menuItem);
   };
+
+  const country = selectedCountry[0]?.country;
 
   return (
     <div className="content">
@@ -82,9 +107,8 @@ function Menu() {
           </h1>
           <h2>
             Menu{" "}
-            {selectedCountry
-              ? selectedCountry.charAt(0).toUpperCase() +
-                selectedCountry.slice(1).toLowerCase()
+            {country
+              ? country.charAt(0).toUpperCase() + country.slice(1).toLowerCase()
               : "non défini"}
           </h2>
           <div className="menu-container">

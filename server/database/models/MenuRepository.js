@@ -19,7 +19,7 @@ class MenuRepository extends AbstractRepository {
 
   // La mise à jour (Update) - opération CRUD
   async update(menu) {
-    const id = parseInt(menu.id, 10)
+    const id = parseInt(menu.id, 10);
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET country = ? WHERE id = ?`,
       [menu.country, id]
@@ -32,6 +32,17 @@ class MenuRepository extends AbstractRepository {
   async readAll() {
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
+    return rows;
+  }
+
+  async readByContinent(continent) {
+    // Execute the SQL SELECT query to retrieve all rows from the "rows" table
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE continent = ?`,
+      [continent]
+    );
+
+    // Return the array of rows
     return rows;
   }
 }

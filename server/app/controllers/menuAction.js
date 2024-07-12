@@ -48,11 +48,24 @@ const edit = async (req, res, next) => {
   }
 };
 
+const read = async (req, res, next) => {
+  try {
+    const item = await tables.menu.readByContinent(req.query.continent);
 
+    if (item == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(item);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
   browse,
   add,
-  edit
+  edit,
+  read,
 };
