@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavbarToggle.css";
+import { useUserContext } from "../../contexts/UserContext"; // Importer le contexte utilisateur
 
 export default function NavbarToggle() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, setUser } = useUserContext(); // Utiliser le contexte utilisateur
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -11,6 +14,18 @@ export default function NavbarToggle() {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    // Déconnecter l'utilisateur
+    setUser(null);
+    navigate("/connexion"); // Rediriger vers la page d'accueil après la déconnexion
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      toggleDropdown();
+    }
   };
 
   return (
@@ -27,9 +42,7 @@ export default function NavbarToggle() {
             id="navbar-dropdown"
             role="button"
             onClick={toggleDropdown}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") toggleDropdown();
-            }}
+            onKeyDown={handleKeyDown}
             tabIndex={0}
           >
             Menus
@@ -95,13 +108,27 @@ export default function NavbarToggle() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link
-            to="/connexion"
-            className="nav-link active"
-            onClick={closeDropdown}
-          >
-            Connexion
-          </Link>
+          {user ? (
+            <span
+              className="nav-link active"
+              onClick={handleLogout}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") handleLogout();
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              Déconnexion
+            </span>
+          ) : (
+            <Link
+              to="/connexion"
+              className="nav-link active"
+              onClick={closeDropdown}
+            >
+              Connexion
+            </Link>
+          )}
         </li>
       </ul>
     </nav>
