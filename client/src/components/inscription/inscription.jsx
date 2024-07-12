@@ -1,14 +1,20 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import "./inscription.css";
 
 function Register() {
   const ApiUrl = import.meta.env.VITE_API_URL;
+  const notifySuccess = (text) => toast.success(text);
+  const notifyFail = (text) => toast.error(text);
   const [registerForm, setRegisterForm] = useState({
     username: "",
     mail: "",
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleRegisterForm = (e) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
@@ -26,23 +32,21 @@ function Register() {
 
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        // console.log("coucou");
-        // notifySuccess(
-        //   "Votre profil à bien été créé. Vous pouvez vous connecter"
-        // );
-      }
-      if (response.status === 500) {
-        // console.log("faileddddd");
+        notifySuccess("Votre profil a bien été créé. Vous pouvez vous connecter");
+        setTimeout(() => {
+          navigate("/connexion");
+        }, 2000); // Attendre 2 secondes avant de rediriger
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);
-        // notifyFail("Une erreur s'est produite");
+        notifyFail("Une erreur s'est produite");
       }
     } catch (err) {
       // Log des erreurs possibles
       console.error(err);
     }
   };
+
   return (
     <form onSubmit={handleSubmitForm} className="form-container">
       <div className="form-group1">
@@ -86,15 +90,9 @@ function Register() {
           onChange={handleRegisterForm}
         />
       </div>
-      <div className="validate2">
-        <button
-          type="submit"
-          className="nes-btn is-blue"
-          onClick={handleSubmitForm}
-        >
-          S'enregistrer
-        </button>
-      </div>
+      <button type="submit" className="validate2">
+        S'enregistrer
+      </button>
     </form>
   );
 }
