@@ -1,164 +1,102 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
 import "./inscription.css";
 
-function Connexion() {
-  const [pseudo, setPseudo] = useState("");
-  const [mail, setMail] = useState("");
-  const [confirmMail, setConfirmMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+function Register() {
+  const ApiUrl = import.meta.env.VITE_API_URL;
+  const [registerForm, setRegisterForm] = useState({
+    username: "",
+    mail: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
+  const handleRegisterForm = (e) => {
+    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
   };
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const togglePasswordVisibility2 = () => {
-    setShowPassword2(!showPassword2);
-  };
+    try {
+      // Appel à l'API pour créer un nouvel utilisateur
+      const response = await fetch(`${ApiUrl}/auth/register`, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(registerForm),
+      });
 
+      // Redirection vers la page de connexion si la création réussit
+      if (response.status === 201) {
+        // console.log("coucou");
+        // notifySuccess(
+        //   "Votre profil à bien été créé. Vous pouvez vous connecter"
+        // );
+      }
+      if (response.status === 500) {
+        // console.log("faileddddd");
+      } else {
+        // Log des détails de la réponse en cas d'échec
+        console.info(response);
+        // notifyFail("Une erreur s'est produite");
+      }
+    } catch (err) {
+      // Log des erreurs possibles
+      console.error(err);
+    }
+  };
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group0">
-          <label className="pseudo" htmlFor="pseudo">
-            Pseudo
-          </label>
-          <input
-            id="pseudo2"
-            type="text"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
-            placeholder="Entrez votre pseudo"
-          />
+    <form onSubmit={handleSubmitForm} className="form-container">
+      <div className="form-group1">
+        <label htmlFor="username">Pseudo</label>
+        <input
+          type="text"
+          name="username"
+          className="nes-input"
+          value={registerForm.username}
+          onChange={handleRegisterForm}
+        />
+      </div>
+      <div className="form-group2">
+        <label htmlFor="mail">Adresse mail</label>
+        <input
+          type="mail"
+          name="mail"
+          className="nes-input"
+          value={registerForm.mail}
+          onChange={handleRegisterForm}
+        />
+      </div>
 
-          {pseudo.length <= 4 && (
-            <p className="error1">Le pseudo est requis*</p>
-          )}
-        </div>
-
-        <div className="form-group1">
-          <label className="mail" htmlFor="mail">
-            Mail
-          </label>
-          <input
-            id="mail2"
-            type="email"
-            value={mail}
-            onChange={(e) => setMail(e.target.value)}
-            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-            required
-            placeholder="Entrez votre mail"
-          />
-
-          {mail.length <= 4 && <p className="error1">Le mail est requis*</p>}
-        </div>
-
-        <div className="form-group2">
-          <label className="confirm-mail" htmlFor="confirm-mail">
-            Confirmez votre mail
-          </label>
-          <input
-            id="confirm-mail2"
-            type="email"
-            value={confirmMail}
-            onChange={(e) => setConfirmMail(e.target.value)}
-            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-            required
-            placeholder="Confirmez votre mail"
-          />
-
-          {confirmMail.length <= 4 && (
-            <p className="error1">Le mail est requis*</p>
-          )}
-        </div>
-
-        <div className="form-group3">
-          <label className="mot-de-passe" htmlFor="mot-de-passo">
-            {" "}
-            Mot de passe
-          </label>
-          <div className="password-input">
-            <input
-              id="mot2"
-              type={showPassword === true ? "text" : "password"}
-              placeholder="Entrez votre mot de passe"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword === true ? "🙈" : "👁️"}
-            </button>
-          </div>
-          {password.length < 6 && (
-            <p className="error2">
-              Le mot de passe doit contenir au moins 7 caractères*
-            </p>
-          )}
-        </div>
-
-        <div className="form-group4">
-          <label className="confirm-mot-de-pas" htmlFor="confirm-mot-de-passa">
-            {" "}
-            Confirmez votre mot de passe
-          </label>
-          <div className="password-input2">
-            <input
-              id="confirm-mot2"
-              type={showPassword2 === true ? "text" : "password"}
-              placeholder="Confrimez votre mot de passe"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility2}
-            >
-              {showPassword2 === true ? "🙈" : "👁️"}
-            </button>
-          </div>
-          {confirmPassword.length < 6 && (
-            <p className="error2">
-              Le mot de passe doit contenir au moins 7 caractères*
-            </p>
-          )}
-        </div>
-
-        <Link className="back-home2" to="/connexion">
-          <button
-            className="validate2"
-            type="submit"
-            disabled={
-              mail.length <= 4 ||
-              password.length <= 6 ||
-              confirmMail.length <= 4 ||
-              confirmPassword.length <= 6
-            }
-          >
-            Suivant
-          </button>
-        </Link>
-        {isSubmitted === true && <p>Inscription soumise avec succès !</p>}
-      </form>
-    </div>
+      <div className="form-group3">
+        <label htmlFor="password">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          className="nes-input"
+          value={registerForm.password}
+          onChange={handleRegisterForm}
+        />
+      </div>
+      <div className="form-group4">
+        <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          className="nes-input"
+          value={registerForm.confirmPassword}
+          onChange={handleRegisterForm}
+        />
+      </div>
+      <div className="validate2">
+        <button
+          type="submit"
+          className="nes-btn is-blue"
+          onClick={handleSubmitForm}
+        >
+          S'enregistrer
+        </button>
+      </div>
+    </form>
   );
 }
 
-export default Connexion;
+export default Register;
