@@ -126,11 +126,6 @@ function Admin() {
         oceanie: createInitialFormState(),
       });
 
-      localStorage.setItem(
-        `selectedCountry_${continentMap[selectedContinent]}`,
-        continentData.country
-      );
-
       navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
       console.error("Error submitting form:", error);

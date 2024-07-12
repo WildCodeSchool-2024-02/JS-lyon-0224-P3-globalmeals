@@ -16,14 +16,6 @@ create table recipe (
   FOREIGN KEY (menu_id) REFERENCES menu(id)
   );
 
--- CREATE TABLE menu_recipe (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   menu_id INT UNSIGNED NOT NULL,
---   recipe_id INT UNSIGNED NOT NULL,
---   FOREIGN KEY (menu_id) REFERENCES menu(id),
---   FOREIGN KEY (recipe_id) REFERENCES recipe(id)
--- );
-
 CREATE TABLE user (
     id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
     username VARCHAR(30) UNIQUE NOT NULL,
