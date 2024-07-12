@@ -81,11 +81,6 @@ function Menu() {
       );
 
       setSelectedCcountry(filterData);
-
-      const starter = filterData.find(
-        (item) => item.type.toLowerCase() === "starter"
-      );
-      setActiveMenu(starter);
     } catch (err) {
       console.error("Menu data recovery failed :", err);
     }

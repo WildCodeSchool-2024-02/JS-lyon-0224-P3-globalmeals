@@ -1,6 +1,7 @@
 import "./Admin.css";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const createInitialFormState = () => ({
   id: "",
@@ -36,6 +37,8 @@ function Admin() {
     asie: createInitialFormState(),
     oceanie: createInitialFormState(),
   });
+  const notifySuccess = (text) => toast.success(text);
+  const notifyFail = (text) => toast.error(text);
 
   const formRef = useRef(null);
   const navigate = useNavigate();
@@ -123,7 +126,7 @@ function Admin() {
 
       await Promise.all(recipePromises);
 
-      alert("Le formulaire a été validé avec succès !");
+      notifySuccess("Le formulaire a été validé avec succès !");
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -139,7 +142,7 @@ function Admin() {
       navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Erreur lors de la soumission du formulaire.");
+      notifyFail("Erreur lors de la soumission du formulaire.");
     }
   };
 
