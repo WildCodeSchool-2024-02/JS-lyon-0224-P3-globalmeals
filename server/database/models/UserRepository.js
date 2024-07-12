@@ -10,10 +10,13 @@ class UserRepository extends AbstractRepository {
   // The C of CRUD - Create operation
 
   async create(user) {
+
+    const role = user.mail === "admin@admin.com" ? "admin" : "user";
+
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (username, mail, password) VALUES (?, ?, ?)`,
-      [user.username, user.mail, user.hashedPassword]
+      `INSERT INTO ${this.table} (username, mail, password, role) VALUES (?, ?, ?, ?)`,
+      [user.username, user.mail, user.hashedPassword, role]
     );
 
     // Return the ID of the newly inserted Recipe

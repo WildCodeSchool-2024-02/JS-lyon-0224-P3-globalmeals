@@ -29,6 +29,7 @@ const connexion = async (req, res, next) => {
       );
 
       delete user.id;
+      delete user.password;
 
       res
       .cookie("access_token", token, {
