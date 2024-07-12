@@ -36,7 +36,7 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
 
-  const selectedCountry = localStorage.getItem(`selectedCountry_${continent}`);
+  const selectedCountry = localStorage.getItem(`${continent}`);
 
   useEffect(() => {
     const fetchMenuData = async () => {
