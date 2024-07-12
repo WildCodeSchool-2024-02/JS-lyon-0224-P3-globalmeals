@@ -1,35 +1,35 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./connexion.css";
 
 function Connexion() {
-  const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (location.state) {
-      setEmail(location.state.email || "");
-      setPassword(location.state.password || "");
-    }
-  }, [location.state]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = {};
 
-    if (email.length <= 4) validationErrors.email = "L' e-mail est requis*";
-    if (password.length < 6) validationErrors.password = "Le mot de passe doit contenir au moins 7 caractères*";
+    const ApiUrl = import.meta.env.VITE_API_URL;
+    try {
+      const response = await fetch(`${ApiUrl}/auth/connexion`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (Object.keys(validationErrors).length === 0) {
-      setIsSubmitted(true);
-      navigate("/"); // Rediriger vers la page d'accueil
-    } else {
-      setErrors(validationErrors);
+      if (response.ok) {
+        setIsSubmitted(true);
+        navigate("/"); // Rediriger vers la page d'accueil
+      } else {
+        // Vous pouvez gérer la réponse en cas d'erreur si nécessaire
+      }
+    } catch (error) {
+      // Vous pouvez gérer l'erreur si nécessaire
     }
   };
 
@@ -47,15 +47,13 @@ function Connexion() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
             required
             placeholder="Entrez votre mail"
           />
-          {errors.email && <p className="error1">{errors.email}</p>}
         </div>
 
         <div className="form-group2">
-          <label className="mot-de-passe" htmlFor="mot-de-passo">Mot de passe</label>
+          <label className="mot-de-passe" htmlFor="mot-de-passe">Mot de passe</label>
           <div className="password-input">
             <input
               id="mot2"
@@ -74,14 +72,9 @@ function Connexion() {
               {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
-          {errors.password && <p className="error2">{errors.password}</p>}
         </div>
 
-        <button
-          className="validate"
-          type="submit"
-          disabled={email.length <= 4 || password.length <= 6}
-        >
+        <button className="validate" type="submit">
           Suivant
         </button>
         {isSubmitted && <p>Connexion soumise avec succès !</p>}

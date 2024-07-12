@@ -12,8 +12,8 @@ class UserRepository extends AbstractRepository {
   async create(user) {
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (username, mail, password) VALUES (?, ?, ?)`,
-      [user.username, user.mail, user.password]
+      `INSERT INTO ${this.table} (username, email, password) VALUES (?, ?, ?)`,
+      [user.username, user.email, user.hashedPassword]
     );
 
     // Return the ID of the newly inserted Recipe
@@ -32,7 +32,7 @@ class UserRepository extends AbstractRepository {
   // Read method - CRUD R (user by ID)
   async readByEmailWithPassword(email) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      `SELECT * FROM ${this.table} WHERE email = ?`,
       [email]
     );
 

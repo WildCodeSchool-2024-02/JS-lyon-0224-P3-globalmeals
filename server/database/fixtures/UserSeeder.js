@@ -26,7 +26,7 @@ class UserSeeder extends AbstractSeeder {
 
       const fakeUser = {
         username: `user_${i}`, // Create a reference name for the user
-        mail: this.faker.internet.email(), // Generate a fake mail using faker library
+        email: this.faker.internet.email(), // Generate a fake mail using faker library
         password: hashedPassword, // Use the hashed password
       };
 

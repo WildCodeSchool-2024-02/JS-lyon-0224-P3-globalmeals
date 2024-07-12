@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./inscription.css";
 
 function Inscription() {
-  const [pseudo, setPseudo] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,26 +11,30 @@ function Inscription() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = {};
 
-    if (pseudo.length <= 4) validationErrors.pseudo = "Le pseudo est requis*";
-    if (email.length <= 4) validationErrors.email = "L'e-mail est requis*";
-    if (confirmEmail.length <= 4) validationErrors.confirmEmail = "L'e-mail est requis*";
-    if (password.length < 6) validationErrors.password = "Le mot de passe doit contenir au moins 7 caractères*";
-    if (confirmPassword.length < 6) validationErrors.confirmPassword = "Le mot de passe doit contenir au moins 7 caractères*";
-    if (email !== confirmEmail) validationErrors.confirmEmail = "Les mails ne correspondent pas*";
-    if (password !== confirmPassword) validationErrors.confirmPassword = "Les mots de passe ne correspondent pas*";
+    const ApiUrl = import.meta.env.VITE_API_URL;
 
-    if (Object.keys(validationErrors).length === 0) {
-      setIsSubmitted(true);
-      navigate("/connexion", { state: { email, password } });
-    } else {
-      setErrors(validationErrors);
+    try {
+      const response = await fetch(`${ApiUrl}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        navigate("/connexion"); // Rediriger vers la page connexion
+      } else {
+        // Vous pouvez gérer la réponse en cas d'erreur si nécessaire
+      }
+    } catch (error) {
+      // Vous pouvez gérer l'erreur si nécessaire
     }
   };
 
@@ -50,40 +54,35 @@ function Inscription() {
           <input
             id="pseudo2"
             type="text"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Entrez votre pseudo"
           />
-          {errors.pseudo && <p className="error1">{errors.pseudo}</p>}
         </div>
         <div className="form-group1">
-          <label className="mail" htmlFor="mail">Mail</label>
+          <label className="mail" htmlFor="mail">E-mail</label>
           <input
             id="mail2"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
             placeholder="Entrez votre mail"
             required
           />
-          {errors.email && <p className="error1">{errors.email}</p>}
         </div>
         <div className="form-group2">
-          <label className="confirm-mail" htmlFor="confirm-email">Confirmez votre mail</label>
+          <label className="confirm-mail" htmlFor="confirm-email">Confirmez votre e-mail</label>
           <input
             id="confirm-mail2"
             type="email"
             value={confirmEmail}
             onChange={(e) => setConfirmEmail(e.target.value)}
-            pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
             placeholder="Confirmez votre e-mail"
             required
           />
-          {errors.confirmEmail && <p className="error1">{errors.confirmEmail}</p>}
         </div>
         <div className="form-group3">
-          <label className="mot-de-passe" htmlFor="mot-de-passo">Mot de passe</label>
+          <label className="mot-de-passe" htmlFor="mot-de-passe">Mot de passe</label>
           <div className="password-input">
             <input
               id="mot2"
@@ -102,10 +101,9 @@ function Inscription() {
               {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
-          {errors.password && <p className="error2">{errors.password}</p>}
         </div>
         <div className="form-group4">
-          <label className="confirm-mot-de-pas" htmlFor="confirm-mot-de-passa">Confirmez votre mot de passe</label>
+          <label className="confirm-mot-de-passe" htmlFor="confirm-mot-de-passe">Confirmez votre mot de passe</label>
           <div className="password-input2">
             <input
               id="confirm-mot2"
@@ -124,12 +122,8 @@ function Inscription() {
               {showPassword2 ? "🙈" : "👁️"}
             </button>
           </div>
-          {errors.confirmPassword && <p className="error2">{errors.confirmPassword}</p>}
         </div>
-        <button
-          className="validate"
-          type="submit"
-        >
+        <button className="validate" type="submit">
           Suivant
         </button>
         {isSubmitted && <p>Inscription soumise avec succès !</p>}
