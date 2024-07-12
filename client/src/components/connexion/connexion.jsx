@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import "./connexion.css";
 
 function Login() {
@@ -10,7 +10,8 @@ function Login() {
   const notifyFail = (text) => toast.error(text);
   const navigate = useNavigate();
 
-  // const { setCurrentUser } = useUserContext();
+  const { login } = useUserContext();
+
   const [loginInfos, setLoginInfos] = useState({
     mail: "",
     password: "",
@@ -22,6 +23,10 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (loginInfos.mail.trim() === "" || loginInfos.password.trim() === "") {
+      console.error("Mail and password must be non-empty strings");
+      return;
+    }
 
     try {
       // Appel à l'API pour demander une connexion
@@ -31,23 +36,28 @@ function Login() {
         credentials: "include", // envoyer / recevoir le cookie à chaque requête
         body: JSON.stringify(loginInfos),
       });
-
-      // Redirection vers la page de connexion si la création réussit
+    
       if (response.status === 200) {
-        const user = await response.json();
-
-        // setCurrentUser(user);
-
-        navigate("/");
-        notifySuccess(`Bienvenue ${user.user.username}`);
+        const responseData = await response.json();
+        console.info("API response:", responseData);
+        if (responseData.user) {
+          login(responseData.user);
+          if (loginInfos.pseudo === "admin") {
+            navigate("/admin");
+            notifySuccess(`Bienvenue`);
+          } else {
+            navigate("/");
+            notifySuccess(`Bienvenue`);
+          }
+        } else {
+          console.error("User object is missing in the response");
+        }
       } else {
-        // Log des détails de la réponse en cas d'échec
-        console.info(response);
+        console.info("Login failed with status:", response.status);
         notifyFail("Une erreur s'est produite");
       }
-    } catch (err) {
-      // Log des erreurs possibles
-      console.error(err);
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
 
