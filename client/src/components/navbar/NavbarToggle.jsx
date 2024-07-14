@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./NavbarToggle.css";
+import { toast } from "react-toastify";
 import { useUserContext } from "../../contexts/UserContext"; // Importer le contexte utilisateur
+import "./NavbarToggle.css";
 
 export default function NavbarToggle() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user, setUser } = useUserContext(); // Utiliser le contexte utilisateur
   const navigate = useNavigate();
+  const notifyFail = () => toast.error("Accès non autorisé, veuillez vous connecter");
+
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -48,7 +51,7 @@ export default function NavbarToggle() {
             Menus
           </div>
           <ul
-            className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+            className={`dropdown-menu ${dropdownOpen === true ? "show" : ""}`}
             aria-labelledby="navbar-dropdown"
           >
             <li>
@@ -62,8 +65,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user ? "disabled" : ""}`}
-                to={user ? "/menuPage/afrique" : "#"}
+                className={`nav-dropdown ${!user === true ? "disabled" : ""}`}
+                to={user !== true ? "/menuPage/afrique" : "#"}
                 onClick={closeDropdown}
               >
                 Afrique
@@ -71,8 +74,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user ? "disabled" : ""}`}
-                to={user ? "/menuPage/amerique" : "#"}
+                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
+                to={user !== true ? "/menuPage/amerique" : "#"}
                 onClick={closeDropdown}
               >
                 Amérique
@@ -80,8 +83,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user ? "disabled" : ""}`}
-                to={user ? "/menuPage/asie" : "#"}
+                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
+                to={user !== true ? "/menuPage/asie" : "#"}
                 onClick={closeDropdown}
               >
                 Asie
@@ -89,8 +92,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user ? "disabled" : ""}`}
-                to={user ? "/menuPage/oceanie" : "#"}
+                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
+                to={user !== true  ? "/menuPage/oceanie" : "#"}
                 onClick={closeDropdown}
               >
                 Océanie
@@ -99,13 +102,30 @@ export default function NavbarToggle() {
           </ul>
         </li>
         <li className="nav-item">
-          <Link
-            to="/favoris"
-            className="nav-link active"
-            onClick={closeDropdown}
+          {user && user.role === "admin" ? (
+            <Link
+              to="/admin"
+              className="nav-link active"
+              onClick={closeDropdown}
+            >
+              Modifier
+            </Link>
+          ) : (
+            <Link
+            to={user !== true ? "/favoris" : "#"}
+            className={`nav-link active ${!user === true ? "disabled" : ""}`}
+            onClick={(e) => {
+              if (!user) {
+                e.preventDefault();
+                notifyFail();
+              }
+              closeDropdown();
+            }}
           >
             Favoris
           </Link>
+          
+          )}
         </li>
         <li className="nav-item">
           {user ? (

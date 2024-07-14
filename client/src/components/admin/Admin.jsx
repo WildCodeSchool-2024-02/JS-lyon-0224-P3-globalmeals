@@ -51,6 +51,10 @@ function Admin() {
       navigate("/"); // Redirection si l'utilisateur n'est pas admin
     }
   }, [user, navigate]);
+  
+// Rajouter la vérification token
+
+
 
   const continentMap = {
     1: "europe",
@@ -87,7 +91,7 @@ function Admin() {
 
     try {
       const continentData = newsForm[continentMap[selectedContinent]];
-      const menuId = selectedContinent; // Use the ID here
+      const menuId = selectedContinent; 
 
       const menuData = {
         id: menuId,
