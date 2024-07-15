@@ -12,21 +12,25 @@ const createInitialFormState = () => ({
   starterIngredients: "",
   starterSteps: "",
   starterStepTime: "",
+  starterImageUrl: "",
   dishId: "",
   dishName: "",
   dishIngredients: "",
   dishSteps: "",
   dishStepTime: "",
+  dishImageUrl: "",
   dessertId: "",
   dessertName: "",
   dessertIngredients: "",
   dessertSteps: "",
   dessertStepTime: "",
+  dessertImageUrl: "",
   cocktailId: "",
   cocktailName: "",
   cocktailIngredients: "",
   cocktailSteps: "",
   cocktailStepTime: "",
+  cocktailImageUrl: "",
 });
 
 function Admin() {
@@ -44,17 +48,13 @@ function Admin() {
   const formRef = useRef(null);
   const navigate = useNavigate();
 
-  const { user } = useUserContext(); // Utilisation du hook useUserContext pour obtenir l'utilisateur
+  const { user } = useUserContext();
 
   useEffect(() => {
     if (!user || user.role !== "admin") {
-      navigate("/"); // Redirection si l'utilisateur n'est pas admin
+      navigate("/");
     }
   }, [user, navigate]);
-  
-// Rajouter la vérification token
-
-
 
   const continentMap = {
     1: "europe",
@@ -91,7 +91,7 @@ function Admin() {
 
     try {
       const continentData = newsForm[continentMap[selectedContinent]];
-      const menuId = selectedContinent; 
+      const menuId = selectedContinent;
 
       const menuData = {
         id: menuId,
@@ -117,6 +117,7 @@ function Admin() {
         const ingredientsField = `${type}Ingredients`;
         const stepsField = `${type}Steps`;
         const stepTimeField = `${type}StepTime`;
+        const imageUrlField = `${type}ImageUrl`;
 
         const recipeData = {
           id: continentData[idField],
@@ -124,6 +125,7 @@ function Admin() {
           ingredient: continentData[ingredientsField],
           step: continentData[stepsField],
           step_time: continentData[stepTimeField],
+          image: continentData[imageUrlField],
           menu_id: menuId,
           type,
         };
@@ -261,6 +263,20 @@ function Admin() {
                 onInput={adjustTextareaHeight}
               />
             </label>
+            <label htmlFor="starterImageUrl">
+              Lien de l'image:
+              <textarea
+                id="starterImageUrl"
+                name="starterImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterImageUrl ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
           </div>
         </div>
 
@@ -315,6 +331,19 @@ function Admin() {
                 placeholder="Temps des étapes"
                 value={
                   newsForm[continentMap[selectedContinent]]?.dishStepTime || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dishImageUrl">
+              Lien de l'image:
+              <textarea
+                id="dishImageUrl"
+                name="dishImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishImageUrl || ""
                 }
                 onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
@@ -380,6 +409,20 @@ function Admin() {
                 onInput={adjustTextareaHeight}
               />
             </label>
+            <label htmlFor="dessertImageUrl">
+              Lien de l'image:
+              <textarea
+                id="dessertImageUrl"
+                name="dessertImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertImageUrl ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
           </div>
         </div>
 
@@ -387,7 +430,7 @@ function Admin() {
           <h2>Cocktail</h2>
           <div>
             <label htmlFor="cocktailName">
-              Nom du dessert:
+              Nom du cocktail:
               <textarea
                 id="cocktailName"
                 name="cocktailName"
@@ -434,6 +477,20 @@ function Admin() {
                 placeholder="Temps des étapes"
                 value={
                   newsForm[continentMap[selectedContinent]]?.cocktailStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailImageUrl">
+              Lien de l'image:
+              <textarea
+                id="cocktailImageUrl"
+                name="cocktailImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailImageUrl ||
                   ""
                 }
                 onChange={handleUpdateChange}

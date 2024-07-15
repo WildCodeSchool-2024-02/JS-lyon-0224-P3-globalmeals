@@ -29,13 +29,14 @@ class RecipeRepository extends AbstractRepository {
 
   async update(recipe) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name = ?, ingredient = ?, step = ?, step_time = ?, type = ?, menu_id = ? WHERE type = ? AND menu_id = ?`,
+      `UPDATE ${this.table} SET name = ?, ingredient = ?, step = ?, step_time = ?, type = ?, image = ?, menu_id = ? WHERE type = ? AND menu_id = ?`,
       [
         recipe.name,
         recipe.ingredient,
         recipe.step,
         recipe.step_time,
         recipe.type,
+        recipe.image,
         recipe.menu_id,
         recipe.type,
         recipe.menu_id,

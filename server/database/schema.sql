@@ -11,7 +11,7 @@ create table recipe (
   step TEXT not null,
   step_time varchar(100) not null,
   type varchar(15) not null,
-  image varchar(255),
+  image TEXT not null,
   menu_id INT UNSIGNED NOT NULL,
   FOREIGN KEY (menu_id) REFERENCES menu(id)
   );

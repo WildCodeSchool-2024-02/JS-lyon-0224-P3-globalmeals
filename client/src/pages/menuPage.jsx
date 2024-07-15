@@ -165,7 +165,11 @@ function Menu() {
                       <h3>{type.charAt(0).toUpperCase() + type.slice(1)}</h3>
                       <p>{menuItem.name || "s/o"}</p>
                       <img
-                        src={`/images/${menuItem.image}`}
+                        src={
+                          menuItem.image.startsWith("http")
+                            ? menuItem.image
+                            : `/images/${menuItem.image}`
+                        }
                         alt={type}
                         aria-hidden="true"
                       />
