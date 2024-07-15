@@ -127,7 +127,7 @@ class RecipeSeeder extends AbstractSeeder {
           "Biscuits Graham, beurre fondu, lait concentré sucré, jus de citron vert, zeste de citron vert, crème fouettée",
         step: "Mélanger les biscuits émiettés avec le beurre, presser dans un moule. Mélanger le lait concentré, le jus et le zeste de citron vert, verser sur la croûte. Réfrigérer, garnir de crème fouettée.",
         step_time: "30 min",
-        type: "starter",
+        type: "dessert",
         image: "keyLimePie.png",
         menu_id: this.getRef(`texasAmerique`).insertId,
         refName: "texasAmeriqueKeyLimePie",
