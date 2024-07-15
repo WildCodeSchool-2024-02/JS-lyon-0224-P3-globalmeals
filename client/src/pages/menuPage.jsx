@@ -101,7 +101,7 @@ function Menu() {
     starter: "Entrée",
     dish: "Plat",
     dessert: "Dessert",
-    cocktail: "Cocktail",
+    cocktail: "Cocktail"
   };
 
   return (
