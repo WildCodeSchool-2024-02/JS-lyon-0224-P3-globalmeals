@@ -142,7 +142,7 @@ function Menu() {
               </button>
             </div>
             <div className="menu-section">
-              {["starter", "dish", "dessert", "cocktail"].map((type) => {
+              {["entrée", "plat", "dessert", "cocktail"].map((type) => {
                 const menuItem = menuData.find(
                   (item) => item.type.toLowerCase() === type
                 );
