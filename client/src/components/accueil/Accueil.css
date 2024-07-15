@@ -65,6 +65,15 @@
   margin: 25px;
 }
 
+.image-container.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.image-container.disabled img {
+  filter: grayscale(100%);
+}
+
 @media only screen and (max-width: 720px) {
   .europe,
   .afrique,

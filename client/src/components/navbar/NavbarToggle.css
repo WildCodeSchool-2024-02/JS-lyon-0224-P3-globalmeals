@@ -94,6 +94,11 @@ li {
   list-style: none;
 }
 
+.nav-dropdown.disabled {
+  pointer-events: none;
+  color: grey;
+}
+
 /* Media queries */
 @media only screen and (max-width: 720px) {
   .nav-item {

@@ -6,8 +6,8 @@ import "./connexion.css";
 
 function Login() {
   const ApiUrl = import.meta.env.VITE_API_URL;
-  const notifySuccess = (text) => toast.success(text);
-  const notifyFail = (text) => toast.error(text);
+  const notifySuccess = (username) => toast.success(`Bienvenue, ${username} !`);
+  const notifyFail = () => toast.error("Une erreur s'est produite");
   const navigate = useNavigate();
 
   const { login } = useUserContext();
@@ -36,25 +36,25 @@ function Login() {
         credentials: "include", // envoyer / recevoir le cookie à chaque requête
         body: JSON.stringify(loginInfos),
       });
-    
+
       if (response.status === 200) {
         const responseData = await response.json();
         console.info("API response:", responseData);
         if (responseData.user) {
+          const { username } = responseData.user;
           login(responseData.user);
           if (loginInfos.pseudo === "admin") {
             navigate("/admin");
-            notifySuccess(`Bienvenue`);
           } else {
             navigate("/");
-            notifySuccess(`Bienvenue`);
           }
+          notifySuccess(username);
         } else {
           console.error("User object is missing in the response");
         }
       } else {
         console.info("Login failed with status:", response.status);
-        notifyFail("Une erreur s'est produite");
+        notifyFail();
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -83,7 +83,7 @@ function Login() {
           />
         </div>
         <div className="back-home">
-          <button type="submit" className="validate" onClick={handleLogin}>
+          <button type="submit" className="validate">
             Se connecter
           </button>
         </div>

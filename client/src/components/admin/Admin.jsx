@@ -1,7 +1,8 @@
 import "./Admin.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useUserContext } from "../../contexts/UserContext";
 
 const createInitialFormState = () => ({
   id: "",
@@ -43,6 +44,18 @@ function Admin() {
   const formRef = useRef(null);
   const navigate = useNavigate();
 
+  const { user } = useUserContext(); // Utilisation du hook useUserContext pour obtenir l'utilisateur
+
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      navigate("/"); // Redirection si l'utilisateur n'est pas admin
+    }
+  }, [user, navigate]);
+  
+// Rajouter la vérification token
+
+
+
   const continentMap = {
     1: "europe",
     2: "afrique",
@@ -78,7 +91,7 @@ function Admin() {
 
     try {
       const continentData = newsForm[continentMap[selectedContinent]];
-      const menuId = selectedContinent; // Use the ID here
+      const menuId = selectedContinent; 
 
       const menuData = {
         id: menuId,
