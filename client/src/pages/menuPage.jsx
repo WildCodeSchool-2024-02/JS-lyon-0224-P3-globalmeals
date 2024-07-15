@@ -97,6 +97,13 @@ function Menu() {
 
   const country = selectedCountry[0]?.country;
 
+  const typeFrench = {
+    starter: "Entrée",
+    dish: "Plat",
+    dessert: "Dessert",
+    cocktail: "Cocktail"
+  };
+
   return (
     <div className="content">
       {menuData.length > 0 ? (
@@ -142,7 +149,7 @@ function Menu() {
               </button>
             </div>
             <div className="menu-section">
-              {["entrée", "plat", "dessert", "cocktail"].map((type) => {
+              {["starter", "dish", "dessert", "cocktail"].map((type) => {
                 const menuItem = menuData.find(
                   (item) => item.type.toLowerCase() === type
                 );
@@ -162,7 +169,7 @@ function Menu() {
                       role="button"
                       tabIndex={0}
                     >
-                      <h3>{type.charAt(0).toUpperCase() + type.slice(1)}</h3>
+                      <h3>{typeFrench[type]}</h3>
                       <p>{menuItem.name || "s/o"}</p>
                       <img
                         src={
