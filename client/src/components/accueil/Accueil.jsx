@@ -27,7 +27,7 @@ function Continents() {
       <div className="cercles">
         <div className="continents1">
           <div className="image-container">
-            <img className="europe" src={europeImage} alt="euope" />
+            <img className="europe" src={europeImage} alt="europe" />
             <h2>
               <Link to="/menuPage/europe">Europe</Link>
             </h2>

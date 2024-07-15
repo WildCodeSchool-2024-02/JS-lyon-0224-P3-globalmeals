@@ -22,7 +22,7 @@ export default function NavbarToggle() {
   const handleLogout = () => {
     // Déconnecter l'utilisateur
     setUser(null);
-    navigate("/connexion"); // Rediriger vers la page d'accueil après la déconnexion
+    navigate("/connexion"); // Rediriger vers la page de connexion après la déconnexion
   };
 
   const handleKeyDown = (e) => {
