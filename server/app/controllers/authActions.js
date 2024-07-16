@@ -48,11 +48,11 @@ const connexion = async (req, res, next) => {
 }
 };
 
-// const logout = (req, res) => {
-// res.clearCookie("access_token").sendStatus(200);
-// };
+const logout = (req, res) => {
+  res.clearCookie("access_token").sendStatus(200);
+};
 
 module.exports = {
-connexion,
-// logout,
+  connexion,
+  logout,
 };

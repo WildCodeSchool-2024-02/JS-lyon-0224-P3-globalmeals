@@ -13,7 +13,7 @@ export default function UserProvider({ children }) {
   };
   const logout = async (sessionExpired) => {
     try {
-      const response = await fetch(`${ApiUrl}/user/logout`, {
+      const response = await fetch(`${ApiUrl}/auth/logout`, {
         credentials: "include", // envoyer / recevoir le cookie à chaque requête
         headers: {
           "Content-Type": "application/json",
