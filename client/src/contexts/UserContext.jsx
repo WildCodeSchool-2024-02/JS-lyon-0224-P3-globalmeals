@@ -20,7 +20,7 @@ export default function UserProvider({ children }) {
         },
       });
       if (response.status === 200) {
-        setUser(null);
+        setUser("");
         navigate(sessionExpired === true ? "/connexion" : "/");
       }
     } catch (err) {
