@@ -20,11 +20,11 @@ router.post("/connexion", connexion);
 // Route to add a new item
 router.post("/register", hashPassword, add);
 
-// Route to get user profile
-router.get("/:id", verifyToken, read);
-
 // Route to logout the user
 router.get("/logout", logout);
+
+// Route to get user profile
+router.get("/:id", verifyToken, read);
 
 /* ************************************************************************* */
 

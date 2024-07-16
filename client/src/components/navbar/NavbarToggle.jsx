@@ -10,6 +10,7 @@ export default function NavbarToggle() {
   const navigate = useNavigate();
   const notifyFail = () => toast.error("Accès non autorisé, veuillez vous connecter");
 
+  const { logout } = useUserContext();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -22,6 +23,7 @@ export default function NavbarToggle() {
   const handleLogout = () => {
     // Déconnecter l'utilisateur
     setUser("");
+    logout(false)
     navigate("/"); // Rediriger vers la page d'accueil après la déconnexion
   };
 
