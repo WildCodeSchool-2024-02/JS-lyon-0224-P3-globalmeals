@@ -11,7 +11,8 @@ class UserRepository extends AbstractRepository {
 
   async create(user) {
 
-    const role = user.mail === "admin@admin.com" ? "admin" : "user";
+    const adminEmail = process.env.ADMIN_EMAIL; 
+    const role = user.mail === adminEmail ? "admin" : "user";
 
     // Execute the SQL INSERT query to add a new Recipe to the "rows" table
     const [result] = await this.database.query(

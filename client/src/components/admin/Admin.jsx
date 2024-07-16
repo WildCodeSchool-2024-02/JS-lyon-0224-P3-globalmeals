@@ -51,11 +51,13 @@ function Admin() {
   const { user } = useUserContext();
 
   useEffect(() => {
-    if (!user || user.role !== "admin") {
+    if
+      (!(user !== "" && user.role === "admin")) {
       navigate("/");
     }
-  }, [user, navigate]);
-
+  }, [user, navigate]); 
+  
+  
   const continentMap = {
     1: "europe",
     2: "afrique",
