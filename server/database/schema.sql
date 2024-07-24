@@ -11,20 +11,15 @@ create table recipe (
   step TEXT not null,
   step_time varchar(100) not null,
   type varchar(15) not null,
-  image varchar(255)
-);
-
-CREATE TABLE menu_recipe (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  image TEXT not null,
   menu_id INT UNSIGNED NOT NULL,
-  recipe_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (menu_id) REFERENCES menu(id),
-  FOREIGN KEY (recipe_id) REFERENCES recipe(id)
-);
+  FOREIGN KEY (menu_id) REFERENCES menu(id)
+  );
 
 CREATE TABLE user (
     id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
     username VARCHAR(30) UNIQUE NOT NULL,
     mail VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'user'
 );

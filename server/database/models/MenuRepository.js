@@ -2,13 +2,12 @@ const AbstractRepository = require("./AbstractRepository");
 
 class MenuRepository extends AbstractRepository {
   constructor() {
-    // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "menu" as configuration
+    // Appeler le constructeur de la classe parente (AbstractRepository)
+    // et passer le nom de la table "menu" en configuration
     super({ table: "menu" });
   }
 
-  // The C of CRUD - Create operation
-
+  // La création (Create) - opération CRUD
   async create(menu) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (continent, country) VALUES (?, ?)`,
@@ -18,20 +17,32 @@ class MenuRepository extends AbstractRepository {
     return result.insertId;
   }
 
+  // La mise à jour (Update) - opération CRUD
+  async update(menu) {
+    const id = parseInt(menu.id, 10);
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET country = ? WHERE id = ?`,
+      [menu.country, id]
+    );
+
+    return result;
+  }
+
+  // Lire tous les enregistrements (Read All)
   async readAll() {
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
     return rows;
   }
 
-  async readAllWithRecipes() {
-    const query = `
-      SELECT m.id AS menu_id, m.continent, m.country, r.id AS recipe_id, r.name, r.ingredient, r.step, r.step_time, r.type, r.image
-      FROM ${this.table} as m
-      INNER JOIN menu_recipe mr ON m.id = mr.menu_id
-      INNER JOIN recipe r ON mr.recipe_id = r.id;
-    `;
-    const [rows] = await this.database.query(query);
+  async readByContinent(continent) {
+    // Execute the SQL SELECT query to retrieve all rows from the "rows" table
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE continent = ?`,
+      [continent]
+    );
+
+    // Return the array of rows
     return rows;
   }
 }

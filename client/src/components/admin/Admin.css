@@ -2,9 +2,8 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 50%;
-  margin: 0 auto;
+  max-width: auto;
+  margin: 20px auto;
 }
 
 .create-menu h1,
@@ -23,9 +22,7 @@
 .create-menu textarea {
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -41,17 +38,28 @@
 }
 
 .create-menu button {
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 20px auto 0;
   display: block;
+  min-width: 100px;
+  color: #e9c46a;
+  background-color: #242423;
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  cursor: pointer;
+  margin: 0 auto;
 }
 
 .create-menu button:hover {
-  background-color: #45a049;
+  background-color: #e9c46a;
+  color: #242423;
+}
+
+@media screen and (min-width: 1000px) {
+  .create-menu {
+    max-width: 75%;
+  }
 }

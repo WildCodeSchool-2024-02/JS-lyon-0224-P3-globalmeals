@@ -23,7 +23,7 @@
   min-width: 150px;
   color: #e9c46a;
   background-color: #242423;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   text-decoration: none;
   text-align: center;
@@ -47,7 +47,7 @@
   min-width: 150px;
   color: #e9c46a;
   background-color: #242423;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   text-decoration: none;
   text-align: center;
@@ -94,10 +94,16 @@ li {
   list-style: none;
 }
 
+.nav-dropdown.disabled {
+  pointer-events: none;
+  color: grey;
+}
+
 /* Media queries */
 @media only screen and (max-width: 720px) {
   .nav-item {
     margin: 10px 0;
+    font-size: small;
   }
 
   .nav-link {
@@ -113,6 +119,7 @@ li {
 @media screen and (min-width: 372px) {
   .navbar-nav {
     flex-direction: row;
+    margin-top: 1rem;
   }
 
   .nav-item {

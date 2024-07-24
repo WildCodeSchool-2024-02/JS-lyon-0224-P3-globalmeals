@@ -1,23 +1,84 @@
 import "./Admin.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useUserContext } from "../../contexts/UserContext";
+
+const createInitialFormState = () => ({
+  id: "",
+  country: "",
+  starterId: "",
+  starterName: "",
+  starterIngredients: "",
+  starterSteps: "",
+  starterStepTime: "",
+  starterImageUrl: "",
+  dishId: "",
+  dishName: "",
+  dishIngredients: "",
+  dishSteps: "",
+  dishStepTime: "",
+  dishImageUrl: "",
+  dessertId: "",
+  dessertName: "",
+  dessertIngredients: "",
+  dessertSteps: "",
+  dessertStepTime: "",
+  dessertImageUrl: "",
+  cocktailId: "",
+  cocktailName: "",
+  cocktailIngredients: "",
+  cocktailSteps: "",
+  cocktailStepTime: "",
+  cocktailImageUrl: "",
+});
 
 function Admin() {
   const [selectedContinent, setSelectedContinent] = useState("");
-
   const [newsForm, setNewsForm] = useState({
-    continent: "",
-    country: "",
+    europe: createInitialFormState(),
+    afrique: createInitialFormState(),
+    amerique: createInitialFormState(),
+    asie: createInitialFormState(),
+    oceanie: createInitialFormState(),
   });
+  const notifySuccess = (text) => toast.success(text);
+  const notifyFail = (text) => toast.error(text);
 
   const formRef = useRef(null);
+  const navigate = useNavigate();
+
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if
+      (!(user !== "" && user.role === "admin")) {
+      navigate("/");
+    }
+  }, [user, navigate]); 
+  
+  
+  const continentMap = {
+    1: "europe",
+    2: "afrique",
+    3: "amerique",
+    4: "asie",
+    5: "oceanie",
+  };
 
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
-    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
   };
 
-  const handleChange = (e) => {
-    setNewsForm({ ...newsForm, [e.target.name]: e.target.value });
+  const handleUpdateChange = (e) => {
+    const { name, value } = e.target;
+    setNewsForm((prevState) => ({
+      ...prevState,
+      [continentMap[selectedContinent]]: {
+        ...prevState[continentMap[selectedContinent]],
+        [name]: value,
+      },
+    }));
   };
 
   const adjustTextareaHeight = (e) => {
@@ -27,43 +88,89 @@ function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const ApiUrl = import.meta.env.VITE_API_URL;
-
+  
     try {
-      const response = await fetch(`${ApiUrl}/menu`, {
-        method: "POST",
+      const continentData = newsForm[continentMap[selectedContinent]];
+      const menuId = selectedContinent;
+  
+      // Menu data update
+      const menuData = {
+        id: menuId,
+        country: continentData.country,
+      };
+  
+      const menuResponse = await fetch(`${ApiUrl}/menu`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-
-        body: JSON.stringify(newsForm),
+        body: JSON.stringify(menuData),
       });
-
-      if (response.ok === true) {
-        alert("Le formulaire a été validé avec succès !");
-
-        if (formRef.current === true) {
-          formRef.current.reset();
-        }
-        setSelectedContinent("");
-        setNewsForm({
-          continent: "",
-          country: "",
-        });
-      } else {
-        alert("Erreur lors de la soumission du formulaire.");
+  
+      if (!menuResponse.ok) {
+        throw new Error("Erreur lors de la mise à jour du menu.");
       }
+  
+      const recipeTypes = ["starter", "dish", "dessert", "cocktail"];
+      const recipePromises = recipeTypes.map(async (type) => {
+        const idField = `${type}Id`;
+        const nameField = `${type}Name`;
+        const ingredientsField = `${type}Ingredients`;
+        const stepsField = `${type}Steps`;
+        const stepTimeField = `${type}StepTime`;
+        const imageUrlField = `${type}ImageUrl`;
+  
+        const recipeData = {
+          id: continentData[idField],
+          menu_id: menuId,
+          type,
+        };
+  
+        // Ajoute que les champs qui ne sont pas vides
+        if (continentData[nameField]) recipeData.name = continentData[nameField];
+        if (continentData[ingredientsField]) recipeData.ingredient = continentData[ingredientsField];
+        if (continentData[stepsField]) recipeData.step = continentData[stepsField];
+        if (continentData[stepTimeField]) recipeData.step_time = continentData[stepTimeField];
+        if (continentData[imageUrlField]) recipeData.image = continentData[imageUrlField];
+  
+        return fetch(`${ApiUrl}/recipe`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(recipeData),
+        });
+      });
+  
+      await Promise.all(recipePromises);
+  
+      notifySuccess("Le formulaire a été validé avec succès !");
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+      setSelectedContinent("");
+      setNewsForm({
+        europe: createInitialFormState(),
+        afrique: createInitialFormState(),
+        amerique: createInitialFormState(),
+        asie: createInitialFormState(),
+        oceanie: createInitialFormState(),
+      });
+  
+      navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Erreur lors de la soumission du formulaire.");
+      notifyFail("Erreur lors de la soumission du formulaire.");
     }
   };
+  
 
   return (
     <div className="create-menu">
       <h1>Création d'un menu</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <div className="admin-continent">
           <label htmlFor="continent">
             Continents:
@@ -75,11 +182,11 @@ function Admin() {
               onChange={handleContinentChange}
             >
               <option value="">Sélectionner</option>
-              <option value="europe">Europe</option>
-              <option value="afrique">Afrique</option>
-              <option value="amerique">Amérique</option>
-              <option value="asie">Asie</option>
-              <option value="oceanie">Océanie</option>
+              <option value="1">Europe</option>
+              <option value="2">Afrique</option>
+              <option value="3">Amérique</option>
+              <option value="4">Asie</option>
+              <option value="5">Océanie</option>
             </select>
           </label>
           <label htmlFor="country">
@@ -88,21 +195,36 @@ function Admin() {
               id="country"
               name="country"
               placeholder="Nom du Pays"
-              value={newsForm.country}
-              onChange={handleChange}
+              value={newsForm[continentMap[selectedContinent]]?.country || ""}
+              onChange={handleUpdateChange}
               onInput={adjustTextareaHeight}
             />
           </label>
+          <input
+            type="hidden"
+            name="id"
+            value={newsForm[continentMap[selectedContinent]]?.id || ""}
+          />
         </div>
+
         <div>
           <h2>Entrée</h2>
-          <div className="new-starter">
+          <div>
+            <input
+              type="hidden"
+              name="starterId"
+              value={newsForm[continentMap[selectedContinent]]?.starterId || ""}
+            />
             <label htmlFor="starterName">
               Nom de l'entrée:
               <textarea
                 id="starterName"
                 name="starterName"
                 placeholder="Nom de l'entrée"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterName || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -112,6 +234,11 @@ function Admin() {
                 id="starterIngredients"
                 name="starterIngredients"
                 placeholder="Ingrédients"
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.starterIngredients || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -121,20 +248,57 @@ function Admin() {
                 id="starterSteps"
                 name="starterSteps"
                 placeholder="Étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="starterStepTime">
+              Temps des étapes:
+              <textarea
+                id="starterStepTime"
+                name="starterStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="starterImageUrl">
+              Lien de l'image:
+              <textarea
+                id="starterImageUrl"
+                name="starterImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.starterImageUrl ||
+                  ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
           </div>
         </div>
+
         <div>
           <h2>Plat</h2>
-          <div className="new-dish">
+          <div>
             <label htmlFor="dishName">
               Nom du plat:
               <textarea
                 id="dishName"
                 name="dishName"
                 placeholder="Nom du Plat"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishName || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -144,6 +308,11 @@ function Admin() {
                 id="dishIngredients"
                 name="dishIngredients"
                 placeholder="Ingrédients"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishIngredients ||
+                  ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -153,20 +322,55 @@ function Admin() {
                 id="dishSteps"
                 name="dishSteps"
                 placeholder="Étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dishStepTime">
+              Temps des étapes:
+              <textarea
+                id="dishStepTime"
+                name="dishStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishStepTime || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dishImageUrl">
+              Lien de l'image:
+              <textarea
+                id="dishImageUrl"
+                name="dishImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dishImageUrl || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
           </div>
         </div>
+
         <div>
           <h2>Dessert</h2>
-          <div className="new-dessert">
+          <div>
             <label htmlFor="dessertName">
               Nom du dessert:
               <textarea
                 id="dessertName"
                 name="dessertName"
                 placeholder="Nom du Dessert"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertName || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -176,6 +380,11 @@ function Admin() {
                 id="dessertIngredients"
                 name="dessertIngredients"
                 placeholder="Ingrédients"
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.dessertIngredients || ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
@@ -185,14 +394,119 @@ function Admin() {
                 id="dessertSteps"
                 name="dessertSteps"
                 placeholder="Étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dessertStepTime">
+              Temps des étapes:
+              <textarea
+                id="dessertStepTime"
+                name="dessertStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="dessertImageUrl">
+              Lien de l'image:
+              <textarea
+                id="dessertImageUrl"
+                name="dessertImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.dessertImageUrl ||
+                  ""
+                }
+                onChange={handleUpdateChange}
                 onInput={adjustTextareaHeight}
               />
             </label>
           </div>
         </div>
-        <button type="submit" onClick={handleSubmit}>
-          Valider
-        </button>
+
+        <div>
+          <h2>Cocktail</h2>
+          <div>
+            <label htmlFor="cocktailName">
+              Nom du cocktail:
+              <textarea
+                id="cocktailName"
+                name="cocktailName"
+                placeholder="Nom du Cocktail"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailName || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailIngredients">
+              Ingrédients:
+              <textarea
+                id="cocktailIngredients"
+                name="cocktailIngredients"
+                placeholder="Ingrédients"
+                value={
+                  newsForm[continentMap[selectedContinent]]
+                    ?.cocktailIngredients || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailSteps">
+              Étapes:
+              <textarea
+                id="cocktailSteps"
+                name="cocktailSteps"
+                placeholder="Étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailSteps || ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailStepTime">
+              Temps des étapes:
+              <textarea
+                id="cocktailStepTime"
+                name="cocktailStepTime"
+                placeholder="Temps des étapes"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailStepTime ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+            <label htmlFor="cocktailImageUrl">
+              Lien de l'image:
+              <textarea
+                id="cocktailImageUrl"
+                name="cocktailImageUrl"
+                placeholder="Lien de l'image"
+                value={
+                  newsForm[continentMap[selectedContinent]]?.cocktailImageUrl ||
+                  ""
+                }
+                onChange={handleUpdateChange}
+                onInput={adjustTextareaHeight}
+              />
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">Valider</button>
       </form>
     </div>
   );
