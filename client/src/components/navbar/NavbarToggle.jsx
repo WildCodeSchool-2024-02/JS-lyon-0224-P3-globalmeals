@@ -110,7 +110,7 @@ export default function NavbarToggle() {
               className="nav-link active"
               onClick={closeDropdown}
             >
-              Modifier
+              Création
             </Link>
           ) : (
             <Link

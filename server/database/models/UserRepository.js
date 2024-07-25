@@ -43,31 +43,6 @@ class UserRepository extends AbstractRepository {
     // Return the first line if found, otherwise null
     return rows.length > 0 ? rows[0] : null;
   }
-
-  // The update method - CRUD U
-  async update(id, updatedFields) {
-    // Build the update SQL query
-    const fields = Object.keys(updatedFields)
-      .map((key) => `${key} = ?`)
-      .join(", ");
-
-    const values = Object.values(updatedFields);
-    values.push(id);
-
-    await this.database.query(
-      `UPDATE ${this.table} SET ${fields} WHERE id = ?`,
-      values
-    );
-
-    return this.readById(id); // Return the updated user
-  }
-
-  // The Delete method - CRUD D
-  async delete(id) {
-    await this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
-
-    return true; // Return true to indicate that the user has been deleted
-  }
 }
 
 module.exports = UserRepository;
