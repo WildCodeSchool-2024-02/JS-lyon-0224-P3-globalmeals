@@ -51,13 +51,11 @@ function Admin() {
   const { user } = useUserContext();
 
   useEffect(() => {
-    if
-      (!(user !== "" && user.role === "admin")) {
+    if (!(user !== "" && user.role === "admin")) {
       navigate("/");
     }
-  }, [user, navigate]); 
-  
-  
+  }, [user, navigate]);
+
   const continentMap = {
     1: "europe",
     2: "afrique",
@@ -88,19 +86,19 @@ function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const ApiUrl = import.meta.env.VITE_API_URL;
-  
+
     try {
       const continentData = newsForm[continentMap[selectedContinent]];
       const menuId = selectedContinent;
-  
+
       // Menu data update
       const menuData = {
         id: menuId,
         country: continentData.country,
       };
-  
+
       const menuResponse = await fetch(`${ApiUrl}/menu`, {
         method: "PATCH",
         headers: {
@@ -108,11 +106,11 @@ function Admin() {
         },
         body: JSON.stringify(menuData),
       });
-  
+
       if (!menuResponse.ok) {
         throw new Error("Erreur lors de la mise à jour du menu.");
       }
-  
+
       const recipeTypes = ["starter", "dish", "dessert", "cocktail"];
       const recipePromises = recipeTypes.map(async (type) => {
         const idField = `${type}Id`;
@@ -121,20 +119,25 @@ function Admin() {
         const stepsField = `${type}Steps`;
         const stepTimeField = `${type}StepTime`;
         const imageUrlField = `${type}ImageUrl`;
-  
+
         const recipeData = {
           id: continentData[idField],
           menu_id: menuId,
           type,
         };
-  
+
         // Ajoute que les champs qui ne sont pas vides
-        if (continentData[nameField]) recipeData.name = continentData[nameField];
-        if (continentData[ingredientsField]) recipeData.ingredient = continentData[ingredientsField];
-        if (continentData[stepsField]) recipeData.step = continentData[stepsField];
-        if (continentData[stepTimeField]) recipeData.step_time = continentData[stepTimeField];
-        if (continentData[imageUrlField]) recipeData.image = continentData[imageUrlField];
-  
+        if (continentData[nameField])
+          recipeData.name = continentData[nameField];
+        if (continentData[ingredientsField])
+          recipeData.ingredient = continentData[ingredientsField];
+        if (continentData[stepsField])
+          recipeData.step = continentData[stepsField];
+        if (continentData[stepTimeField])
+          recipeData.step_time = continentData[stepTimeField];
+        if (continentData[imageUrlField])
+          recipeData.image = continentData[imageUrlField];
+
         return fetch(`${ApiUrl}/recipe`, {
           method: "PATCH",
           headers: {
@@ -143,9 +146,9 @@ function Admin() {
           body: JSON.stringify(recipeData),
         });
       });
-  
+
       await Promise.all(recipePromises);
-  
+
       notifySuccess("Le formulaire a été validé avec succès !");
       if (formRef.current) {
         formRef.current.reset();
@@ -158,18 +161,17 @@ function Admin() {
         asie: createInitialFormState(),
         oceanie: createInitialFormState(),
       });
-  
+
       navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
       console.error("Error submitting form:", error);
       notifyFail("Erreur lors de la soumission du formulaire.");
     }
   };
-  
 
   return (
     <div className="create-menu">
-      <h1>Création d'un menu</h1>
+      <h1>Modifier un menu</h1>
       <form onSubmit={handleSubmit} ref={formRef}>
         <div className="admin-continent">
           <label htmlFor="continent">

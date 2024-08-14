@@ -8,7 +8,8 @@ export default function NavbarToggle() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user, setUser } = useUserContext(); // Utiliser le contexte utilisateur
   const navigate = useNavigate();
-  const notifyFail = () => toast.error("Accès non autorisé, veuillez vous connecter");
+  const notifyFail = () =>
+    toast.error("Accès non autorisé, veuillez vous connecter");
 
   const { logout } = useUserContext();
 
@@ -23,7 +24,7 @@ export default function NavbarToggle() {
   const handleLogout = () => {
     // Déconnecter l'utilisateur
     setUser("");
-    logout(false)
+    logout(false);
     navigate("/"); // Rediriger vers la page d'accueil après la déconnexion
   };
 
@@ -76,7 +77,7 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
+                className={`nav-dropdown ${!user === true ? "disabled" : ""}`}
                 to={user !== true ? "/menuPage/amerique" : "#"}
                 onClick={closeDropdown}
               >
@@ -85,7 +86,7 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
+                className={`nav-dropdown ${!user === true ? "disabled" : ""}`}
                 to={user !== true ? "/menuPage/asie" : "#"}
                 onClick={closeDropdown}
               >
@@ -94,8 +95,8 @@ export default function NavbarToggle() {
             </li>
             <li>
               <Link
-                className={`nav-dropdown ${!user === true  ? "disabled" : ""}`}
-                to={user !== true  ? "/menuPage/oceanie" : "#"}
+                className={`nav-dropdown ${!user === true ? "disabled" : ""}`}
+                to={user !== true ? "/menuPage/oceanie" : "#"}
                 onClick={closeDropdown}
               >
                 Océanie
@@ -110,23 +111,22 @@ export default function NavbarToggle() {
               className="nav-link active"
               onClick={closeDropdown}
             >
-              Création
+              Modifier
             </Link>
           ) : (
             <Link
-            to={user !== true ? "/favoris" : "#"}
-            className={`nav-link active ${!user === true ? "disabled" : ""}`}
-            onClick={(e) => {
-              if (!user) {
-                e.preventDefault();
-                notifyFail();
-              }
-              closeDropdown();
-            }}
-          >
-            Favoris
-          </Link>
-          
+              to={user !== true ? "/favoris" : "#"}
+              className={`nav-link active ${!user === true ? "disabled" : ""}`}
+              onClick={(e) => {
+                if (!user) {
+                  e.preventDefault();
+                  notifyFail();
+                }
+                closeDropdown();
+              }}
+            >
+              Favoris
+            </Link>
           )}
         </li>
         <li className="nav-item">
