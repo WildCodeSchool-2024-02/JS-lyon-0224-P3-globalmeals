@@ -1,59 +1,59 @@
-// Import access to database tables
+// Importation de l'accès aux tables de la base de données.
 const tables = require("../../database/tables");
 
-// The B of BREAD - Browse (Read All) operation
+// Opération BREAD : Browse (Read All) - Lecture de tous les utilisateurs.
 const browse = async (req, res, next) => {
   try {
-    // Fetch all users from the database
+    // Récupération de tous les utilisateurs de la table `user`.
     const users = await tables.user.readAll();
 
-    // Respond with the users in JSON format
+    // Réponse avec les utilisateurs sous forme de JSON.
     res.json(users);
   } catch (err) {
-    // Pass any errors to the error-handling middleware
+    // En cas d'erreur, transmet l'erreur au middleware de gestion des erreurs.
     next(err);
   }
 };
 
-// The R of BREAD - Read operation
+// Opération BREAD : Read - Lecture d'un utilisateur spécifique en fonction de l'ID.
 const read = async (req, res, next) => {
   try {
-    // Fetch a specific user from the database based on the provided ID
+    // Récupération d'un utilisateur spécifique de la table `user` en fonction de l'ID fourni.
     const user = await tables.user.read(req.params.id);
 
-    // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the user in JSON format
+    // Si l'utilisateur n'est pas trouvé, renvoie un statut HTTP 404 (Not Found).
+    // Sinon, renvoie l'utilisateur sous forme de JSON.
     if (user === null) {
       res.sendStatus(404);
     } else {
       res.json(user);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
+    // En cas d'erreur, transmet l'erreur au middleware de gestion des erreurs.
     next(err);
   }
 };
 
-// The A of BREAD - Add (Create) operation
+// Opération BREAD : Add (Create) - Ajout d'un nouvel utilisateur.
 const add = async (req, res, next) => {
-  // Extract the user data from the request body
+  // Extraction des données de l'utilisateur depuis le corps de la requête.
   const user = req.body;
 
   try {
-    // Insert the user into the database
+    // Insertion de l'utilisateur dans la table `user`.
     const insertId = await tables.user.create(user);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
+    // Réponse avec le statut HTTP 201 (Créé) et l'ID de l'utilisateur inséré.
     res.status(201).json({ insertId });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
+    // En cas d'erreur, transmet l'erreur au middleware de gestion des erreurs.
     next(err);
   }
 };
 
-// Ready to export the controller functions
+// Exportation des fonctions du contrôleur pour les utiliser ailleurs dans l'application.
 module.exports = {
-  browse,
-  read,
-  add,
+  browse, // Lecture de tous les utilisateurs
+  read, // Lecture d'un utilisateur spécifique
+  add, // Ajout d'un nouvel utilisateur
 };

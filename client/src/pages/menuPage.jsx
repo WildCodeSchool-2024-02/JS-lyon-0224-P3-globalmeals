@@ -1,3 +1,4 @@
+// Importation des hooks nécessaires de React, React Router et des images utilisées pour les onglets.
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./menus.css";
@@ -5,8 +6,10 @@ import imageTab1 from "../assets/images/description.png";
 import imageTab2 from "../assets/images/ingredients.png";
 import imageTab3 from "../assets/images/etapes.png";
 
+// Récupération de l'URL de l'API depuis les variables d'environnement.
 const ApiUrl = import.meta.env.VITE_API_URL;
 
+// Fonction utilitaire pour changer les couleurs en fonction du continent sélectionné.
 const changeColors = (continent) => {
   const root = document.documentElement;
   switch (continent) {
@@ -31,13 +34,16 @@ const changeColors = (continent) => {
 };
 
 function Menu() {
+  // Récupération du paramètre de route pour identifier le continent sélectionné.
   const { continent } = useParams();
+
+  // États pour stocker les données du menu, le menu actif, l'onglet actif, et le pays sélectionné.
   const [menuData, setMenuData] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeTab, setActiveTab] = useState("Description");
   const [selectedCountry, setSelectedCcountry] = useState([]);
 
-  // function to get recipe
+  // Fonction pour récupérer les données de recettes en fonction du continent.
   const fetchMenuData = async () => {
     try {
       const response = await fetch(
@@ -48,14 +54,16 @@ function Menu() {
       }
       const data = await response.json();
 
+      // Filtrer les données pour ne garder que celles correspondant au continent.
       const filterData = data.filter(
         (item) => item.continent.toLowerCase() === continent.toLowerCase()
       );
 
       setMenuData(filterData);
-      changeColors(continent);
-      setActiveTab("Description");
+      changeColors(continent); // Appliquer les couleurs selon le continent.
+      setActiveTab("Description"); // Définir l'onglet actif sur "Description".
 
+      // Définir l'entrée (starter) comme le menu actif par défaut.
       const starter = filterData.find(
         (item) => item.type.toLowerCase() === "starter"
       );
@@ -65,7 +73,7 @@ function Menu() {
     }
   };
 
-  // function to get country
+  // Fonction pour récupérer les informations du pays correspondant au continent.
   const fetchMenu = async () => {
     try {
       const response = await fetch(
@@ -76,36 +84,42 @@ function Menu() {
       }
       const data = await response.json();
 
+      // Filtrer les données pour ne garder que celles correspondant au continent.
       const filterData = data.filter(
         (item) => item.continent.toLowerCase() === continent.toLowerCase()
       );
 
-      setSelectedCcountry(filterData);
+      setSelectedCcountry(filterData); // Définir le pays sélectionné.
     } catch (err) {
       console.error("Menu data recovery failed :", err);
     }
   };
 
+  // Effectue l'appel aux fonctions fetchMenuData et fetchMenu chaque fois que le continent change.
   useEffect(() => {
     fetchMenuData();
     fetchMenu();
   }, [continent]);
 
+  // Fonction pour gérer le clic sur un menu pour le définir comme actif.
   const handleMenuClick = (menuItem) => {
     setActiveMenu(menuItem);
   };
 
+  // Récupère le pays sélectionné (premier élément de selectedCountry).
   const country = selectedCountry[0]?.country;
 
+  // Traduction des types de plats en français pour l'affichage.
   const typeFrench = {
     starter: "Entrée",
     dish: "Plat",
     dessert: "Dessert",
-    cocktail: "Cocktail"
+    cocktail: "Cocktail",
   };
 
   return (
     <div className="content">
+      {/* Si des données de menu sont disponibles, les afficher */}
       {menuData.length > 0 ? (
         <>
           <h1 className="menu-title">
@@ -119,6 +133,7 @@ function Menu() {
               : "non défini"}
           </h2>
           <div className="menu-container">
+            {/* Barre latérale avec les onglets pour changer de vue (Description, Ingrédients, Préparation) */}
             <div className={`sidebar ${activeMenu ? "active" : ""}`}>
               <button
                 type="button"
@@ -148,6 +163,8 @@ function Menu() {
                 <img src={imageTab3} alt="Préparation" className="tab-icon" />
               </button>
             </div>
+
+            {/* Affichage des différents types de plats (Entrée, Plat, Dessert, Cocktail) */}
             <div className="menu-section">
               {["starter", "dish", "dessert", "cocktail"].map((type) => {
                 const menuItem = menuData.find(
@@ -187,6 +204,8 @@ function Menu() {
               })}
             </div>
           </div>
+
+          {/* Affichage des ingrédients pour le plat actif */}
           {activeTab === "Ingrédients" && activeMenu !== null && (
             <div className="ingredient-section">
               <h3>{activeMenu.name}</h3>
@@ -194,6 +213,8 @@ function Menu() {
               <p>{activeMenu.ingredient || "s/o"}</p>
             </div>
           )}
+
+          {/* Affichage des étapes de préparation pour le plat actif */}
           {activeTab === "Préparation" && activeMenu !== null && (
             <div className="ingredient-section">
               <h3>{activeMenu.name}</h3>
@@ -203,6 +224,7 @@ function Menu() {
           )}
         </>
       ) : (
+        // Message affiché si aucun menu n'est disponible pour le continent sélectionné.
         <p>Aucun menu disponible pour ce continent.</p>
       )}
     </div>

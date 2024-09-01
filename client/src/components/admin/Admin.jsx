@@ -1,9 +1,17 @@
+// Importation du fichier CSS pour appliquer les styles au composant Admin.
 import "./Admin.css";
+
+// Importation des hooks useState, useRef, et useEffect de React.
 import { useState, useRef, useEffect } from "react";
+
+// Importation de useNavigate pour la navigation et de toast pour les notifications.
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+// Importation du contexte utilisateur pour accéder aux informations sur l'utilisateur connecté.
 import { useUserContext } from "../../contexts/UserContext";
 
+// Fonction qui crée et renvoie l'état initial du formulaire pour chaque continent.
 const createInitialFormState = () => ({
   id: "",
   country: "",
@@ -33,7 +41,9 @@ const createInitialFormState = () => ({
   cocktailImageUrl: "",
 });
 
+// Composant Admin pour gérer les modifications des menus par continent.
 function Admin() {
+  // État pour le continent sélectionné et pour les données du formulaire.
   const [selectedContinent, setSelectedContinent] = useState("");
   const [newsForm, setNewsForm] = useState({
     europe: createInitialFormState(),
@@ -42,20 +52,28 @@ function Admin() {
     asie: createInitialFormState(),
     oceanie: createInitialFormState(),
   });
+
+  // Fonctions pour afficher des notifications de succès ou d'erreur.
   const notifySuccess = (text) => toast.success(text);
   const notifyFail = (text) => toast.error(text);
 
+  // Utilisation de useRef pour référencer le formulaire pour le réinitialiser plus tard.
   const formRef = useRef(null);
+
+  // Utilisation de useNavigate pour rediriger l'utilisateur en cas de besoin.
   const navigate = useNavigate();
 
+  // Récupération de l'utilisateur depuis le contexte utilisateur.
   const { user } = useUserContext();
 
+  // Vérifie si l'utilisateur est admin. Si non, redirige vers la page d'accueil.
   useEffect(() => {
     if (!(user !== "" && user.role === "admin")) {
       navigate("/");
     }
   }, [user, navigate]);
 
+  // Mapping des numéros de continent à leurs noms pour faciliter l'accès aux données.
   const continentMap = {
     1: "europe",
     2: "afrique",
@@ -64,10 +82,12 @@ function Admin() {
     5: "oceanie",
   };
 
+  // Gestionnaire pour changer le continent sélectionné.
   const handleContinentChange = (e) => {
     setSelectedContinent(e.target.value);
   };
 
+  // Gestionnaire pour mettre à jour l'état du formulaire lorsque l'utilisateur modifie les champs.
   const handleUpdateChange = (e) => {
     const { name, value } = e.target;
     setNewsForm((prevState) => ({
@@ -79,21 +99,23 @@ function Admin() {
     }));
   };
 
+  // Ajuste la hauteur des zones de texte automatiquement en fonction du contenu.
   const adjustTextareaHeight = (e) => {
     e.target.style.height = "auto";
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
+  // Gestionnaire pour soumettre le formulaire.
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Empêche la soumission du formulaire par défaut.
 
-    const ApiUrl = import.meta.env.VITE_API_URL;
+    const ApiUrl = import.meta.env.VITE_API_URL; // Récupère l'URL de l'API depuis les variables d'environnement.
 
     try {
       const continentData = newsForm[continentMap[selectedContinent]];
       const menuId = selectedContinent;
 
-      // Menu data update
+      // Mise à jour des données du menu pour le continent sélectionné.
       const menuData = {
         id: menuId,
         country: continentData.country,
@@ -108,9 +130,10 @@ function Admin() {
       });
 
       if (!menuResponse.ok) {
-        throw new Error("Erreur lors de la mise à jour du menu.");
+        throw new Error("Erreur lors de la mise à jour du menu."); // Lève une erreur si la mise à jour échoue.
       }
 
+      // Mise à jour des recettes (entrée, plat, dessert, cocktail) pour le menu sélectionné.
       const recipeTypes = ["starter", "dish", "dessert", "cocktail"];
       const recipePromises = recipeTypes.map(async (type) => {
         const idField = `${type}Id`;
@@ -126,7 +149,7 @@ function Admin() {
           type,
         };
 
-        // Ajoute que les champs qui ne sont pas vides
+        // Ajoute uniquement les champs qui ne sont pas vides.
         if (continentData[nameField])
           recipeData.name = continentData[nameField];
         if (continentData[ingredientsField])
@@ -138,6 +161,7 @@ function Admin() {
         if (continentData[imageUrlField])
           recipeData.image = continentData[imageUrlField];
 
+        // Envoie la requête de mise à jour de la recette.
         return fetch(`${ApiUrl}/recipe`, {
           method: "PATCH",
           headers: {
@@ -147,9 +171,12 @@ function Admin() {
         });
       });
 
+      // Attend que toutes les requêtes de mise à jour soient complétées.
       await Promise.all(recipePromises);
 
-      notifySuccess("Le formulaire a été validé avec succès !");
+      notifySuccess("Le formulaire a été validé avec succès !"); // Notifie l'utilisateur du succès.
+
+      // Réinitialise le formulaire et redirige l'utilisateur vers la page du menu mis à jour.
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -164,7 +191,7 @@ function Admin() {
 
       navigate(`/menuPage/${continentMap[selectedContinent]}`);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", error); // Affiche l'erreur en cas d'échec.
       notifyFail("Erreur lors de la soumission du formulaire.");
     }
   };
@@ -173,6 +200,7 @@ function Admin() {
     <div className="create-menu">
       <h1>Modifier un menu</h1>
       <form onSubmit={handleSubmit} ref={formRef}>
+        {/* Sélection du continent à modifier */}
         <div className="admin-continent">
           <label htmlFor="continent">
             Continents:
@@ -209,6 +237,7 @@ function Admin() {
           />
         </div>
 
+        {/* Section pour modifier les informations sur l'entrée */}
         <div>
           <h2>Entrée</h2>
           <div>
@@ -288,6 +317,7 @@ function Admin() {
           </div>
         </div>
 
+        {/* Section pour modifier les informations sur le plat principal */}
         <div>
           <h2>Plat</h2>
           <div>
@@ -360,6 +390,7 @@ function Admin() {
           </div>
         </div>
 
+        {/* Section pour modifier les informations sur le dessert */}
         <div>
           <h2>Dessert</h2>
           <div>
@@ -434,6 +465,7 @@ function Admin() {
           </div>
         </div>
 
+        {/* Section pour modifier les informations sur le cocktail */}
         <div>
           <h2>Cocktail</h2>
           <div>
@@ -508,10 +540,12 @@ function Admin() {
           </div>
         </div>
 
+        {/* Bouton pour soumettre le formulaire */}
         <button type="submit">Valider</button>
       </form>
     </div>
   );
 }
 
+// Exportation du composant Admin pour l'utiliser dans d'autres parties de l'application.
 export default Admin;

@@ -1,21 +1,24 @@
+// Importation des modules nécessaires depuis la base de données.
 const tables = require("../../database/tables");
 
+// Fonction pour gérer la soumission d'un formulaire.
 const handleFormSubmission = async (req, res, next) => {
-  // Extract the item data from the request body
+  // Extraction des données du formulaire depuis le corps de la requête.
   const formData = req.body;
 
   try {
-    // Insert the item into the database
+    // Insertion des données dans la base de données, dans la table `admin`.
     const insertId = await tables.admin.create(formData);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
+    // Réponse avec le statut HTTP 201 (Créé) et l'ID de l'élément inséré.
     res.status(201).json({ insertId });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
+    // En cas d'erreur, celle-ci est transmise au middleware de gestion des erreurs.
     next(err);
   }
 };
 
+// Exportation de la fonction pour qu'elle puisse être utilisée dans d'autres parties de l'application.
 module.exports = {
   handleFormSubmission,
 };

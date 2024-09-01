@@ -2,47 +2,46 @@ const AbstractRepository = require("./AbstractRepository");
 
 class UserRepository extends AbstractRepository {
   constructor() {
-    // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "Recipe" as configuration
+    // Appeler le constructeur de la classe parente (AbstractRepository)
+    // et passer le nom de la table "user" en configuration
     super({ table: "user" });
   }
 
-  // The C of CRUD - Create operation
-
+  // La création (Create) - opération CRUD
   async create(user) {
+    const adminEmail = process.env.ADMIN_EMAIL; // Récupérer l'adresse e-mail de l'administrateur depuis les variables d'environnement
+    const role = user.mail === adminEmail ? "admin" : "user"; // Déterminer le rôle (admin ou user) en fonction de l'e-mail
 
-    const adminEmail = process.env.ADMIN_EMAIL; 
-    const role = user.mail === adminEmail ? "admin" : "user";
-
-    // Execute the SQL INSERT query to add a new Recipe to the "rows" table
+    // Exécuter la requête SQL INSERT pour ajouter un nouvel utilisateur dans la table "user"
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (username, mail, password, role) VALUES (?, ?, ?, ?)`,
-      [user.username, user.mail, user.hashedPassword, role]
+      [user.username, user.mail, user.hashedPassword, role] // Passer les valeurs (nom d'utilisateur, e-mail, mot de passe haché, rôle)
     );
 
-    // Return the ID of the newly inserted Recipe
+    // Retourner l'ID du nouvel utilisateur inséré
     return result.insertId;
   }
 
-  // The Read method - R from CRUD (all users)
+  // Lecture de tous les enregistrements (Read All) - opération CRUD
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all the rows in the "user" table
+    // Exécuter une requête SQL SELECT pour récupérer tous les utilisateurs de la table "user"
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
 
-    //  Return the table of rows
+    // Retourner le tableau des utilisateurs
     return rows;
   }
 
-  // Read method - CRUD R (user by ID)
+  // Lecture d'un utilisateur par e-mail avec le mot de passe (Read By Email) - opération CRUD
   async readByEmailWithPassword(email) {
+    // Exécuter une requête SQL SELECT pour récupérer un utilisateur par e-mail
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE mail = ?`,
-      [email]
+      [email] // Passer l'e-mail comme paramètre
     );
 
-    // Return the first line if found, otherwise null
+    // Retourner la première ligne si trouvée, sinon retourner null
     return rows.length > 0 ? rows[0] : null;
   }
 }
 
-module.exports = UserRepository;
+module.exports = UserRepository; // Exporter la classe UserRepository pour l'utiliser dans d'autres parties de l'application

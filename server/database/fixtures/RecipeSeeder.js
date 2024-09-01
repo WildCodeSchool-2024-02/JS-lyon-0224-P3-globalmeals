@@ -1,12 +1,16 @@
-const AbstractSeeder = require("./AbstractSeeder");
+const AbstractSeeder = require("./AbstractSeeder"); // Importation de la classe AbstractSeeder pour l'utiliser comme base
 
 class RecipeSeeder extends AbstractSeeder {
+  // Déclaration de la classe RecipeSeeder qui hérite d'AbstractSeeder
   constructor() {
-    super({ table: "recipe", truncate: true });
+    super({ table: "recipe", truncate: true }); // Appel au constructeur parent avec le nom de la table et l'option de troncature
   }
 
   run() {
+    // Implémentation de la méthode run qui définit les données à insérer
     const recipes = [
+      // Tableau d'objets représentant les recettes à insérer
+
       // Europe (Italien)
       {
         name: "Bruschetta",
@@ -16,8 +20,8 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "15 min",
         type: "starter",
         image: "bruschetta.png",
-        menu_id: this.getRef(`europeItalien`).insertId,
-        refName: "europeItalienBruschetta",
+        menu_id: this.getRef(`europeItalien`).insertId, // Association de la recette au menu italien via son ID
+        refName: "europeItalienBruschetta", // Nom de référence pour cet enregistrement
       },
       {
         name: "Pasta",
@@ -27,7 +31,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "25 min",
         type: "dish",
         image: "pasta.png",
-        menu_id: this.getRef(`europeItalien`).insertId,
+        menu_id: this.getRef(`europeItalien`).insertId, // Association de la recette au menu italien via son ID
         refName: "europeItalienPasta",
       },
       {
@@ -38,7 +42,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "25 min",
         type: "dessert",
         image: "tiramisu.png",
-        menu_id: this.getRef(`europeItalien`).insertId,
+        menu_id: this.getRef(`europeItalien`).insertId, // Association de la recette au menu italien via son ID
         refName: "europeItalienTiramisu",
       },
       {
@@ -49,7 +53,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "10 min",
         type: "cocktail",
         image: "milano-torino.png",
-        menu_id: this.getRef(`europeItalien`).insertId,
+        menu_id: this.getRef(`europeItalien`).insertId, // Association de la recette au menu italien via son ID
         refName: "europeItalienMilanoTorino",
       },
 
@@ -62,7 +66,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "30 min",
         type: "starter",
         image: "pastels.png",
-        menu_id: this.getRef(`afriqueSenegal`).insertId,
+        menu_id: this.getRef(`afriqueSenegal`).insertId, // Association de la recette au menu sénégalais via son ID
         refName: "afriqueSenegalPastels",
       },
       {
@@ -73,7 +77,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "45 min",
         type: "dish",
         image: "thieboudienne.png",
-        menu_id: this.getRef(`afriqueSenegal`).insertId,
+        menu_id: this.getRef(`afriqueSenegal`).insertId, // Association de la recette au menu sénégalais via son ID
         refName: "afriqueSenegalThieboudienne",
       },
       {
@@ -83,10 +87,9 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "15 min",
         type: "dessert",
         image: "mango.png",
-        menu_id: this.getRef(`afriqueSenegal`).insertId,
+        menu_id: this.getRef(`afriqueSenegal`).insertId, // Association de la recette au menu sénégalais via son ID
         refName: "afriqueSenegalMangoCoco",
       },
-
       {
         name: "Bissap",
         ingredient: "Fleurs d'hibiscus séchées, sucre, eau, menthe fraîche",
@@ -94,7 +97,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "20 min",
         type: "cocktail",
         image: "bissap.png",
-        menu_id: this.getRef(`afriqueSenegal`).insertId,
+        menu_id: this.getRef(`afriqueSenegal`).insertId, // Association de la recette au menu sénégalais via son ID
         refName: "afriqueSenegalBissap",
       },
 
@@ -107,7 +110,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "20 min",
         type: "starter",
         image: "nachos.png",
-        menu_id: this.getRef(`texasAmerique`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId, // Association de la recette au menu texan via son ID
         refName: "texasAmeriqueNachos",
       },
       {
@@ -118,7 +121,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "2 heures",
         type: "dish",
         image: "ribs.png",
-        menu_id: this.getRef(`texasAmerique`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId, // Association de la recette au menu texan via son ID
         refName: "texasAmeriqueBarbecueRibs",
       },
       {
@@ -129,7 +132,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "30 min",
         type: "dessert",
         image: "keyLimePie.png",
-        menu_id: this.getRef(`texasAmerique`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId, // Association de la recette au menu texan via son ID
         refName: "texasAmeriqueKeyLimePie",
       },
       {
@@ -140,7 +143,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "10 min",
         type: "cocktail",
         image: "margarita.png",
-        menu_id: this.getRef(`texasAmerique`).insertId,
+        menu_id: this.getRef(`texasAmerique`).insertId, // Association de la recette au menu texan via son ID
         refName: "texasAmeriqueMargarita",
       },
 
@@ -152,7 +155,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "10 min",
         type: "starter",
         image: "edamame.png",
-        menu_id: this.getRef(`asieJapon`).insertId,
+        menu_id: this.getRef(`asieJapon`).insertId, // Association de la recette au menu japonais via son ID
         refName: "asieJaponEdamame",
       },
       {
@@ -163,7 +166,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "30 min",
         type: "dish",
         image: "sushi.png",
-        menu_id: this.getRef(`asieJapon`).insertId,
+        menu_id: this.getRef(`asieJapon`).insertId, // Association de la recette au menu japonais via son ID
         refName: "asieJaponSushiAssorti",
       },
       {
@@ -174,7 +177,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "30 min",
         type: "dessert",
         image: "doroyakii.png",
-        menu_id: this.getRef(`asieJapon`).insertId,
+        menu_id: this.getRef(`asieJapon`).insertId, // Association de la recette au menu japonais via son ID
         refName: "asieJaponDorayaki",
       },
       {
@@ -184,7 +187,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "10 min",
         type: "cocktail",
         image: "sake.png",
-        menu_id: this.getRef(`asieJapon`).insertId,
+        menu_id: this.getRef(`asieJapon`).insertId, // Association de la recette au menu japonais via son ID
         refName: "asieJaponSakeMartini",
       },
 
@@ -197,7 +200,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "20 min",
         type: "starter",
         image: "thon.png",
-        menu_id: this.getRef(`oceanieTahitien`).insertId,
+        menu_id: this.getRef(`oceanieTahitien`).insertId, // Association de la recette au menu tahitien via son ID
         refName: "oceanieTahitienPoissonCru",
       },
       {
@@ -207,7 +210,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "40 min",
         type: "dish",
         image: "pouletfafa.png",
-        menu_id: this.getRef(`oceanieTahitien`).insertId,
+        menu_id: this.getRef(`oceanieTahitien`).insertId, // Association de la recette au menu tahitien via son ID
         refName: "oceanieTahitienPouletFafa",
       },
       {
@@ -218,7 +221,7 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "20 min",
         type: "dessert",
         image: "poissonvanille.png",
-        menu_id: this.getRef(`oceanieTahitien`).insertId,
+        menu_id: this.getRef(`oceanieTahitien`).insertId, // Association de la recette au menu tahitien via son ID
         refName: "oceanieTahitienPoissonVanille",
       },
       {
@@ -229,15 +232,16 @@ class RecipeSeeder extends AbstractSeeder {
         step_time: "10 min",
         type: "cocktail",
         image: "maiTai.png",
-        menu_id: this.getRef(`oceanieTahitien`).insertId,
+        menu_id: this.getRef(`oceanieTahitien`).insertId, // Association de la recette au menu tahitien via son ID
         refName: "oceanieTahitienMaiTai",
       },
     ];
 
     recipes.forEach((recipe) => {
-      this.insert(recipe);
+      // Parcourt chaque élément du tableau recipes
+      this.insert(recipe); // Insère chaque recette en utilisant la méthode insert héritée d'AbstractSeeder
     });
   }
 }
 
-module.exports = RecipeSeeder;
+module.exports = RecipeSeeder; // Exportation de la classe RecipeSeeder pour l'utiliser dans d'autres parties de l'application

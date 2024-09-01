@@ -1,17 +1,20 @@
-const AbstractSeeder = require("./AbstractSeeder");
+const AbstractSeeder = require("./AbstractSeeder"); // Importation de la classe AbstractSeeder pour l'utiliser comme base
 
 class MenuSeeder extends AbstractSeeder {
+  // Déclaration de la classe MenuSeeder qui hérite d'AbstractSeeder
   constructor() {
-    super({ table: "menu", truncate: true });
+    super({ table: "menu", truncate: true }); // Appel au constructeur parent avec le nom de la table et l'option de troncature
   }
 
   run() {
+    // Implémentation de la méthode run qui définit les données à insérer
     const menus = [
+      // Tableau d'objets représentant les menus à insérer
       {
         id: "1",
         continent: "Europe",
         country: "Italien",
-        refName: "europeItalien",
+        refName: "europeItalien", // Nom de référence pour cet enregistrement
       },
       {
         id: "2",
@@ -40,9 +43,10 @@ class MenuSeeder extends AbstractSeeder {
     ];
 
     menus.forEach((menu) => {
-      this.insert(menu);
+      // Parcourt chaque élément du tableau menus
+      this.insert(menu); // Insère chaque menu en utilisant la méthode insert héritée d'AbstractSeeder
     });
   }
 }
 
-module.exports = MenuSeeder;
+module.exports = MenuSeeder; // Exportation de la classe MenuSeeder pour l'utiliser dans d'autres parties de l'application

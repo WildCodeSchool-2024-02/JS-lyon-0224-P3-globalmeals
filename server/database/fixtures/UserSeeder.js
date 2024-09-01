@@ -1,40 +1,39 @@
-const argon2 = require('argon2');
-const AbstractSeeder = require("./AbstractSeeder");
+const argon2 = require("argon2"); // Importation de la bibliothèque argon2 pour le hachage de mots de passe
+const AbstractSeeder = require("./AbstractSeeder"); // Importation de la classe AbstractSeeder
 
+// Définition des options de hachage pour Argon2
 const hashingOptions = {
-  type: argon2.argon2id,
-  memoryCost: 19 * 2 ** 10 /* 19 Mio en kio (19 * 1024 kio) */,
-  timeCost: 2,
-  parallelism: 1,
+  type: argon2.argon2id, // Utilisation de l'algorithme Argon2id recommandé pour le stockage des mots de passe
+  memoryCost: 19 * 2 ** 10, // Coût en mémoire de 19 MiB
+  timeCost: 2, // Coût temporel, nombre d'itérations de hachage
+  parallelism: 1, // Nombre de threads parallèles utilisés pour le hachage
 };
 
 class UserSeeder extends AbstractSeeder {
+  // Déclaration de la classe UserSeeder qui hérite d'AbstractSeeder
   constructor() {
-    // Call the constructor of the parent class (AbstractSeeder) with appropriate options
+    // Appel au constructeur de la classe parente avec le nom de la table et l'option de troncature
     super({ table: "user", truncate: true });
   }
-  
-  // The run method - Populate the 'user' table with fake data
+
+  // Méthode run - Peupler la table 'user' avec des données factices
   async run() {
-    // Generate and insert fake data into the 'user' table
+    // Générer et insérer des données factices dans la table 'user'
     for (let i = 0; i < 10; i += 1) {
-      // Generate fake user data
-
       /* eslint-disable no-await-in-loop */
-      const hashedPassword = await argon2.hash("toto1234", hashingOptions); // Hash the password using Argon2
-
+      const hashedPassword = await argon2.hash("toto1234", hashingOptions); // Hacher le mot de passe en utilisant Argon2
 
       const fakeUser = {
-        username: `user_${i}`, // Create a reference name for the user
-        mail: this.faker.internet.email(), // Generate a fake mail using faker library
-        password: hashedPassword, // Use the hashed password
+        username: `user_${i}`, // Générer un nom d'utilisateur factice
+        mail: this.faker.internet.email(), // Générer une adresse e-mail factice avec la bibliothèque faker
+        password: hashedPassword, // Utiliser le mot de passe haché
       };
 
-      // Insert the fakeUser data into the 'user' table
+      // Insérer les données de fakeUser dans la table 'user'
       await this.insert(fakeUser); // insert into user(username, mail, password) values (?, ?, ?)
     }
   }
 }
 
-// Export the UserSeeder class
+// Exportation de la classe UserSeeder pour l'utiliser dans d'autres parties de l'application
 module.exports = UserSeeder;

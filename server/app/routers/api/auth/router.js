@@ -1,31 +1,36 @@
+// Importation du module Express.
 const express = require("express");
 
+// Création d'une instance de routeur Express.
 const router = express.Router();
 
 /* ************************************************************************* */
-// Define Your API Routes Here
+// Définition des routes API ici
 /* ************************************************************************* */
 
-// Import auth-related actions
+// Importation des actions liées à l'authentification.
 const { connexion, logout } = require("../../../controllers/authActions");
 const { add, read } = require("../../../controllers/userActions");
+
+// Importation des middlewares pour hacher les mots de passe et vérifier les tokens JWT.
 const {
-  hashPassword,
-  verifyToken,
+  hashPassword, // Middleware pour hacher les mots de passe avant de les enregistrer.
+  verifyToken, // Middleware pour vérifier la validité du token JWT.
 } = require("../../../services/middlewares/auth");
 
-// Route to add a new item
+// Route pour connecter un utilisateur.
 router.post("/connexion", connexion);
 
-// Route to add a new item
+// Route pour enregistrer un nouvel utilisateur avec hachage de mot de passe.
 router.post("/register", hashPassword, add);
 
-// Route to logout the user
+// Route pour déconnecter l'utilisateur.
 router.get("/logout", logout);
 
-// Route to get user profile
+// Route pour récupérer le profil utilisateur en fonction de l'ID, avec vérification du token JWT.
 router.get("/:id", verifyToken, read);
 
 /* ************************************************************************* */
 
+// Exportation du routeur pour qu'il puisse être utilisé dans d'autres parties de l'application.
 module.exports = router;

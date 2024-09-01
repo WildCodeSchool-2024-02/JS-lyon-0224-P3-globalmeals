@@ -1,34 +1,38 @@
-// Load environment variables from .env file
+// Charger les variables d'environnement depuis le fichier .env
 require("dotenv").config();
 
-const fs = require("node:fs");
-const path = require("node:path");
+const fs = require("node:fs"); // Importation du module fs pour manipuler les fichiers.
+const path = require("node:path"); // Importation du module path pour manipuler les chemins de fichiers.
 
-// Import database client
+// Importer le client de base de données (probablement MySQL ou autre).
 const database = require("../database/client");
 
+// Construire le chemin vers le dossier contenant les fixtures (données de remplissage).
 const fixtures = path.join(__dirname, "..", "database", "fixtures");
 
 const seed = async () => {
   try {
-    const dependencyMap = {};
+    const dependencyMap = {}; // Carte des dépendances entre les seeders.
 
-    // Construct each seeder
+    // Construire chaque seeder à partir des fichiers dans le dossier fixtures.
     fs.readdirSync(fixtures)
-      .filter((filePath) => !filePath.startsWith("Abstract"))
+      .filter((filePath) => !filePath.startsWith("Abstract")) // Ignorer les fichiers abstraits.
       .forEach((filePath) => {
+        // Charger dynamiquement la classe de Seeder.
         // eslint-disable-next-line import/no-dynamic-require, global-require
         const SeederClass = require(path.join(fixtures, filePath));
 
+        // Instancier le seeder.
         const seeder = new SeederClass();
 
+        // Ajouter le seeder à la carte des dépendances.
         dependencyMap[SeederClass] = seeder;
       });
 
-    // Sort seeders according to their dependencies
+    // Trier les seeders en fonction de leurs dépendances.
     const sortedSeeders = [];
 
-    // The recursive solver
+    // Fonction récursive pour résoudre les dépendances.
     const solveDependencies = (n) => {
       n.dependencies.forEach((DependencyClass) => {
         const dependency = dependencyMap[DependencyClass];
@@ -43,14 +47,14 @@ const seed = async () => {
       }
     };
 
-    // Solve dependencies for each seeder
+    // Résoudre les dépendances pour chaque seeder.
     Object.values(dependencyMap).forEach((seeder) => {
       solveDependencies(seeder);
     });
 
-    // Truncate tables (starting from the depending ones)
+    // Tronquer les tables (en commençant par celles dont dépendent les autres).
 
-    // The truncate solver
+    // Fonction récursive pour effectuer le truncate.
     const doTruncate = async (stack) => {
       if (stack.length === 0) {
         return;
@@ -58,8 +62,7 @@ const seed = async () => {
 
       const firstOut = stack.pop();
 
-      // Use delete instead of truncate to bypass foreign key constraint
-      // Wait for the delete promise to complete
+      // Utiliser delete au lieu de truncate pour éviter les contraintes de clé étrangère.
       await database.query(`delete from ${firstOut.table}`);
 
       await doTruncate(stack);
@@ -67,9 +70,9 @@ const seed = async () => {
 
     await doTruncate([...sortedSeeders]);
 
-    // Run each seeder
+    // Exécuter chaque seeder pour remplir les tables.
 
-    // The run solver
+    // Fonction récursive pour exécuter les seeders.
     const doRun = async (queue) => {
       if (queue.length === 0) {
         return;
@@ -77,12 +80,10 @@ const seed = async () => {
 
       const firstOut = queue.shift();
 
-      // Use delete instead of truncate to bypass foreign key constraint
-      // Wait for the delete promise to complete
+      // Exécuter le seeder pour insérer les données.
       await firstOut.run();
 
-      // Wait for all the insertion promises to complete
-      // We do want to wait in a loop to satisfy dependencies
+      // Attendre que toutes les promesses d'insertion soient complétées.
       await Promise.all(firstOut.promises);
 
       await doRun(queue);
@@ -90,16 +91,17 @@ const seed = async () => {
 
     await doRun(sortedSeeders);
 
-    // Close the database connection
+    // Fermer la connexion à la base de données.
     database.end();
 
     console.info(
       `${database.databaseName} filled from '${path.normalize(fixtures)}' 🌱`
     );
   } catch (err) {
+    // En cas d'erreur, afficher un message d'erreur détaillé.
     console.error("Error filling the database:", err.message, err.stack);
   }
 };
 
-// Run the seed function
+// Exécuter la fonction de seed.
 seed();
